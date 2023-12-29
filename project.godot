@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "BigNumber",
+"language": "GDScript",
+"path": "res://External/BigNumbers/BigNumber.gd"
+}, {
+"base": "Reference",
+"class": "BigNumberConstants",
+"language": "GDScript",
+"path": "res://External/BigNumbers/BigNumbersConstants.gd"
+}, {
 "base": "Resource",
 "class": "Bounds",
 "language": "GDScript",
@@ -35,6 +45,8 @@ _global_script_classes=[ {
 "path": "res://Game/Scripts/NormalTreeNode.gd"
 } ]
 _global_script_class_icons={
+"BigNumber": "",
+"BigNumberConstants": "",
 "Bounds": "",
 "Branch": "",
 "BranchLine": "",

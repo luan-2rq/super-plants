@@ -65,23 +65,25 @@ growth = 0.0
 growth_rate = 0.005
 bounds = SubResource( 6 )
 
-[node name="RootsContainer" type="ScrollContainer" parent="Main"]
+[node name="RootsScrollContainer" type="ScrollContainer" parent="Main"]
 margin_top = 400.0
 margin_right = 450.0
-margin_bottom = 1247.0
+margin_bottom = 1000.0
+mouse_filter = 1
+scroll_horizontal_enabled = false
 
-[node name="Control" type="Control" parent="Main/RootsContainer"]
+[node name="Control" type="Control" parent="Main/RootsScrollContainer"]
 margin_right = 450.0
-margin_bottom = 1400.0
-rect_min_size = Vector2( 450, 1400 )
-mouse_filter = 2
+margin_bottom = 2000.0
+rect_min_size = Vector2( 450, 2000 )
+mouse_filter = 1
 
-[node name="Root" type="Node2D" parent="Main/RootsContainer/Control"]
+[node name="Root" type="Node2D" parent="Main/RootsScrollContainer/Control"]
 position = Vector2( 225, 0 )
 script = ExtResource( 1 )
 leaf_texture = ExtResource( 3 )
 growth = 0.0
 bounds = SubResource( 3 )
 
-[connection signal="pressed" from="UI/Control/Button" to="Main/RootsContainer/Control/Root" method="_on_Button_pressed"]
 [connection signal="pressed" from="UI/Control/Button" to="Main/Plant" method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/Control/Button" to="Main/RootsScrollContainer/Control/Root" method="_on_Button_pressed"]
