@@ -1,0 +1,87 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Game/Scripts/NormalTreeNode.gd" type="Script" id=1]
+[ext_resource path="res://Game/Scripts/Main.gd" type="Script" id=2]
+[ext_resource path="res://Game/Sprites/leaf.png" type="Texture" id=3]
+[ext_resource path="res://Game/Scripts/Bounds.gd" type="Script" id=5]
+
+[sub_resource type="Resource" id=6]
+script = ExtResource( 5 )
+min_x = 0
+max_x = 450
+min_y = -1
+max_y = 400
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 5 )
+min_x = 0
+max_x = 450
+min_y = 400
+max_y = -1
+
+[node name="Main" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_right = 2245.0
+margin_bottom = 1400.0
+mouse_filter = 2
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="UI/Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_top = -144.0
+margin_right = 163.0
+margin_bottom = -19.0
+
+[node name="Main" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Plant" type="Node2D" parent="Main"]
+position = Vector2( 225, 400 )
+script = ExtResource( 1 )
+stem_color = Color( 0.0392157, 0.678431, 0.027451, 1 )
+initial_branch_length = 12
+max_branch_length = 4.0
+initial_branch_count = 2
+initial_branch_direction = Vector2( 0, -1 )
+leaf_count = 1
+leaf_texture = ExtResource( 3 )
+leaf_color = Color( 0.164706, 0.67451, 0.00392157, 1 )
+growth = 0.0
+growth_rate = 0.005
+bounds = SubResource( 6 )
+
+[node name="RootsContainer" type="ScrollContainer" parent="Main"]
+margin_top = 400.0
+margin_right = 450.0
+margin_bottom = 1247.0
+
+[node name="Control" type="Control" parent="Main/RootsContainer"]
+margin_right = 450.0
+margin_bottom = 1400.0
+rect_min_size = Vector2( 450, 1400 )
+mouse_filter = 2
+
+[node name="Root" type="Node2D" parent="Main/RootsContainer/Control"]
+position = Vector2( 225, 0 )
+script = ExtResource( 1 )
+leaf_texture = ExtResource( 3 )
+growth = 0.0
+bounds = SubResource( 3 )
+
+[connection signal="pressed" from="UI/Control/Button" to="Main/RootsContainer/Control/Root" method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/Control/Button" to="Main/Plant" method="_on_Button_pressed"]

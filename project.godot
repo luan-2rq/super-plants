@@ -1,0 +1,75 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Resource",
+"class": "Bounds",
+"language": "GDScript",
+"path": "res://Game/Scripts/Bounds.gd"
+}, {
+"base": "Node2D",
+"class": "Branch",
+"language": "GDScript",
+"path": "res://Game/Scripts/Branch.gd"
+}, {
+"base": "Line2D",
+"class": "BranchLine",
+"language": "GDScript",
+"path": "res://Game/Scripts/BranchLine.gd"
+}, {
+"base": "Sprite",
+"class": "Leaf",
+"language": "GDScript",
+"path": "res://Game/Scripts/Leaf.gd"
+}, {
+"base": "Node2D",
+"class": "NormalTreeNode",
+"language": "GDScript",
+"path": "res://Game/Scripts/NormalTreeNode.gd"
+} ]
+_global_script_class_icons={
+"Bounds": "",
+"Branch": "",
+"BranchLine": "",
+"Leaf": "",
+"NormalTreeNode": ""
+}
+
+[application]
+
+config/name="Tree"
+run/main_scene="res://Game/Cenas/Main.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+Random="*res://Game/Scripts/Random.gd"
+
+[display]
+
+window/size/width=450
+window/size/height=1000
+window/handheld/orientation="portrait"
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
