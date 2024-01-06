@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Game/Scripts/NormalTreeNode.gd" type="Script" id=1]
 [ext_resource path="res://Game/Scripts/Main.gd" type="Script" id=2]
 [ext_resource path="res://Game/Sprites/leaf.png" type="Texture" id=3]
+[ext_resource path="res://Game/Folder/low_poly_truck.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Game/Scripts/Bounds.gd" type="Script" id=5]
+[ext_resource path="res://Game/Cenas/Main.gd" type="Script" id=7]
 
 [sub_resource type="Resource" id=6]
 script = ExtResource( 5 )
@@ -20,6 +22,7 @@ min_y = 400
 max_y = -1
 
 [node name="Main" type="Node2D"]
+script = ExtResource( 7 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_left = 0.5
@@ -29,6 +32,29 @@ anchor_bottom = 0.5
 margin_right = 2245.0
 margin_bottom = 1400.0
 mouse_filter = 2
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -2.0
+margin_top = -143.0
+margin_right = 459.0
+margin_bottom = 401.0
+mouse_filter = 2
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -4.0
+margin_top = 400.0
+margin_right = 462.0
+margin_bottom = 1995.0
+mouse_filter = 2
+color = Color( 0.898039, 0.792157, 0.576471, 1 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -50,15 +76,26 @@ margin_bottom = -19.0
 [node name="Main" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
-[node name="Plant" type="Node2D" parent="Main"]
+[node name="RootsScrollContainer2" type="ScrollContainer" parent="Main"]
+margin_right = 462.0
+margin_bottom = 400.0
+mouse_filter = 1
+scroll_horizontal_enabled = false
+
+[node name="Control" type="Control" parent="Main/RootsScrollContainer2"]
+margin_right = 450.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 450, 400 )
+mouse_filter = 1
+
+[node name="Plant" type="Node2D" parent="Main/RootsScrollContainer2/Control"]
 position = Vector2( 225, 400 )
 script = ExtResource( 1 )
 stem_color = Color( 0.0392157, 0.678431, 0.027451, 1 )
-initial_branch_length = 12
-max_branch_length = 4.0
 initial_branch_count = 2
+max_branch_count = 2
 initial_branch_direction = Vector2( 0, -1 )
-leaf_count = 1
+leaf_count = 10
 leaf_texture = ExtResource( 3 )
 leaf_color = Color( 0.164706, 0.67451, 0.00392157, 1 )
 growth = 0.0
@@ -70,20 +107,38 @@ margin_top = 400.0
 margin_right = 450.0
 margin_bottom = 1000.0
 mouse_filter = 1
+follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="Control" type="Control" parent="Main/RootsScrollContainer"]
 margin_right = 450.0
-margin_bottom = 2000.0
-rect_min_size = Vector2( 450, 2000 )
+margin_bottom = 10000.0
+rect_min_size = Vector2( 450, 10000 )
 mouse_filter = 1
 
 [node name="Root" type="Node2D" parent="Main/RootsScrollContainer/Control"]
 position = Vector2( 225, 0 )
 script = ExtResource( 1 )
+initial_branch_count = 2
+max_branch_count = 2
 leaf_texture = ExtResource( 3 )
 growth = 0.0
 bounds = SubResource( 3 )
 
-[connection signal="pressed" from="UI/Control/Button" to="Main/Plant" method="_on_Button_pressed"]
+[node name="Screen" type="Sprite" parent="."]
+visible = false
+position = Vector2( 228, 20 )
+scale = Vector2( 0.7, 0.7 )
+z_index = 1
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 900, 250 )
+render_target_v_flip = true
+
+[node name="low_poly_truck" parent="Viewport" instance=ExtResource( 4 )]
+
+[connection signal="pressed" from="UI/Control/Button" to="Main/RootsScrollContainer2/Control/Plant" method="_on_Button_pressed"]
 [connection signal="pressed" from="UI/Control/Button" to="Main/RootsScrollContainer/Control/Root" method="_on_Button_pressed"]

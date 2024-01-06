@@ -39,6 +39,7 @@ var line : Line2D
 #DIVISOR
 
 func _draw():
-	draw_line(Vector2(-400, 400), Vector2(2000, 400), Color(0, 0, 0))
+	pass
+	#draw_line(Vector2(-400, 400), Vector2(2000, 400), Color(0, 0, 0))
 	#draw_line(Vector2(240, 250), Vector2(240, 1000), Color(0, 0, 0))
 

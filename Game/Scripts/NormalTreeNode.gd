@@ -6,12 +6,13 @@ extends Node2D
 
 export var __ = 'Tree Settings'
 export var max_depth : int = 8
-export(float, -3.14, 3.14) var angle_range : float = 0.7
+export(float, -3.14, 3.14) var angle_range : float = 1.5
 export var stem_color : Color
 
 export var ___ = 'Branches'
-export var initial_branch_length : int = 20
-export var max_branch_length : float = 12
+export var step_length : int = 10
+export var initial_branch_length = 140
+export var max_branch_length : float = 200
 export var initial_branch_count : int = 4
 export var max_branch_count : int = 3
 export var initial_branch_direction = Vector2(0, 1)
@@ -22,126 +23,109 @@ export(Texture) var leaf_texture : Texture
 export var leaf_color : Color
 
 export var _____ = 'Points Settings'
-export var points_per_unit : float = 2
-onready var initial_point_step : float = initial_branch_length / points_per_unit
-onready var point_step : float = max_branch_length / points_per_unit
-onready var point_count : int = max_branch_length * points_per_unit
+export var n_points : float = 5
+export var bake_interval : float = 1
 
 export var ______ = 'Growth Settings'
 export var growth : float = 1
 export var growth_rate = 0.01
 
 export var bounds : Resource
+var branchs_to_be_spawned : Array = Array()
+var active_branchs : Array = Array()
 
-var tree : Branch 
+var tree : BranchLine
+var depth = 0
 
 func _ready():
-	print_debug(self.global_position)
-	tree = generate_tree()
-	print_debug('Tree pos: ' + str(tree.pos))
-	render_tree(tree)
-	grow()
-	
-func render_tree(initial_branch : Branch):
-	var cur_branch
-	
-	var branch_stack = Array()
-	branch_stack.append(initial_branch)
-	
-	#Iterate through the branchs
-	while branch_stack.size() > 0:
-		cur_branch = branch_stack.pop_back()
-		if cur_branch.depth == 0:
-			cur_branch.line = BranchLine.new(cur_branch.points, 0, leaf_texture, leaf_color)
-		else:
-			cur_branch.line = BranchLine.new(cur_branch.points, leaf_count, leaf_texture, leaf_color)
-			
-		if cur_branch.parent == null:
-			cur_branch.line.width = 5
-			cur_branch.line.default_color = stem_color
-			add_child(cur_branch.line)
-		else:
-			var position_point_index = int((cur_branch.parent.line.points.size() - 1) * cur_branch.position_in_parent)
-			cur_branch.line.position = cur_branch.parent.line.points[position_point_index]
-			cur_branch.line.width = 2
-			cur_branch.parent.line.add_child(cur_branch.line)
-		
-		branch_stack += cur_branch.children
+	pass
 	
 #FUNCTIONS TO GENERATE TREE
 
-func generate_tree() -> Branch:
-	var initial_branch = Branch.new(null, 0, 0, self.global_position)
-	var cur_points : PoolVector2Array
-	var cur_branch : Branch
-	
-	initial_branch.generate(initial_branch_length, points_per_unit, initial_point_step, angle_range, initial_branch_direction, bounds)
-	
-	var depth = 1
-	var last_branches = Array()
-	var cur_branches = Array()
-	var cur_branch_position
-	#Loop usado para cada level da root
-	while depth < max_depth:
-		if depth == 1:
-			#Loop usado para cada branch
-			for i in range(initial_branch_count):
-				#Lógica para adicionar os primeiros branchs
-				var position_in_parent = Random.range_float(0, 1)
-				cur_branch_position = initial_branch.pos + initial_branch.points[int((initial_branch.points.size()-1) * position_in_parent)]
-				cur_branch = Branch.new(initial_branch, position_in_parent, depth, cur_branch_position)
-				cur_branch.generate(max_branch_length, points_per_unit, initial_point_step, angle_range, initial_branch_direction, bounds)
-				
-				initial_branch.add_branch_child(cur_branch)
-				last_branches.append(cur_branch)
-				cur_branches.append(cur_branch)
-		else:
-			#Loop de criação de Branchs
-			for i in range(last_branches.size()):
-				#Lógica para adicionar Branchs. Cada branch pode ter de 0 a 4 outros branchs.
-				var cur_branch_children_count = Random.range_int(0, max_branch_count) 
-				#Loop  usado para cada Branch
-				for j in range(cur_branch_children_count):
-					var position_in_parent = Random.range_float(0, 1)
-					cur_branch_position = last_branches[i].pos + last_branches[i].points[int((last_branches[i].points.size()-1) * position_in_parent)]
-					cur_branch = Branch.new(last_branches[i], position_in_parent, depth, cur_branch_position)
-					cur_branch.generate(max_branch_length, points_per_unit, initial_point_step, angle_range, initial_branch_direction, bounds)
-					
-					last_branches[i].add_branch_child(cur_branch)
-					cur_branches.append(cur_branch)
-					
-		last_branches = cur_branches
-		cur_branches = Array()
+func grow_tree():
+	#Gere o primeiro branch e coloque os próximos branch na fila de branchs_to_be_spawned
+	print("Branchs to spawn: " + str(branchs_to_be_spawned.size()))
+	print("Branchs active: " + str(active_branchs.size()))
+	var cur_branch_data
+	var cur_branch
+	if tree == null:
+		cur_branch_data = BranchData.new(depth, 0, initial_branch_length, n_points, bake_interval)
+		tree = BranchLine.new(null, cur_branch_data, 0, leaf_texture, leaf_color)
+		tree.width = 5
+		tree.branch_data.global_pos = self.global_position
+		active_branchs.append(tree)
+		add_child(tree)
+		
+		tree.grow(step_length, angle_range, initial_branch_direction, bounds)
+		
+
+		
 		depth += 1
-	
-	var branch_stack = Array()
-	branch_stack.append(initial_branch)
-	
-	return initial_branch
-	
-#FUNCTIONS FOR GROWTH
+		for i in range(initial_branch_count):
+			var position_in_parent = Random.range_float(0, 1)
+			cur_branch_data = BranchData.new(depth, position_in_parent, max_branch_length, n_points, bake_interval)
+			cur_branch = BranchLine.new(tree, cur_branch_data, Random.range_int(0, leaf_count), leaf_texture, leaf_color)
+			cur_branch.width = 2
+			tree.add_branch_child(cur_branch)
+			branchs_to_be_spawned.append(cur_branch)
+	else:
+		var i = 0
+		
+		#Continue a preencher os branchs ativos, caso não esteja out_of_bounds
+		while i < active_branchs.size():
+			if active_branchs[i].branch_data.filled_percentage < 1:
+				var full_grown : bool = active_branchs[i].grow(step_length, angle_range, initial_branch_direction, bounds)
+				if full_grown:
+					for child in active_branchs[i].children:
+						if child.branch_data.position_in_parent >= active_branchs[i].branch_data.filled_percentage:
+							branchs_to_be_spawned.erase(branchs_to_be_spawned)
+					active_branchs.remove(i)
+					i-=1
+			else:
+				active_branchs.remove(i)
+				i-=1
+			i+=1
+		
+		i=0
+		var branch_to_be_spawned : BranchLine
+		var branch_parent : BranchLine
+		
+		#Verifica se os branchs em fila podem ser spawnados, caso sim os spawna
+		var branchs_to_spawn_count = branchs_to_be_spawned.size()
+		while i < branchs_to_spawn_count:
+			branch_to_be_spawned = branchs_to_be_spawned[i]
+			branch_parent = branchs_to_be_spawned[i].parent
+			if branch_parent.branch_data.filled_percentage >= branch_to_be_spawned.branch_data.position_in_parent:
+				#Spawna branch
+				branch_to_be_spawned.branch_data.global_pos = branch_parent.branch_data.global_pos + branch_parent.points[int((branch_parent.points.size()-1) * branch_to_be_spawned.branch_data.position_in_parent / branch_parent.branch_data.filled_percentage)]
+				var local_position = branch_parent.points[int((branch_parent.points.size()-1) * branch_to_be_spawned.branch_data.position_in_parent / branch_parent.branch_data.filled_percentage)]
+				branch_to_be_spawned.position = local_position
+				branch_parent.add_child(branch_to_be_spawned)
+				var full_grow : bool = branch_to_be_spawned.grow(step_length, angle_range, initial_branch_direction, bounds)
+				
+				#Coloca na fila de spawn os filhos da branch spawnada
+				var branch_count = Random.range_int(1, max_branch_count)
+				for j in range(branch_count):
+					var position_in_parent = Random.range_float(0, 1)
+					cur_branch_data = BranchData.new(depth, position_in_parent, max_branch_length, n_points, bake_interval)
+					cur_branch = BranchLine.new(branch_to_be_spawned, cur_branch_data, Random.range_int(0, leaf_count), leaf_texture, leaf_color)
+					cur_branch.width = 2
+					branch_to_be_spawned.add_branch_child(cur_branch)
+					branchs_to_be_spawned.append(cur_branch)
+					
 
-func grow():
-	var branch_stack = Array()
-	branch_stack.append(tree)
-	
-	var global_growth = growth * max_depth
-	while branch_stack.size() > 0:
-		var cur_branch = branch_stack.pop_back()
-		if cur_branch.parent != null:
-			var fill_percentage = clamp(cur_branch.parent.line.rest + cur_branch.parent.line.fill_percentage - cur_branch.position_in_parent, 0, 1)
-			#var fill_percentage = clamp(cur_branch.parent.line.rest, 0, 1)
-			cur_branch.line.rest = cur_branch.parent.line.rest - fill_percentage
-			cur_branch.line.set_growth(fill_percentage)
-		else:
-			var fill_percentage = clamp(global_growth, 0, 1)
-			cur_branch.line.rest = global_growth - fill_percentage
-			cur_branch.line.set_growth(fill_percentage)
-		branch_stack += cur_branch.children
+				
+				#Adiciona na fila de branchs ativos
+				if branch_to_be_spawned.branch_data.filled_percentage < 1:
+					active_branchs.append(branch_to_be_spawned)
+				
+				#Remove o branch da fila
+				branchs_to_be_spawned.remove(i)
+				
+				i-=1
+				branchs_to_spawn_count -= 1
+			i+=1
 
-func apply_growth(growth_diff):
-	growth += growth_diff
-	grow()
 
 func _on_Button_pressed():
-	apply_growth(growth_rate)
+	grow_tree()

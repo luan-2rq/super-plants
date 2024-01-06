@@ -25,14 +25,19 @@ _global_script_classes=[ {
 "path": "res://Game/Scripts/Bounds.gd"
 }, {
 "base": "Node2D",
-"class": "Branch",
+"class": "BranchData",
 "language": "GDScript",
-"path": "res://Game/Scripts/Branch.gd"
+"path": "res://Game/Scripts/BranchData.gd"
 }, {
 "base": "Line2D",
 "class": "BranchLine",
 "language": "GDScript",
 "path": "res://Game/Scripts/BranchLine.gd"
+}, {
+"base": "Object",
+"class": "BranchPointsResult",
+"language": "GDScript",
+"path": "res://Game/Scripts/BranchPointsResult.gd"
 }, {
 "base": "Sprite",
 "class": "Leaf",
@@ -43,15 +48,22 @@ _global_script_classes=[ {
 "class": "NormalTreeNode",
 "language": "GDScript",
 "path": "res://Game/Scripts/NormalTreeNode.gd"
+}, {
+"base": "RayCast2D",
+"class": "RayCast2DDraw",
+"language": "GDScript",
+"path": "res://Game/Scripts/RayCast2DDraw.gd"
 } ]
 _global_script_class_icons={
 "BigNumber": "",
 "BigNumberConstants": "",
 "Bounds": "",
-"Branch": "",
+"BranchData": "",
 "BranchLine": "",
+"BranchPointsResult": "",
 "Leaf": "",
-"NormalTreeNode": ""
+"NormalTreeNode": "",
+"RayCast2DDraw": ""
 }
 
 [application]
