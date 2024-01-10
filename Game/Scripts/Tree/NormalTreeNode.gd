@@ -5,14 +5,14 @@ extends Node2D
 #To do: separar em visual settings e other settings
 
 export var __ = 'Tree Settings'
-export var max_depth : int = 3
+export var max_depth : int = 100
 export(float, -3.14, 3.14) var angle_range : float = 1.5
 export var stem_color : Color
 
 export var ___ = 'Branches'
 export var step_length : int = 10
-export var initial_branch_length = 140
-export var max_branch_length : float = 200
+export var initial_branch_length = 80
+export var max_branch_length : float = 50
 export var initial_branch_count : int = 4
 export var max_branch_count : int = 3
 export var initial_branch_direction = Vector2(0, 1)
@@ -36,6 +36,7 @@ var active_branchs : Array = Array()
 
 var tree : BranchLine
 var cur_depth = 0
+var max_point = Vector2.ZERO
 
 func _ready():
 	pass
@@ -46,12 +47,13 @@ func grow_tree():
 	#Gere o primeiro branch e coloque os próximos branch na fila de branchs_to_be_spawned
 	print("Branchs to spawn: " + str(branchs_to_be_spawned.size()))
 	print("Branchs active: " + str(active_branchs.size()))
+	print(max_point)
 	var cur_branch_data
 	var cur_branch
 	if cur_depth <= max_depth:
 		if tree == null:
 			cur_branch_data = BranchData.new(cur_depth, 0, initial_branch_length, n_points, bake_interval)
-			tree = BranchLine.new(null, cur_branch_data, 0, leaf_texture, leaf_color)
+			tree = BranchLine.new(null, cur_branch_data, stem_color, 0, leaf_texture, leaf_color)
 			tree.width = 5
 			tree.branch_data.global_pos = self.global_position
 			active_branchs.append(tree)
@@ -62,7 +64,7 @@ func grow_tree():
 			for i in range(initial_branch_count):
 				var position_in_parent = Random.range_float(0, 1)
 				cur_branch_data = BranchData.new(cur_depth, position_in_parent, max_branch_length, n_points, bake_interval)
-				cur_branch = BranchLine.new(tree, cur_branch_data, Random.range_int(0, leaf_count), leaf_texture, leaf_color)
+				cur_branch = BranchLine.new(tree, cur_branch_data, stem_color, Random.range_int(0, leaf_count), leaf_texture, leaf_color)
 				cur_branch.width = 2
 				tree.add_branch_child(cur_branch)
 				branchs_to_be_spawned.append(cur_branch)
@@ -72,8 +74,10 @@ func grow_tree():
 			#Continue a preencher os branchs ativos, caso não esteja out_of_bounds
 			while i < active_branchs.size():
 				if active_branchs[i].branch_data.filled_percentage < 1:
-					var full_grown : bool = active_branchs[i].grow(step_length, angle_range, initial_branch_direction, bounds)
-					if full_grown:
+					var result : BranchPointsResult = active_branchs[i].grow(step_length, angle_range, initial_branch_direction, bounds)
+					if result.points[-1].y + active_branchs[i].global_position.y > max_point.y:
+						max_point = result.points[-1]  + active_branchs[i].global_position
+					if result.full_grown:
 						for child in active_branchs[i].children:
 							if child.branch_data.position_in_parent >= active_branchs[i].branch_data.filled_percentage:
 								branchs_to_be_spawned.erase(branchs_to_be_spawned)
@@ -99,8 +103,10 @@ func grow_tree():
 					var local_position = branch_parent.points[int((branch_parent.points.size()-1) * branch_to_be_spawned.branch_data.position_in_parent / branch_parent.branch_data.filled_percentage)]
 					branch_to_be_spawned.position = local_position
 					branch_parent.add_child(branch_to_be_spawned)
-					var full_grow : bool = branch_to_be_spawned.grow(step_length, angle_range, initial_branch_direction, bounds)
-					
+					var result : BranchPointsResult = branch_to_be_spawned.grow(step_length, angle_range, initial_branch_direction, bounds)
+					if result.points[-1].y + branch_to_be_spawned.global_position.y > max_point.y:
+						max_point = result.points[-1] + branch_to_be_spawned.global_position
+						
 					#Coloca na fila de spawn os filhos da branch spawnada
 					var branch_count = Random.range_int(1, max_branch_count)
 					for j in range(branch_count):
@@ -108,7 +114,7 @@ func grow_tree():
 							cur_depth += 1
 						var position_in_parent = Random.range_float(0, 1)
 						cur_branch_data = BranchData.new(cur_depth, position_in_parent, max_branch_length, n_points, bake_interval)
-						cur_branch = BranchLine.new(branch_to_be_spawned, cur_branch_data, Random.range_int(0, leaf_count), leaf_texture, leaf_color)
+						cur_branch = BranchLine.new(branch_to_be_spawned, cur_branch_data, stem_color, Random.range_int(0, leaf_count), leaf_texture, leaf_color)
 						cur_branch.width = 2
 						branch_to_be_spawned.add_branch_child(cur_branch)
 						branchs_to_be_spawned.append(cur_branch)
@@ -123,7 +129,7 @@ func grow_tree():
 					i-=1
 					branchs_to_spawn_count -= 1
 				i+=1
-
+	Events.emit_signal("on_grow", max_point)
 
 func _on_Button_pressed():
 	grow_tree()

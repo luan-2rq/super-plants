@@ -14,56 +14,92 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://External/BigNumbers/BigNumber.gd"
 }, {
-"base": "Reference",
-"class": "BigNumberConstants",
-"language": "GDScript",
-"path": "res://External/BigNumbers/BigNumbersConstants.gd"
-}, {
 "base": "Resource",
 "class": "Bounds",
 "language": "GDScript",
-"path": "res://Game/Scripts/Bounds.gd"
+"path": "res://Game/Scripts/Tree/Bounds.gd"
 }, {
 "base": "Node2D",
 "class": "BranchData",
 "language": "GDScript",
-"path": "res://Game/Scripts/BranchData.gd"
+"path": "res://Game/Scripts/Tree/BranchData.gd"
 }, {
 "base": "Line2D",
 "class": "BranchLine",
 "language": "GDScript",
-"path": "res://Game/Scripts/BranchLine.gd"
+"path": "res://Game/Scripts/Tree/BranchLine.gd"
 }, {
 "base": "Object",
 "class": "BranchPointsResult",
 "language": "GDScript",
-"path": "res://Game/Scripts/BranchPointsResult.gd"
+"path": "res://Game/Scripts/Tree/BranchPointsResult.gd"
+}, {
+"base": "ColorRect",
+"class": "Checkpoint",
+"language": "GDScript",
+"path": "res://Game/Scripts/Checkpoints/Checkpoint.gd"
+}, {
+"base": "Resource",
+"class": "CheckpointConfig",
+"language": "GDScript",
+"path": "res://Game/Scripts/Checkpoints/CheckpointConfig.gd"
+}, {
+"base": "Resource",
+"class": "CheckpointData",
+"language": "GDScript",
+"path": "res://Game/Scripts/Checkpoints/CheckpointData.gd"
+}, {
+"base": "Resource",
+"class": "CheckpointsConfig",
+"language": "GDScript",
+"path": "res://Game/Scripts/Checkpoints/CheckpointsConfig.gd"
+}, {
+"base": "Node2D",
+"class": "Enums",
+"language": "GDScript",
+"path": "res://Game/Scripts/Enums.gd"
 }, {
 "base": "Sprite",
 "class": "Leaf",
 "language": "GDScript",
-"path": "res://Game/Scripts/Leaf.gd"
+"path": "res://Game/Scripts/Tree/Leaf.gd"
 }, {
 "base": "Node2D",
 "class": "NormalTreeNode",
 "language": "GDScript",
-"path": "res://Game/Scripts/NormalTreeNode.gd"
+"path": "res://Game/Scripts/Tree/NormalTreeNode.gd"
+}, {
+"base": "RichTextLabel",
+"class": "PlayerData",
+"language": "GDScript",
+"path": "res://Game/Scripts/PlayerData.gd"
 }, {
 "base": "RayCast2D",
 "class": "RayCast2DDraw",
 "language": "GDScript",
 "path": "res://Game/Scripts/RayCast2DDraw.gd"
+}, {
+"base": "ScrollContainer",
+"class": "RootManager",
+"language": "GDScript",
+"path": "res://Game/Scripts/Tree/RootManager.gd"
 } ]
 _global_script_class_icons={
 "BigNumber": "",
-"BigNumberConstants": "",
 "Bounds": "",
 "BranchData": "",
 "BranchLine": "",
 "BranchPointsResult": "",
+"Checkpoint": "",
+"CheckpointConfig": "",
+"CheckpointData": "",
+"CheckpointsConfig": "",
+"Enums": "",
 "Leaf": "",
 "NormalTreeNode": "",
-"RayCast2DDraw": ""
+"PlayerData": "",
+"RayCast2DDraw": "",
+"RootManager": ""
 }
 
 [application]
@@ -75,6 +111,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Random="*res://Game/Scripts/Random.gd"
+Events="*res://External/EventManager/Events.gd"
 
 [display]
 

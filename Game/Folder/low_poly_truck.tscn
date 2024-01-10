@@ -512,7 +512,6 @@ surfaces/0 = {
 
 [sub_resource type="SpatialMaterial" id=35]
 flags_unshaded = true
-albedo_color = Color( 0.678431, 0.894118, 0.364706, 1 )
 
 [sub_resource type="SpatialMaterial" id=34]
 albedo_color = Color( 1, 0, 0, 1 )
@@ -697,6 +696,7 @@ material/0 = SubResource( 35 )
 
 [node name="Object_32" type="MeshInstance" parent="Cube012_15"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.170581, 0.192064, 6.05953 )
+visible = false
 mesh = SubResource( 18 )
 material/0 = SubResource( 34 )
 

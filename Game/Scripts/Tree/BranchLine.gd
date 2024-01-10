@@ -25,13 +25,14 @@ func _draw():
 		pass
 		#draw_colored_polygon(collision_polygon.polygon, Color(1, 0, 0))
 	
-func _init(parent : BranchLine, branch_data : BranchData, leaf_count: int, leaf_texture: Texture, leaf_color: Color):
+func _init(parent : BranchLine, branch_data : BranchData, stem_color: Color, leaf_count: int, leaf_texture: Texture, leaf_color: Color):
 	self.branch_data = branch_data
 	self.parent = parent
 	#Leaf
 	self.leaf_count = leaf_count
 	self.leaf_color = leaf_color
 	self.leaf_texture = leaf_texture
+	self.default_color = stem_color
 
 func _ready():
 	static_body = StaticBody2D.new()
@@ -56,7 +57,7 @@ func add_leaf(leaf : Leaf):
 	leaf.z_index = 1
 	leaf.centered = false
 	leaf.modulate = Color(0.01, 0.9, 0.4, 1)
-	leaf.scale = Vector2(0.1, 0.1)
+	leaf.scale = Vector2(0.05, 0.05)
 	add_child(leaf)
 
 func add_point(position : Vector2, index : int = -1):
@@ -98,14 +99,14 @@ func expand(point_a : Vector2, point_b : Vector2, delta : int) -> PoolVector2Arr
 	return result
 	
 #return true if has achived full growth. If it hits the bounds or another branch, it is cosidered as full growth
-func grow(length : float, angle_range : float, initial_direction : Vector2, bounds : Resource) -> bool:
+func grow(length : float, angle_range : float, initial_direction : Vector2, bounds : Resource) -> BranchPointsResult:
 	#if depth == 0 and line != null and line.static_body != null and line.static_body.get_child(0) is CollisionPolygon2D:
 		#var collision_polygon = line.static_body.get_child(0)
 		#print(collision_polygon.polygon.size())
-	var points_result : BranchPointsResult
-	var full_grown
+	var points_result : BranchPointsResult = BranchPointsResult.new(false, PoolVector2Array())
+	
 	if branch_data.final_points.size() == 0:
-		branch_data.initial_points = generate_points(length, angle_range, initial_direction)
+		branch_data.initial_points = generate_points(angle_range, initial_direction)
 		branch_data.final_points = generate_curve_points(branch_data.initial_points, branch_data.bake_interval)
 		
 		branch_data.current_length += length
@@ -119,7 +120,8 @@ func grow(length : float, angle_range : float, initial_direction : Vector2, boun
 			
 		var processed_points : BranchPointsResult = trim_points(cur_points, bounds as Bounds)
 		
-		full_grown = processed_points.full_grown
+		points_result.full_grown = processed_points.full_grown
+		points_result.points = processed_points.points
 		self.points = processed_points.points
 	else:
 		branch_data.current_length += length
@@ -131,22 +133,23 @@ func grow(length : float, angle_range : float, initial_direction : Vector2, boun
 			
 		var processed_points : BranchPointsResult = trim_points(cur_points, bounds as Bounds)
 		
-		full_grown = processed_points.full_grown
+		points_result.full_grown = processed_points.full_grown
+		points_result.points = processed_points.points
 		self.points = processed_points.points
 		
 	raycast.cast_to = (self.points[-1] - self.points[-2]).normalized() * 10 if self.points.size() > 2 else self.points[-1].normalized() * 10
 	raycast.global_position =  self.global_position + self.points[-1]
 	
 	if raycast.is_colliding():
-		if raycast.get_collider() != static_body:
-			full_grown = true
+		if raycast.get_collider() != static_body and !raycast.get_collider().is_in_group(str(bounds.get_instance_id())):
+			points_result.full_grown = true
 			raycast.enabled = false
 			#line.static_body.set_physics_process(false)
 			#line.static_body.set_process(false)
 			#line.static_body.set_collision_layer_bit(0, false)
 			#line.static_body.set_collision_mask_bit(0, false)
 	if branch_data.current_length == branch_data.max_length:
-		full_grown = true
+		points_result.full_grown = true
 	#Add leaf
 	var i = 0
 	while i <  leafs.size():
@@ -160,16 +163,14 @@ func grow(length : float, angle_range : float, initial_direction : Vector2, boun
 	#print("Size: " + str(line_poly.size()))
 	
 	for poly in line_poly:
-		var collision_polygon = static_body.get_child(0)
-		if collision_polygon == null:
+		if static_body.get_child_count() <= 0:
 			var col = CollisionPolygon2D.new()
+			col.add_to_group(str(bounds.get_instance_id()), true)
 			col.polygon = poly
 			static_body.add_child(col)
-		else:
-			pass
-	return full_grown
+	return points_result
 
-func generate_points(length : float,  angle_range : float, initial_direction : Vector2) -> PoolVector2Array:
+func generate_points(angle_range : float, initial_direction : Vector2) -> PoolVector2Array:
 	var points = PoolVector2Array()
 	
 	var point_step = branch_data.max_length / branch_data.n_points
