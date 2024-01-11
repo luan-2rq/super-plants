@@ -512,6 +512,7 @@ surfaces/0 = {
 
 [sub_resource type="SpatialMaterial" id=35]
 flags_unshaded = true
+albedo_color = Color( 0.235294, 0.231373, 0.231373, 1 )
 
 [sub_resource type="SpatialMaterial" id=34]
 albedo_color = Color( 1, 0, 0, 1 )
@@ -689,7 +690,7 @@ fov = 69.1
 transform = Transform( 0.430355, 0, 0, 0, 2.45279, 0, 0, 0, 0.535514, 3.55891, -0.0432451, -11.2941 )
 
 [node name="Object_33" type="MeshInstance" parent="Cube012_15"]
-transform = Transform( 9.99993, 0.0319004, 0.0364671, 0.0364235, 0.00396428, -9.98818, -8.80247e-05, 40.0479, -2.16542, 22.495, -13.6473, -7.21297 )
+transform = Transform( -0.00097496, 0.0323289, -5.4961, -1.01417, 0.188278, 8.7748e-05, -6.60215, 205.673, 0.00861344, -34.704, -1.796, -7.21297 )
 mesh = SubResource( 18 )
 skeleton = NodePath("../Object_32")
 material/0 = SubResource( 35 )

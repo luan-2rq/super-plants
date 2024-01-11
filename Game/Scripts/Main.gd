@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasLayer
 
 var raycast : RayCast2D
 var line : Line2D

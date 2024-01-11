@@ -13,4 +13,5 @@ func _ready():
 	
 	print("Value: " + str(networth.value))
 	print("Expoent: " + str(networth.expoent))
-	text = self.networth.to_string() + ' ' + HC.to_string()
+	bbcode_text = "[center]" + self.SC.to_string() + "[/center]"
+
