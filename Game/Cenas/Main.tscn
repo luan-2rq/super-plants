@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Game/Scripts/Tree/NormalTreeNode.gd" type="Script" id=1]
 [ext_resource path="res://Game/Scripts/Main.gd" type="Script" id=2]
@@ -11,8 +11,9 @@
 [ext_resource path="res://Game/Scripts/Checkpoints/CheckpointsConfig.gd" type="Script" id=9]
 [ext_resource path="res://Game/Scripts/Tree/RootManager.gd" type="Script" id=10]
 [ext_resource path="res://Game/Scripts/PlayerData.gd" type="Script" id=11]
-[ext_resource path="res://Game/Cenas/RootsScrollContainer2.gd" type="Script" id=12]
+[ext_resource path="res://Game/Scripts/Tree/PlantManager.gd" type="Script" id=12]
 [ext_resource path="res://Game/Prefabs/UpgradesPopup.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Game/Scripts/PopupsController.gd" type="Script" id=14]
 
 [sub_resource type="Resource" id=6]
 script = ExtResource( 5 )
@@ -26,18 +27,21 @@ script = ExtResource( 8 )
 position = 150.0
 color = Color( 0, 0.784314, 0.0509804, 1 )
 reward = 0
+tree_type = 1
 
 [sub_resource type="Resource" id=8]
 script = ExtResource( 8 )
 position = 450.0
 color = Color( 0.239216, 0.705882, 0.960784, 1 )
 reward = 0
+tree_type = 1
 
 [sub_resource type="Resource" id=9]
 script = ExtResource( 8 )
 position = 900.0
 color = Color( 0.396078, 0.388235, 0, 1 )
 reward = 0
+tree_type = 1
 
 [sub_resource type="Resource" id=10]
 script = ExtResource( 9 )
@@ -57,24 +61,28 @@ script = ExtResource( 7 )
 [node name="Main" type="CanvasLayer" parent="."]
 script = ExtResource( 2 )
 
-[node name="Background" type="ColorRect" parent="Main"]
+[node name="BackgroundPlant" type="ColorRect" parent="Main"]
+anchor_right = 1.0
+anchor_bottom = 0.46
+
+[node name="BackgroundRoot" type="ColorRect" parent="Main"]
+anchor_top = 0.46
 anchor_right = 1.0
 anchor_bottom = 1.0
+color = Color( 0.639216, 0.368627, 0.12549, 1 )
 
 [node name="PlantScrollContainer" type="ScrollContainer" parent="Main"]
 anchor_right = 1.0
 anchor_bottom = 0.457
 margin_right = 12.0
-margin_bottom = -3.05176e-05
+margin_bottom = 3.0
 mouse_filter = 1
 scroll_horizontal_enabled = false
-scroll_vertical = 100
 script = ExtResource( 12 )
 
 [node name="Control" type="Control" parent="Main/PlantScrollContainer"]
-margin_top = -1340.0
 margin_right = 450.0
-margin_bottom = 460.0
+margin_bottom = 1800.0
 rect_min_size = Vector2( 450, 1800 )
 mouse_filter = 1
 
@@ -88,16 +96,19 @@ __meta__ = {
 }
 
 [node name="Polygon2D3" type="Polygon2D" parent="Main/PlantScrollContainer/Control"]
-position = Vector2( 319.903, 1574 )
-scale = Vector2( 0.791842, 0.85964 )
-color = Color( 0.247059, 0.905882, 0.258824, 1 )
-polygon = PoolVector2Array( -467.143, 170, -425.59, 151.226, -375.075, 127.961, -319.508, 118.654, -260.153, 120.981, -94.2858, 167.143, -9.98659, 179.406, 44.2008, 180.308, 137.143, 164.286, 212.857, 147.143, 257.143, 147.143, 252.698, 260.574, -452.11, 261.737 )
+visible = false
+position = Vector2( 225, 1775 )
+scale = Vector2( 0.653057, 0.845773 )
+color = Color( 0.376471, 0.219608, 0.0784314, 1 )
+offset = Vector2( 101.172, -221.099 )
+polygon = PoolVector2Array( -496.237, 261.299, -474.799, 216.37, -453.362, 183.264, -424.268, 150.158, -375.075, 127.961, -319.508, 118.654, -260.153, 120.981, -94.2858, 167.143, -9.98659, 179.406, 44.2008, 180.308, 137.143, 164.286, 212.857, 147.143, 258.674, 150.158, 300.018, 174.987, 330.643, 206.911, 361.268, 245.928, 375.05, 267.211, 254.08, 264.846, -452.11, 261.737 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Main/PlantScrollContainer/Control"]
-position = Vector2( 298.903, 1672.06 )
-scale = Vector2( 0.791124, 0.50202 )
-color = Color( 0.12549, 0.721569, 0.231373, 1 )
-polygon = PoolVector2Array( -357.719, 212.857, -304.63, 165.714, -216.148, 125.714, -96.0659, 111.429, 5.05609, 120, 75.8415, 138.571, 131.459, 175.714, 169.379, 215.714, 189.604, 258.832, -377.821, 250.864 )
+position = Vector2( 225.533, 1772 )
+scale = Vector2( 0.817729, 0.50202 )
+color = Color( 0.803922, 0.458824, 0.156863, 1 )
+offset = Vector2( 94.6793, -189.116 )
+polygon = PoolVector2Array( -357.719, 212.857, -304.63, 165.714, -216.148, 125.714, -96.0659, 111.429, 5.05609, 120, 75.8415, 138.571, 131.459, 175.714, 169.379, 215.714, 188.381, 248.874, -375.375, 244.891 )
 
 [node name="Plant" type="Node2D" parent="Main/PlantScrollContainer/Control"]
 position = Vector2( 224, 1750 )
@@ -119,9 +130,8 @@ bounds = SubResource( 6 )
 anchor_top = 0.463
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -6.00003
+margin_top = -3.0
 margin_right = 12.0
-margin_bottom = -3.0
 mouse_filter = 1
 scroll_horizontal_enabled = false
 script = ExtResource( 10 )
@@ -137,7 +147,8 @@ checkpoint_configs = SubResource( 10 )
 [node name="Root" type="Node2D" parent="Main/RootScrollContainer/Control"]
 position = Vector2( 225, 0 )
 script = ExtResource( 1 )
-stem_color = Color( 0.501961, 0.486275, 0.0196078, 1 )
+stem_color = Color( 0.188235, 0.141176, 0.0117647, 1 )
+tree_type = 1
 initial_branch_length = 400
 max_branch_length = 300.0
 initial_branch_count = 3
@@ -153,9 +164,11 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="SettingsButton" type="Button" parent="UI/TopHUD"]
-margin_left = 10.0
+anchor_left = 0.129
+anchor_right = 0.129
+margin_left = -48.05
 margin_top = 10.0
-margin_right = 58.0
+margin_right = -0.0500031
 margin_bottom = 58.0
 rect_pivot_offset = Vector2( 30, -5 )
 
@@ -182,11 +195,11 @@ scroll_active = false
 script = ExtResource( 11 )
 
 [node name="ShopButton" type="Button" parent="UI/TopHUD"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -58.0
+anchor_left = 0.871
+anchor_right = 0.871
+margin_left = 0.0499878
 margin_top = 10.0
-margin_right = -10.0
+margin_right = 48.05
 margin_bottom = 58.0
 rect_pivot_offset = Vector2( 30, -5 )
 
@@ -196,20 +209,24 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="UpgradesButton" type="Button" parent="UI/BottomHUD"]
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 20.0
+margin_left = -205.0
 margin_top = -200.0
-margin_right = 68.0
+margin_right = -157.0
 margin_bottom = -152.0
 rect_pivot_offset = Vector2( 30, -5 )
 
 [node name="MissionsButton" type="Button" parent="UI/BottomHUD"]
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 85.0
+margin_left = -137.0
 margin_top = -200.0
-margin_right = 133.0
+margin_right = -89.0
 margin_bottom = -152.0
 rect_pivot_offset = Vector2( 30, -5 )
 
@@ -224,15 +241,18 @@ margin_right = 207.5
 margin_bottom = -15.0
 
 [node name="Popups" type="Control" parent="UI"]
-anchor_left = 0.058
+anchor_left = 0.3
 anchor_top = 0.1
-anchor_right = 0.942
+anchor_right = 0.7
 anchor_bottom = 0.768
-margin_left = -0.1
-margin_right = 0.0999756
+margin_left = -108.55
+margin_right = 109.0
 mouse_filter = 2
+script = ExtResource( 14 )
 
 [node name="UpgradesPopup" parent="UI/Popups" instance=ExtResource( 13 )]
+visible = false
+open_button_path = NodePath("../../BottomHUD/UpgradesButton")
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 900, 250 )

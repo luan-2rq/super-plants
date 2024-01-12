@@ -11,6 +11,7 @@ func _init(checkpoin_data : CheckpointData, checkpoint_config : CheckpointConfig
 func _ready():
 	pass
 	
-func _verify_checkpoint_achieved(max_point):
-	if max_point.y > get_global_position().y:
-		queue_free()
+func _verify_checkpoint_achieved(tree_type, max_point):
+	if tree_type == checkpoint_config.tree_type:
+		if max_point.y > rect_position.y:
+			queue_free()

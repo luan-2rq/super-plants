@@ -64,10 +64,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/Tree/Leaf.gd"
 }, {
+"base": "ScrollContainer",
+"class": "NonUIElementsCentralizer",
+"language": "GDScript",
+"path": "res://Game/Scripts/NonUIElementsCentralizer.gd"
+}, {
 "base": "Node2D",
 "class": "NormalTreeNode",
 "language": "GDScript",
 "path": "res://Game/Scripts/Tree/NormalTreeNode.gd"
+}, {
+"base": "NonUIElementsCentralizer",
+"class": "PlantManager",
+"language": "GDScript",
+"path": "res://Game/Scripts/Tree/PlantManager.gd"
 }, {
 "base": "RichTextLabel",
 "class": "PlayerData",
@@ -79,7 +89,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/RayCast2DDraw.gd"
 }, {
-"base": "ScrollContainer",
+"base": "NonUIElementsCentralizer",
 "class": "RootManager",
 "language": "GDScript",
 "path": "res://Game/Scripts/Tree/RootManager.gd"
@@ -96,7 +106,9 @@ _global_script_class_icons={
 "CheckpointsConfig": "",
 "Enums": "",
 "Leaf": "",
+"NonUIElementsCentralizer": "",
 "NormalTreeNode": "",
+"PlantManager": "",
 "PlayerData": "",
 "RayCast2DDraw": "",
 "RootManager": ""
@@ -111,13 +123,15 @@ config/icon="res://icon.png"
 [autoload]
 
 Random="*res://Game/Scripts/Random.gd"
-Events="*res://External/EventManager/Events.gd"
+Events="*res://Game/Scripts/Events.gd"
 
 [display]
 
 window/size/width=450
 window/size/height=1000
 window/handheld/orientation="portrait"
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [gui]
 

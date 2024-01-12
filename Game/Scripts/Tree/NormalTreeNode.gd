@@ -8,6 +8,7 @@ export var __ = 'Tree Settings'
 export var max_depth : int = 100
 export(float, -3.14, 3.14) var angle_range : float = 1.5
 export var stem_color : Color
+export(Enums.TreeType) var tree_type
 
 export var ___ = 'Branches'
 export var step_length : int = 10
@@ -75,8 +76,8 @@ func grow_tree():
 			while i < active_branchs.size():
 				if active_branchs[i].branch_data.filled_percentage < 1:
 					var result : BranchPointsResult = active_branchs[i].grow(step_length, angle_range, initial_branch_direction, bounds)
-					if result.points[-1].y + active_branchs[i].global_position.y > max_point.y:
-						max_point = result.points[-1]  + active_branchs[i].global_position
+					if (result.points[-1].y * initial_branch_direction.y + active_branchs[i].global_position.y - tree.global_position.y) * initial_branch_direction.y > max_point.y:
+						max_point = ((result.points[-1] * initial_branch_direction.y)+ active_branchs[i].global_position - tree.global_position) * initial_branch_direction.y
 					if result.full_grown:
 						for child in active_branchs[i].children:
 							if child.branch_data.position_in_parent >= active_branchs[i].branch_data.filled_percentage:
@@ -104,8 +105,8 @@ func grow_tree():
 					branch_to_be_spawned.position = local_position
 					branch_parent.add_child(branch_to_be_spawned)
 					var result : BranchPointsResult = branch_to_be_spawned.grow(step_length, angle_range, initial_branch_direction, bounds)
-					if result.points[-1].y + branch_to_be_spawned.global_position.y > max_point.y:
-						max_point = result.points[-1] + branch_to_be_spawned.global_position
+					if (result.points[-1].y * initial_branch_direction.y + branch_to_be_spawned.global_position.y - tree.global_position.y) * initial_branch_direction.y > max_point.y:
+						max_point = ((result.points[-1] * initial_branch_direction.y)+ branch_to_be_spawned.global_position - tree.global_position) * initial_branch_direction.y
 						
 					#Coloca na fila de spawn os filhos da branch spawnada
 					var branch_count = Random.range_int(1, max_branch_count)
@@ -129,7 +130,7 @@ func grow_tree():
 					i-=1
 					branchs_to_spawn_count -= 1
 				i+=1
-	Events.emit_signal("on_grow", max_point)
+	Events.emit_signal("on_grow", tree_type, max_point)
 
 func _on_Button_pressed():
 	grow_tree()
