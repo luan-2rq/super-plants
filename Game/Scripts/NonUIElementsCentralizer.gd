@@ -5,6 +5,7 @@ onready var viewport = get_viewport()
 onready var children = $Control.get_children()
 	
 func _process(delta):
+	pass
 	children = $Control.get_children()
 	for child in children:
 		if child is Control:

@@ -14,4 +14,4 @@ func _ready():
 func _verify_checkpoint_achieved(tree_type, max_point):
 	if tree_type == checkpoint_config.tree_type:
 		if max_point.y > rect_position.y:
-			queue_free()
+			visible = false

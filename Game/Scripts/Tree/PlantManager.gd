@@ -11,5 +11,5 @@ func _ready():
 
 func _set_focus(tree_type, focus_point):
 	if tree_type == Enums.TreeType.Plant:
-		print('Focus point: ' + str(control.rect_size.y - rect_size.y - int(focus_point.y)))
+		#print('Focus point: ' + str(control.rect_size.y - rect_size.y - int(focus_point.y)))
 		self.scroll_vertical = control.rect_size.y - rect_size.y - int(focus_point.y) + offset

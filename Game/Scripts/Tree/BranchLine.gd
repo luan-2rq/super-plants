@@ -4,35 +4,22 @@ class_name BranchLine
 #Branch data
 var branch_data : BranchData
 
-#Hierarchy
-var parent : BranchLine
-var children : Array = Array()
-
-#Leaves
-var leaf_count : int
-var leaf_color : Color
-var leaf_texture : Texture
-var leafs : Array
-
 #Collision
 var static_body : StaticBody2D
 var raycast : RayCast2DDraw
 
-func _draw():
-	# Draw the collision polygon in red
-	var collision_polygon = static_body.get_child(0)
-	if collision_polygon is CollisionPolygon2D:
-		pass
-		#draw_colored_polygon(collision_polygon.polygon, Color(1, 0, 0))
-	
-func _init(parent : BranchLine, branch_data : BranchData, stem_color: Color, leaf_count: int, leaf_texture: Texture, leaf_color: Color):
+#VISUALS 
+#Leaves
+var leaf_color : Color
+var leaf_texture : Texture
+var leafs : Array
+
+func _init(branch_data : BranchData, stem_color: Color, leaf_texture: Texture, leaf_color: Color):
 	self.branch_data = branch_data
-	self.parent = parent
+	self.default_color = stem_color
 	#Leaf
-	self.leaf_count = leaf_count
 	self.leaf_color = leaf_color
 	self.leaf_texture = leaf_texture
-	self.default_color = stem_color
 
 func _ready():
 	static_body = StaticBody2D.new()
@@ -41,11 +28,12 @@ func _ready():
 	raycast = RayCast2DDraw.new()
 	raycast.global_position = self.global_position + points[-1] if points.size() > 0 else Vector2.ZERO
 	raycast.enabled = true
+	raycast.collision_mask = 2
 	raycast.collide_with_areas = true
 	add_child(raycast)
 	
 	#leafs
-	for i in range(leaf_count):
+	for i in range(branch_data.leaf_count):
 		var position_on_branch = Random.range_float(0, 1)
 		var rotation = Random.range_float(-PI, PI)
 		leafs.append(Leaf.new(position_on_branch, Vector2.RIGHT.rotated(rotation)))
@@ -59,6 +47,9 @@ func add_leaf(leaf : Leaf):
 	leaf.modulate = Color(0.01, 0.9, 0.4, 1)
 	leaf.scale = Vector2(0.05, 0.05)
 	add_child(leaf)
+	
+func add_collectable():
+	pass
 
 func add_point(position : Vector2, index : int = -1):
 	if static_body.get_child(0) == null:
@@ -98,11 +89,7 @@ func expand(point_a : Vector2, point_b : Vector2, delta : int) -> PoolVector2Arr
 	var result = PoolVector2Array([right_vec * point_b * delta, left_vec * point_b * delta])
 	return result
 	
-#return true if has achived full growth. If it hits the bounds or another branch, it is cosidered as full growth
 func grow(length : float, angle_range : float, initial_direction : Vector2, bounds : Resource) -> BranchPointsResult:
-	#if depth == 0 and line != null and line.static_body != null and line.static_body.get_child(0) is CollisionPolygon2D:
-		#var collision_polygon = line.static_body.get_child(0)
-		#print(collision_polygon.polygon.size())
 	var points_result : BranchPointsResult = BranchPointsResult.new(false, PoolVector2Array())
 	
 	if branch_data.final_points.size() == 0:
@@ -140,14 +127,12 @@ func grow(length : float, angle_range : float, initial_direction : Vector2, boun
 	raycast.cast_to = (self.points[-1] - self.points[-2]).normalized() * 10 if self.points.size() > 2 else self.points[-1].normalized() * 10
 	raycast.global_position =  self.global_position + self.points[-1]
 	
+	#Verifica colisões com outras branchs
 	if raycast.is_colliding():
 		if raycast.get_collider() != static_body and !raycast.get_collider().is_in_group(str(bounds.get_instance_id())):
 			points_result.full_grown = true
 			raycast.enabled = false
-			#line.static_body.set_physics_process(false)
-			#line.static_body.set_process(false)
-			#line.static_body.set_collision_layer_bit(0, false)
-			#line.static_body.set_collision_mask_bit(0, false)
+			
 	if branch_data.current_length == branch_data.max_length:
 		points_result.full_grown = true
 	#Add leaf
@@ -168,8 +153,13 @@ func grow(length : float, angle_range : float, initial_direction : Vector2, boun
 			col.add_to_group(str(bounds.get_instance_id()), true)
 			col.polygon = poly
 			static_body.add_child(col)
+			static_body.collision_layer = 2
 	return points_result
 
+func grow_directional():
+	pass
+	# Generate 
+	
 func generate_points(angle_range : float, initial_direction : Vector2) -> PoolVector2Array:
 	var points = PoolVector2Array()
 	
@@ -212,5 +202,10 @@ func trim_points(points : PoolVector2Array, bounds : Bounds) -> BranchPointsResu
 	points.resize(new_size)
 	return BranchPointsResult.new(full_grown, points)
 
-func add_branch_child(child):
-	self.children.append(child)
+#DEBUGGGING
+func _draw():
+	# Draw the collision polygon in red
+	var collision_polygon = static_body.get_child(0)
+	if collision_polygon is CollisionPolygon2D:
+		pass
+		#draw_colored_polygon(collision_polygon.polygon, Color(1, 0, 0))

@@ -1,0 +1,77 @@
+[gd_scene format=2]
+
+[node name="ShopScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HeaderTexture" type="TextureRect" parent="Panel/VBoxContainer"]
+margin_right = 720.0
+margin_bottom = 239.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.15
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/HeaderTexture"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HeaderTexture/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 700.0
+margin_bottom = 219.0
+custom_constants/separation = 20
+
+[node name="BackButton" type="Button" parent="Panel/VBoxContainer/HeaderTexture/MarginContainer/HBoxContainer"]
+margin_right = 70.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 70, 100 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HeaderTexture/MarginContainer/HBoxContainer"]
+margin_left = 90.0
+margin_right = 680.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+size_flags_vertical = 0
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer/HeaderTexture/MarginContainer/HBoxContainer/HBoxContainer"]
+margin_right = 590.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Shop"
+align = 1
+valign = 1
+
+[node name="ColorRect" type="ColorRect" parent="Panel/VBoxContainer"]
+margin_top = 243.0
+margin_right = 720.0
+margin_bottom = 1600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.85
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/ColorRect"]
+margin_top = 735.0
+margin_right = 719.0
+margin_bottom = 2315.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20

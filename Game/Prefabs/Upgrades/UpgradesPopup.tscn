@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Game/Scripts/Upgrades/UpgradesController.gd" type="Script" id=1]
+[ext_resource path="res://Game/Prefabs/Upgrades/UpgradeCell.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Game/Scripts/Upgrades/UpgradesConfig.gd" type="Script" id=3]
+[ext_resource path="res://Game/Scripts/Upgrades/UpgradeConfig.gd" type="Script" id=4]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 4 )
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 4 )
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 3 )
+upgrades = [ SubResource( 1 ), SubResource( 2 ) ]
+
+[node name="UpgradesPopup" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+close_button_path = NodePath("Background/CloseButton")
+v_box_container_path = NodePath("Background/ScrollContainer/VBoxContainer")
+upgrades_config = SubResource( 3 )
+upgrade_cell = ExtResource( 2 )
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.768627, 0.768627, 0.768627, 1 )
+
+[node name="CloseButton" type="Button" parent="Background"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -20.0
+margin_top = -8.0
+margin_right = 10.0
+margin_bottom = 22.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background"]
+anchor_left = 0.028
+anchor_top = 0.05
+anchor_right = 0.972
+anchor_bottom = 0.938
+margin_left = -0.16
+margin_right = 0.159973
+margin_bottom = 19.2
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer"]
+margin_right = 680.0
+margin_bottom = 1440.0
+rect_min_size = Vector2( 250, 500 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 30

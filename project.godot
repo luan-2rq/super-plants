@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "DocItem",
+"class": "ArgumentDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/argument_doc_item.gd"
+}, {
+"base": "Reference",
+"class": "AuthProvider",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/auth_provider.gd"
+}, {
 "base": "Reference",
 "class": "BigNumber",
 "language": "GDScript",
@@ -19,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/Tree/Bounds.gd"
 }, {
-"base": "Node2D",
+"base": "Resource",
 "class": "BranchData",
 "language": "GDScript",
 "path": "res://Game/Scripts/Tree/BranchData.gd"
@@ -54,15 +64,135 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/Checkpoints/CheckpointsConfig.gd"
 }, {
-"base": "Node2D",
-"class": "Enums",
+"base": "DocItem",
+"class": "ClassDocItem",
 "language": "GDScript",
-"path": "res://Game/Scripts/Enums.gd"
+"path": "res://addons/silicon.util.custom_docs/doc_item/class_doc_item.gd"
+}, {
+"base": "CollisionPolygon2D",
+"class": "ColPol",
+"language": "GDScript",
+"path": "res://External/TerrainDestruction/Scripts/ColPol.gd"
+}, {
+"base": "DocItem",
+"class": "ConstantDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/constant_doc_item.gd"
+}, {
+"base": "Reference",
+"class": "DocExporter",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_exporter/doc_exporter.gd"
+}, {
+"base": "Reference",
+"class": "DocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/doc_item.gd"
+}, {
+"base": "AuthProvider",
+"class": "FacebookProvider",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/providers/facebook.gd"
+}, {
+"base": "HTTPRequest",
+"class": "FirebaseAuth",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/auth.gd"
+}, {
+"base": "Node",
+"class": "FirebaseDatabase",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/database/database.gd"
+}, {
+"base": "Node",
+"class": "FirebaseDatabaseReference",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/database/reference.gd"
+}, {
+"base": "Node",
+"class": "FirebaseDatabaseStore",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/database/database_store.gd"
+}, {
+"base": "Node",
+"class": "FirebaseDynamicLinks",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/dynamiclinks/dynamiclinks.gd"
+}, {
+"base": "Node",
+"class": "FirebaseFirestore",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore.gd"
+}, {
+"base": "Node",
+"class": "FirebaseFunctions",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/functions/functions.gd"
+}, {
+"base": "Resource",
+"class": "FirebaseResource",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/database/resource.gd"
+}, {
+"base": "Node",
+"class": "FirebaseStorage",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/storage/storage.gd"
+}, {
+"base": "Reference",
+"class": "FirebaseUserData",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/user_data.gd"
+}, {
+"base": "Reference",
+"class": "FirestoreCollection",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore_collection.gd"
+}, {
+"base": "Reference",
+"class": "FirestoreDocument",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore_document.gd"
+}, {
+"base": "Reference",
+"class": "FirestoreQuery",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore_query.gd"
+}, {
+"base": "Reference",
+"class": "FirestoreTask",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore_task.gd"
+}, {
+"base": "Reference",
+"class": "FunctionTask",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/functions/function_task.gd"
+}, {
+"base": "AuthProvider",
+"class": "GitHubProvider",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/providers/github.gd"
+}, {
+"base": "AuthProvider",
+"class": "GoogleProvider",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/providers/google.gd"
+}, {
+"base": "Object",
+"class": "GrowData",
+"language": "GDScript",
+"path": "res://Game/Scripts/Tree/GrowData.gd"
 }, {
 "base": "Sprite",
 "class": "Leaf",
 "language": "GDScript",
 "path": "res://Game/Scripts/Tree/Leaf.gd"
+}, {
+"base": "DocItem",
+"class": "MethodDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/method_doc_item.gd"
 }, {
 "base": "ScrollContainer",
 "class": "NonUIElementsCentralizer",
@@ -84,6 +214,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/PlayerData.gd"
 }, {
+"base": "DocItem",
+"class": "PropertyDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/property_doc_item.gd"
+}, {
 "base": "RayCast2D",
 "class": "RayCast2DDraw",
 "language": "GDScript",
@@ -93,8 +228,75 @@ _global_script_classes=[ {
 "class": "RootManager",
 "language": "GDScript",
 "path": "res://Game/Scripts/Tree/RootManager.gd"
+}, {
+"base": "Node",
+"class": "SaveManager",
+"language": "GDScript",
+"path": "res://External/SaveManager.gd"
+}, {
+"base": "DocItem",
+"class": "SignalDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/signal_doc_item.gd"
+}, {
+"base": "Reference",
+"class": "StorageReference",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/storage/storage_reference.gd"
+}, {
+"base": "Reference",
+"class": "StorageTask",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/storage/storage_task.gd"
+}, {
+"base": "Node2D",
+"class": "Terrain",
+"language": "GDScript",
+"path": "res://External/TerrainDestruction/Scripts/Terrain.gd"
+}, {
+"base": "Resource",
+"class": "TreeConfig",
+"language": "GDScript",
+"path": "res://Game/Scripts/Tree/TreeConfig.gd"
+}, {
+"base": "AuthProvider",
+"class": "TwitterProvider",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/providers/twitter.gd"
+}, {
+"base": "Node",
+"class": "UpgradeCell",
+"language": "GDScript",
+"path": "res://Game/Scripts/Upgrades/UpgradeCell.gd"
+}, {
+"base": "Resource",
+"class": "UpgradeConfig",
+"language": "GDScript",
+"path": "res://Game/Scripts/Upgrades/UpgradeConfig.gd"
+}, {
+"base": "Resource",
+"class": "UpgradeData",
+"language": "GDScript",
+"path": "res://Game/Scripts/Upgrades/UpgradeData.gd"
+}, {
+"base": "Resource",
+"class": "UpgradesConfig",
+"language": "GDScript",
+"path": "res://Game/Scripts/Upgrades/UpgradesConfig.gd"
+}, {
+"base": "Resource",
+"class": "UpgradesData",
+"language": "GDScript",
+"path": "res://Game/Scripts/Upgrades/UpgradesData.gd"
+}, {
+"base": "Resource",
+"class": "settings_data",
+"language": "GDScript",
+"path": "res://Game/Scripts/SettingsData.gd"
 } ]
 _global_script_class_icons={
+"ArgumentDocItem": "",
+"AuthProvider": "",
 "BigNumber": "",
 "Bounds": "",
 "BranchData": "",
@@ -104,14 +306,52 @@ _global_script_class_icons={
 "CheckpointConfig": "",
 "CheckpointData": "",
 "CheckpointsConfig": "",
-"Enums": "",
+"ClassDocItem": "",
+"ColPol": "",
+"ConstantDocItem": "",
+"DocExporter": "",
+"DocItem": "",
+"FacebookProvider": "",
+"FirebaseAuth": "",
+"FirebaseDatabase": "",
+"FirebaseDatabaseReference": "",
+"FirebaseDatabaseStore": "",
+"FirebaseDynamicLinks": "",
+"FirebaseFirestore": "",
+"FirebaseFunctions": "",
+"FirebaseResource": "",
+"FirebaseStorage": "",
+"FirebaseUserData": "",
+"FirestoreCollection": "",
+"FirestoreDocument": "",
+"FirestoreQuery": "",
+"FirestoreTask": "",
+"FunctionTask": "",
+"GitHubProvider": "",
+"GoogleProvider": "",
+"GrowData": "",
 "Leaf": "",
+"MethodDocItem": "",
 "NonUIElementsCentralizer": "",
 "NormalTreeNode": "",
 "PlantManager": "",
 "PlayerData": "",
+"PropertyDocItem": "",
 "RayCast2DDraw": "",
-"RootManager": ""
+"RootManager": "",
+"SaveManager": "",
+"SignalDocItem": "",
+"StorageReference": "",
+"StorageTask": "",
+"Terrain": "",
+"TreeConfig": "",
+"TwitterProvider": "",
+"UpgradeCell": "",
+"UpgradeConfig": "",
+"UpgradeData": "",
+"UpgradesConfig": "",
+"UpgradesData": "",
+"settings_data": ""
 }
 
 [application]
@@ -123,12 +363,15 @@ config/icon="res://icon.png"
 [autoload]
 
 Random="*res://Game/Scripts/Random.gd"
-Events="*res://Game/Scripts/Events.gd"
+Events="*res://Game/Scripts/Arquitecture/Events.gd"
+Enums="*res://Game/Scripts/Arquitecture/Enums.gd"
 
 [display]
 
-window/size/width=450
-window/size/height=1000
+window/size/width=720
+window/size/height=1600
+window/size/test_width=720
+window/size/test_height=1600
 window/handheld/orientation="portrait"
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
@@ -137,9 +380,26 @@ window/stretch/aspect="expand"
 
 common/drop_mouse_on_gui_input_disabled=true
 
+[input]
+
+click_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+click_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[locale]
+
+locale_filter=[ 0, [ "de", "en", "es", "fr", "it", "ja", "ko", "pt", "ru", "tr" ] ]
 
 [physics]
 

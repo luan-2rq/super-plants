@@ -13,7 +13,7 @@ func add_checkpoint(checkpoint_data : CheckpointData, checkpoint_config : Checkp
 	var checkpoint = Checkpoint.new(checkpoint_data, checkpoint_config)
 	checkpoint.rect_position = Vector2(0, checkpoint_config.position)
 	checkpoint.color = checkpoint_config.color
-	checkpoint.rect_size = Vector2(screen_size.x, checkpoint_configs.checkpoint_size)
+	checkpoint.rect_size = Vector2(screen_size.x * 7, checkpoint_configs.checkpoint_size)
 	checkpoint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	Events.connect("on_grow", checkpoint, "_verify_checkpoint_achieved")
 	add_child(checkpoint)

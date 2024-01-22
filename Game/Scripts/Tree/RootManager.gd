@@ -1,7 +1,7 @@
 extends NonUIElementsCentralizer
 class_name RootManager
 
-var offset = 100
+var offset = 300
 
 func _ready():
 	Events.connect("on_grow", self, "_set_focus")
