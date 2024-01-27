@@ -20,7 +20,7 @@ func _ready():
 		v_box_container.add_child(upgrade_cell_instance)
 
 func _on_open():
-	Events.emit_signal('open_popup', name)
+	Events.emit_signal('open_screen', name)
 	
 func _on_close():
-	Events.emit_signal('close_popup', name)
+	Events.emit_signal('close_screen', name)

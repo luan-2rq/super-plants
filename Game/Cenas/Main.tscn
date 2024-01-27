@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Game/Scripts/Tree/NormalTreeNode.gd" type="Script" id=1]
 [ext_resource path="res://Game/Scripts/Main.gd" type="Script" id=2]
@@ -12,11 +12,12 @@
 [ext_resource path="res://Game/Scripts/Tree/RootManager.gd" type="Script" id=10]
 [ext_resource path="res://Game/Scripts/PlayerData.gd" type="Script" id=11]
 [ext_resource path="res://Game/Scripts/Tree/PlantManager.gd" type="Script" id=12]
-[ext_resource path="res://Game/Prefabs/Upgrades/UpgradesPopup.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Game/Prefabs/Upgrades/UpgradesScreen.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Game/Scripts/PopupsController.gd" type="Script" id=14]
 [ext_resource path="res://Game/Prefabs/Settings/SettingsPopup.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Game/Sprites/leaf.png" type="Texture" id=16]
 [ext_resource path="res://Game/Prefabs/ShopScreen.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Game/Scripts/ScreensController.gd" type="Script" id=18]
 
 [sub_resource type="Resource" id=13]
 script = ExtResource( 5 )
@@ -110,18 +111,20 @@ script = ExtResource( 2 )
 [node name="BackgroundPlant" type="ColorRect" parent="Main"]
 anchor_right = 1.0
 anchor_bottom = 0.46
+margin_bottom = 154.0
 
 [node name="BackgroundRoot" type="ColorRect" parent="Main"]
 anchor_top = 0.46
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = 154.0
 color = Color( 0.639216, 0.368627, 0.12549, 1 )
 
 [node name="PlantScrollContainer" type="ScrollContainer" parent="Main"]
 anchor_right = 1.0
 anchor_bottom = 0.457
 margin_right = 12.0
-margin_bottom = 5.80005
+margin_bottom = 158.8
 mouse_filter = 1
 scroll_horizontal_enabled = false
 scroll_vertical = 100
@@ -169,8 +172,9 @@ tree_config = SubResource( 11 )
 anchor_top = 0.463
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -3.0
+margin_top = 149.2
 margin_right = 12.0
+margin_bottom = -2.0
 mouse_filter = 1
 scroll_horizontal_enabled = false
 script = ExtResource( 10 )
@@ -197,53 +201,48 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="SettingsButton" type="Button" parent="UI/TopHUD"]
-anchor_left = 0.135
-anchor_right = 0.135
-margin_left = -70.2
-margin_top = 10.0
-margin_right = -0.200005
-margin_bottom = 80.0
-rect_pivot_offset = Vector2( 30, -5 )
-
-[node name="CenterHUDBG" type="ColorRect" parent="UI/TopHUD"]
-anchor_left = 0.167
-anchor_right = 0.833
-anchor_bottom = 0.041
-margin_left = -0.240013
-margin_right = 0.239868
-margin_bottom = 64.4
+[node name="HUDBG" type="ColorRect" parent="UI/TopHUD"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 255.0
+margin_bottom = 105.0
 color = Color( 0.929412, 0.929412, 0.929412, 1 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="UI/TopHUD/CenterHUDBG"]
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/TopHUD/HUDBG"]
 modulate = Color( 0, 0, 0, 1 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -66.5
-margin_top = 25.0
+margin_top = 15.0
 margin_right = 66.5
-margin_bottom = 65.0
+margin_bottom = 55.0
 bbcode_enabled = true
 scroll_active = false
 script = ExtResource( 11 )
 
-[node name="ProgressBarPlaceHolder" type="ColorRect" parent="UI/TopHUD/CenterHUDBG"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -160.0
-margin_top = -50.0
-margin_right = 160.0
-margin_bottom = -20.0
+[node name="ProgressBarPlaceHolder" type="ColorRect" parent="UI/TopHUD"]
+margin_left = 20.0
+margin_top = 115.0
+margin_right = 295.0
+margin_bottom = 137.0
+color = Color( 0.329412, 1, 0.478431, 1 )
+
+[node name="SettingsButton" type="Button" parent="UI/TopHUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -90.0
+margin_top = 30.0
+margin_right = -20.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 30, -5 )
 
 [node name="ShopButton" type="Button" parent="UI/TopHUD"]
-anchor_left = 0.871
-anchor_right = 0.871
-margin_left = -0.119995
-margin_top = 10.0
-margin_right = 69.88
-margin_bottom = 80.0
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -90.0
+margin_top = 120.0
+margin_right = -20.0
+margin_bottom = 190.0
 rect_pivot_offset = Vector2( 30, -5 )
 
 [node name="BottomHUD" type="Control" parent="UI"]
@@ -283,6 +282,7 @@ margin_bottom = 90.0
 rect_min_size = Vector2( 90, 90 )
 rect_pivot_offset = Vector2( 493.5, 354 )
 size_flags_stretch_ratio = 0.28
+text = "salutation"
 
 [node name="CollectiblesButton" type="Button" parent="UI/BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)/ButtonsHBoxContainer"]
 margin_left = 110.0
@@ -345,17 +345,20 @@ script = ExtResource( 14 )
 visible = false
 open_button_path = NodePath("../../TopHUD/SettingsButton")
 
-[node name="UpgradesPopup" parent="UI/Popups" instance=ExtResource( 13 )]
-visible = false
-open_button_path = NodePath("../../BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)/ButtonsHBoxContainer/UpgradesButton")
-
 [node name="Screens" type="Control" parent="UI"]
-visible = false
+anchor_top = 0.128
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = 0.199997
+mouse_filter = 2
+script = ExtResource( 18 )
 
-[node name="Screen" parent="UI/Screens" instance=ExtResource( 17 )]
+[node name="ShopScreen" parent="UI/Screens" instance=ExtResource( 17 )]
 visible = false
+
+[node name="UpgradesPopup" parent="UI/Screens" instance=ExtResource( 13 )]
+visible = false
+open_button_path = NodePath("../../BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)/ButtonsHBoxContainer/UpgradesButton")
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 900, 250 )
