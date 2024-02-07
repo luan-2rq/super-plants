@@ -1,17 +1,18 @@
-extends RichTextLabel
+extends Resource
 class_name PlayerData
 
-var SC 
-var HC
+#Wallet
+var SC : BigNumber
+var HC : BigNumber
 
-var networth
+#Production
+var fruit_value : BigNumber
+var fruit_production_rate : BigNumber
 
-func _ready():
-	self.SC = BigNumber.new(9, 3)
-	self.HC = BigNumber.new(2, 2)
-	self.networth = BigNumber.multiply(SC, HC)
-	
-	print("Value: " + str(networth.value))
-	print("Expoent: " + str(networth.expoent))
-	bbcode_text = "[center]" + self.SC.to_string() + "[/center]"
+#Root
+var root_growth_velocity
+var root_branch_quantity
 
+func _init(SC : BigNumber = null, HC : BigNumber = null):
+	self.SC = SC
+	self.HC = HC

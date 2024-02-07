@@ -13,8 +13,14 @@ var Quadrant = preload("res://External/TerrainDestruction/Prefabs/Quadrant.tscn"
 var Rigid = preload("res://External/TerrainDestruction/Prefabs/RigidBody.tscn")
 
 var polygon
+var bounds : Bounds
 
 func _ready():
+	bounds = Bounds.new()
+	bounds.min_x = self.position.x
+	bounds.min_y = self.position.y
+	bounds.max_x = carve_area_size.x
+	bounds.max_y = carve_area_size.y
 	_generate_carve_area()
 
 func _generate_carve_area():
@@ -34,14 +40,13 @@ func _make_circle_polygon(pos, radius):
 	return pol
 
 func carve(pos, radius):
-	var carve_polygon = PoolVector2Array()
+	var carve_polygon = Array()
 	if polygon == null:
-		carve_polygon = _make_circle_polygon(Vector2(0, 0), radius)
+		carve_polygon = _make_circle_polygon(pos, radius)
 		polygon = carve_polygon
 	else:
-		for point in polygon:
-			carve_polygon.append(point+pos)
-	print("Carved polygon: " + str(Geometry.clip_polygons_2d(carve_area.polygon, carve_polygon)))
+		carve_polygon = _make_circle_polygon(pos, radius)
+	carve_polygon = PoolVector2Array(carve_polygon)
 	carve_area.set_deferred("polygon", Geometry.clip_polygons_2d(carve_area.polygon, carve_polygon)[0])
 
 func add(pos, radius):

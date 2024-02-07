@@ -1,15 +1,76 @@
-extends NonUIElementsCentralizer
+extends Control
 class_name PlantManager
 
+export(PackedScene) var extremity
 var offset = 250
-onready var control = $Control
+
+onready var plant : NormalTreeNode = $PlantScrollContainer/Control/Plant
+onready var plant_scroll_container =  $PlantScrollContainer
+onready var plant_scroll_container_control = $PlantScrollContainer/Control
+
+onready var root : DirectionalTreeNode = $RootScrollContainer/Control/Root
+
+#Pumping
+var temporary_line
+var screen_pressed
+
+var beginning_extremity : Area2D
+var end_extremity : Area2D
 
 func _ready():
-	var initial_scroll = control.rect_size.y - rect_size.y
-	set_deferred('scroll_vertical', initial_scroll)
-	Events.connect("on_grow", self, "_set_focus")
+	#Set initial scroll
+	var initial_scroll = plant_scroll_container_control.rect_size.y - plant_scroll_container.rect_size.y
+	plant_scroll_container.set_deferred('scroll_vertical', initial_scroll)
+	
+	temporary_line = Line2D.new()
+	temporary_line.add_point(Vector2.ZERO)
+	root.add_child(temporary_line)
+	
+	beginning_extremity = extremity.instance()
+	root.add_child(beginning_extremity)
+	
+	end_extremity = extremity.instance()
+	root.add_child(end_extremity)
 
 func _set_focus(tree_type, focus_point):
 	if tree_type == Enums.TreeType.Plant:
 		#print('Focus point: ' + str(control.rect_size.y - rect_size.y - int(focus_point.y)))
-		self.scroll_vertical = control.rect_size.y - rect_size.y - int(focus_point.y) + offset
+		plant_scroll_container.scroll_vertical = plant_scroll_container_control.rect_size.y - plant_scroll_container.rect_size.y - int(focus_point.y) + offset
+
+#pumping controller: Maybe create another code?
+func _input(event):
+	if event is InputEventMouseButton:
+		var area = get_tree().get_root().get_node("Main/UI/Popups")
+		if event.pressed:
+			if is_mouse_over(beginning_extremity.global_position, beginning_extremity.texture.get_size() * beginning_extremity.scale):
+				screen_pressed = true
+				if event.pressed:
+					temporary_line.remove_point(1)
+					temporary_line.add_point(get_global_mouse_position() - root.get_global_position())
+		else:
+			if event.button_index == BUTTON_LEFT:
+				screen_pressed = false
+				var line = temporary_line.duplicate()
+				var end_extremity_duplicate = extremity.instance()
+				end_extremity_duplicate.position = temporary_line.get_point_position(1)
+				#self.direction = (get_global_mouse_position() - plant.get_global_position()).normalized()
+				root.add_child(line)
+				root.add_child(end_extremity_duplicate)
+				temporary_line.remove_point(1)
+				for ground_element in end_extremity.get_overlapping_areas():
+					if ground_element is Groundwater:
+						ground_element.pump(0.05)
+
+func _process(delta):
+	if screen_pressed:
+		temporary_line.remove_point(1)
+		temporary_line.add_point(get_global_mouse_position() -  root.get_global_position())
+		end_extremity.position = get_global_mouse_position() -  root.get_global_position()
+
+func is_mouse_over(rect_global_position: Vector2, rect_size: Vector2) -> bool:
+	# Get the global mouse position
+	var mouse_position = get_viewport().get_mouse_position()
+	# Calculate the rect based on the provided position and size
+	var rect = Rect2(rect_global_position.x, rect_global_position.y, rect_size.x, rect_size.y)
+	# Check if the mouse is inside the rect
+	return rect.has_point(mouse_position)

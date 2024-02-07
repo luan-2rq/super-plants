@@ -6,4 +6,4 @@
 script = ExtResource( 1 )
 
 [node name="CarveArea" type="Polygon2D" parent="."]
-color = Color( 0, 1, 0.227451, 1 )
+color = Color( 0.301961, 0.207843, 0.0352941, 1 )

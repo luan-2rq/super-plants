@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://Game/Scripts/MetricSystemConfig.gd" type="Script" id=1]
+[ext_resource path="res://Game/Sprites/pngtree-money-icon-isolated-dollar-cash-illustration-png-image_6405801.jpg" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+unit_size = 5.0
+unit_texture = ExtResource( 2 )
+horizontal_size = 20.0

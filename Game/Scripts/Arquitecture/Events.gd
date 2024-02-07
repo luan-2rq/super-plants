@@ -9,3 +9,8 @@ signal close_popup(data)
 
 signal open_screen(data)
 signal close_screen(data)
+
+signal on_groundwater_fineshed(data)
+
+signal on_SC_changed(data)
+signal on_HC_changed(data)

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Game/Scripts/GroundElements/Groundwater.gd" type="Script" id=1]
+[ext_resource path="res://Game/Sprites/leaf.png" type="Texture" id=2]
+[ext_resource path="res://Game/Materials/FillMaterial.tres" type="Material" id=3]
+
+[node name="GroundElement" type="Area2D"]
+script = ExtResource( 1 )
+groundwater_material = ExtResource( 3 )
+content_texture = ExtResource( 2 )
+
+[node name="BackgroundSprite" type="Sprite" parent="."]
+scale = Vector2( 1.1, 1.1 )
+texture = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.129412, 0.317647, 0.94902, 1 )
+material = ExtResource( 3 )
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -39, -98.9, -39, -97.8, 22, -90.8, 22, -89.7, 49, -84.7, 49, -83.1, 61, -75.1, 61, -72.4, 81, -16.3, 81, -12.4, 94.7, 53, 95.4, 53, 100, 64.6, 100, 100, 77.3, 100, -50, 41.3, -50, 39.5, -70, 1.5, -70, -1.7, -100, -73.8, -100, -100, -60.7, -100 )

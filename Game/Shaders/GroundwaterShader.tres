@@ -1,0 +1,19 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform float fill_percentage : hint_range(0.0, 1.0) = 1.0;
+uniform vec4 test;
+
+void fragment(){
+	float alpha_mask = step(1.0-fill_percentage, UV.y);
+	
+	vec4 original_color = texture(TEXTURE, UV);
+	
+    COLOR = original_color;
+	
+	COLOR.w = alpha_mask * original_color.w;
+}
+
+"

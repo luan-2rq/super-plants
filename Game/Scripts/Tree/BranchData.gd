@@ -1,5 +1,5 @@
 #Branch is defined by a Curve and its children
-extends Resource
+extends Object
 class_name BranchData
 
 #Hierarchy
@@ -11,14 +11,15 @@ var children : Array
 var position_in_parent : float
 var global_pos : Vector2
 
+#Pode ser passado por parâmetro#
 #Length and density
 var max_length : float
 var n_points : int
 var bake_interval : float
 
 #Points
-var initial_points : PoolVector2Array
-var final_points : PoolVector2Array
+var initial_points : Array
+var final_points : Array
 
 #Growth
 var filled_percentage : float = 0
@@ -30,6 +31,8 @@ var leaf_count : int
 
 #Instance
 var instance
+
+var direction : Vector2
 
 func _init(parent : BranchData, depth : int, position_in_parent: float, max_length : float, n_points : int, bake_interval : float, leaf_count : int):
 	self.parent = parent
