@@ -232,8 +232,8 @@ func trim_points(points : PoolVector2Array, bounds : Bounds) -> BranchPointsResu
 
 #DEBUGGGING
 func _draw():
+	pass
 	# Draw the collision polygon in red
-	var collision_polygon = static_body.get_child(0)
-	if collision_polygon is CollisionPolygon2D:
-		pass
+	#var collision_polygon = static_body.get_child(0)
+	#if collision_polygon is CollisionPolygon2D:
 		#draw_colored_polygon(collision_polygon.polygon, Color(1, 0, 0))

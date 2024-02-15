@@ -39,6 +39,5 @@ func _instantiate_root_metric_units():
 	root_metric_texture.stretch_mode = 2
 	root_metric_texture.add_to_group("NotCentered")
 	root_control_node.add_child(root_metric_texture)
-	root_control_node.move_child(root_metric_texture, 1)
 	var size = Vector2(metric_system_config.horizontal_size, root_control_node.rect_size.y)
 	root_metric_texture.rect_size = size

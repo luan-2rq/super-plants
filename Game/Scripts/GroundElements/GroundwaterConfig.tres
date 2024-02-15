@@ -5,4 +5,4 @@
 
 [resource]
 script = ExtResource( 1 )
-prefab = ExtResource( 2 )
+scene = ExtResource( 2 )

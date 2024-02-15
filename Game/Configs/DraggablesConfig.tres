@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://Game/Prefabs/DraggableButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Game/Scripts/Draggables/DraggableConfig.gd" type="Script" id=2]
+[ext_resource path="res://Game/Scripts/Draggables/DraggablesConfig.gd" type="Script" id=3]
+[ext_resource path="res://Game/Prefabs/SmallTruck.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Resource" id=6]
+script = ExtResource( 2 )
+draggable_type = 0
+item_scene = ExtResource( 4 )
+button_scene = ExtResource( 1 )
+
+[resource]
+script = ExtResource( 3 )
+draggable_buttons_config = [ SubResource( 6 ) ]

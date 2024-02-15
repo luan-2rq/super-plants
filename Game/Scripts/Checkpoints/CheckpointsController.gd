@@ -1,4 +1,4 @@
-extends Control
+extends NonUIElementsCentralizer
 
 export(Resource) var checkpoint_configs
 var checkpoints : Array
@@ -7,7 +7,6 @@ onready var screen_size = OS.window_size
 func _ready():
 	for checkpoint_config in checkpoint_configs.checkpoints:
 		add_checkpoint(CheckpointData.new(false), checkpoint_config)
-
 
 func add_checkpoint(checkpoint_data : CheckpointData, checkpoint_config : CheckpointConfig):
 	var checkpoint = Checkpoint.new(checkpoint_data, checkpoint_config, self.rect_size.y)

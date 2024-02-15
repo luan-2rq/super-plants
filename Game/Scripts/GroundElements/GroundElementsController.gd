@@ -1,13 +1,13 @@
 extends Node2D
 class_name GroundElementsController
 
+export(NodePath) var terrain_path
 onready var screen_size = get_viewport().size
 
 export var ground_elements_config : Resource
-var terrain : Terrain
+onready var terrain : Terrain = get_node(terrain_path)
 
 func _ready():
-	terrain = get_parent()
 	var start_time = OS.get_ticks_msec() / 1000.0
 	position_ground_elements()
 	var end_time = OS.get_ticks_msec() / 1000.0
@@ -20,12 +20,12 @@ func position_ground_elements():
 		positions = Array()
 		for groundwater_config in ground_elements_config.groundwater:
 			#positions.append(Vector2(Random.range_int(terrain.bounds.min_x, terrain.bounds.max_x), Random.range_int(terrain.bounds.min_y, terrain.bounds.max_y)))
-			positions.append(Vector2(Random.range_int(get_parent().global_position.x, get_parent().global_position.x+ screen_size.x), Random.range_int(get_parent().global_position.y, get_parent().global_position.y + screen_size.y)))
+			positions.append(Vector2(Random.range_int(terrain.global_position.x, terrain.global_position.x+ screen_size.x), Random.range_int(terrain.global_position.y, terrain.global_position.y + screen_size.y)))
 		if minimum_distance_achieved(positions):
 			break
 	for i in range(ground_elements_config.groundwater.size()):
-		var cur_groundwater = ground_elements_config.groundwater[i].prefab.instance()
-		add_child(cur_groundwater)
+		var cur_groundwater = ground_elements_config.groundwater[i].scene.instance()
+		terrain.add_child(cur_groundwater)
 		cur_groundwater.global_position = positions[i]
 		
 func minimum_distance_achieved(positions):

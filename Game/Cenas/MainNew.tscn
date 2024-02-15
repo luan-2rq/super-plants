@@ -1,7 +1,7 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Game/Scripts/Tree/NormalTreeNode.gd" type="Script" id=1]
-[ext_resource path="res://Game/Scripts/EconomyController.gd" type="Script" id=2]
+[ext_resource path="res://Game/Scripts/EconomyManager.gd" type="Script" id=2]
 [ext_resource path="res://Game/Scripts/Tree/Config/PlantConfig.tres" type="Resource" id=3]
 [ext_resource path="res://Game/Folder/low_poly_truck.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Game/Scripts/Tree/DirectionalTreeNode.gd" type="Script" id=5]
@@ -9,7 +9,6 @@
 [ext_resource path="res://Game/Cenas/Main.gd" type="Script" id=7]
 [ext_resource path="res://Game/Scripts/Checkpoints/CheckpointConfig.gd" type="Script" id=8]
 [ext_resource path="res://Game/Scripts/Checkpoints/CheckpointsConfig.gd" type="Script" id=9]
-[ext_resource path="res://Game/Scripts/Tree/RootManager.gd" type="Script" id=10]
 [ext_resource path="res://Game/Sprites/images.png" type="Texture" id=11]
 [ext_resource path="res://Game/Scripts/Tree/PlantManager.gd" type="Script" id=12]
 [ext_resource path="res://Game/Prefabs/Upgrades/UpgradesScreen.tscn" type="PackedScene" id=13]
@@ -27,9 +26,12 @@
 [ext_resource path="res://Game/Scripts/TopHUDController.gd" type="Script" id=25]
 [ext_resource path="res://Game/Sprites/white-square-background-56v690fpm25a3o6s.jpg" type="Texture" id=26]
 [ext_resource path="res://Game/Materials/FillMaterial.tres" type="Material" id=27]
-[ext_resource path="res://Game/Materials/GrowthProgressBarMaterial.tres" type="Material" id=28]
+[ext_resource path="res://Game/Scripts/ScrollController.gd" type="Script" id=28]
 [ext_resource path="res://Game/Scripts/VisualMetricSystem.gd" type="Script" id=29]
 [ext_resource path="res://Game/Configs/MetricSystemConfig.tres" type="Resource" id=30]
+[ext_resource path="res://CustomScrollContainer.gd" type="Script" id=31]
+[ext_resource path="res://Game/Scripts/Draggables/DraggableButtonsController.gd" type="Script" id=32]
+[ext_resource path="res://Game/Configs/DraggablesConfig.tres" type="Resource" id=33]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 8 )
@@ -85,40 +87,44 @@ margin_top = -0.643005
 margin_bottom = 0.460083
 color = Color( 0.639216, 0.368627, 0.12549, 1 )
 
-[node name="PlantScrollContainer" type="ScrollContainer" parent="Main/Tree"]
-anchor_right = 1.0
-anchor_bottom = 0.557
-margin_right = 12.0
-margin_bottom = -0.643066
-mouse_filter = 1
-scroll_horizontal_enabled = false
-script = ExtResource( 23 )
+[node name="ScrollController" type="Control" parent="Main/Tree"]
+anchor_right = 1.003
+anchor_bottom = 1.001
+margin_right = -0.153931
+margin_bottom = -0.598999
+script = ExtResource( 28 )
+plant_scroll_container_path = NodePath("PlantScrollContainer")
+root_scroll_container_path = NodePath("RootScrollContainer")
 
-[node name="Control" type="Control" parent="Main/Tree/PlantScrollContainer"]
-margin_right = 718.0
-margin_bottom = 1800.0
-rect_min_size = Vector2( 0, 1800 )
+[node name="PlantScrollContainer" type="Container" parent="Main/Tree/ScrollController"]
+anchor_right = 1.0
+anchor_bottom = 0.556
+margin_bottom = 0.399902
+rect_clip_content = true
+script = ExtResource( 31 )
+horizontal_scroll_enabled = false
+v_scroll = 910
+
+[node name="Control" type="Control" parent="Main/Tree/ScrollController/PlantScrollContainer"]
+margin_top = -910.0
+margin_right = 720.0
+margin_bottom = 890.0
+rect_min_size = Vector2( 720, 1800 )
 mouse_filter = 1
 size_flags_horizontal = 3
 script = ExtResource( 6 )
 checkpoint_configs = SubResource( 4 )
 
-[node name="Polygon2D3" type="Polygon2D" parent="Main/Tree/PlantScrollContainer/Control"]
+[node name="Polygon2D3" type="Polygon2D" parent="Main/Tree/ScrollController/PlantScrollContainer/Control"]
 visible = false
-position = Vector2( 225, 1775 )
-scale = Vector2( 0.653057, 0.845773 )
+position = Vector2( 666.184, 1757.51 )
+scale = Vector2( 1.7698, 1.22512 )
 color = Color( 0.376471, 0.219608, 0.0784314, 1 )
 offset = Vector2( 101.172, -221.099 )
-polygon = PoolVector2Array( -496.237, 261.299, -474.799, 216.37, -453.362, 183.264, -424.268, 150.158, -375.075, 127.961, -319.508, 118.654, -260.153, 120.981, -94.2858, 167.143, -9.98659, 179.406, 44.2008, 180.308, 137.143, 164.286, 212.857, 147.143, 258.674, 150.158, 300.018, 174.987, 330.643, 206.911, 361.268, 245.928, 375.05, 267.211, 254.08, 264.846, -452.11, 261.737 )
+polygon = PoolVector2Array( -496.237, 261.299, -474.799, 216.37, -453.362, 183.264, -424.268, 150.158, -375.075, 127.961, -319.508, 118.654, -260.153, 120.981, -97.886, 145.59, -9.74023, 144.774, 63.1495, 163.548, 137.143, 164.286, 212.857, 147.143, 258.674, 150.158, 300.018, 174.987, 330.643, 206.911, 361.268, 245.928, 375.05, 267.211, 254.08, 264.846, -452.11, 261.737 )
 
-[node name="Polygon2D" type="Polygon2D" parent="Main/Tree/PlantScrollContainer/Control"]
-position = Vector2( 360, 1772 )
-scale = Vector2( 1.73641, 0.50202 )
-color = Color( 0.803922, 0.458824, 0.156863, 1 )
-offset = Vector2( 94.6793, -189.116 )
-polygon = PoolVector2Array( -533.7, 115.414, -383.283, 101.47, -218.498, 39.7195, -90.0721, 15.8161, 14.7417, 31.7517, 114.948, 79.5585, 266.076, 85.5345, 354.125, 117.406, 355.348, 248.875, -536.146, 244.891 )
-
-[node name="Screen" type="Sprite" parent="Main/Tree/PlantScrollContainer/Control"]
+[node name="Screen" type="Sprite" parent="Main/Tree/ScrollController/PlantScrollContainer/Control"]
+visible = false
 position = Vector2( 360, 1625 )
 scale = Vector2( 1.4, 1.4 )
 z_index = 12
@@ -126,107 +132,112 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Plant" type="Node2D" parent="Main/Tree/PlantScrollContainer/Control"]
+[node name="Polygon2D" type="Polygon2D" parent="Main/Tree/ScrollController/PlantScrollContainer/Control"]
+position = Vector2( 360, 1772 )
+scale = Vector2( 1.73641, 0.50202 )
+color = Color( 0.803922, 0.458824, 0.156863, 1 )
+offset = Vector2( 94.6793, -189.116 )
+polygon = PoolVector2Array( -533.7, 115.414, -419.487, 83.5425, -218.498, 39.7195, -90.0721, 15.8161, 131.65, 41.7115, 300.965, 57.6471, 444.94, 51.6713, 532.477, 31.7517, 535.356, 280.746, -536.146, 244.891 )
+
+[node name="Plant" type="Node2D" parent="Main/Tree/ScrollController/PlantScrollContainer/Control"]
 position = Vector2( 360, 1720 )
 scale = Vector2( 1.5, 1.5 )
 script = ExtResource( 1 )
 tree_structure_config = ExtResource( 3 )
 
-[node name="TextureRect" type="TextureRect" parent="Main/Tree/PlantScrollContainer/Control" groups=["NotCentered"]]
-material = ExtResource( 27 )
-anchor_left = 0.7
+[node name="PlantProduction" type="TextureRect" parent="Main/Tree/ScrollController/PlantScrollContainer/Control" groups=["NotCentered"]]
+anchor_left = 0.32
 anchor_top = 0.948
-anchor_right = 0.7
+anchor_right = 0.32
 anchor_bottom = 0.948
-margin_left = -76.6
-margin_top = -127.4
-margin_right = 73.4
-margin_bottom = 22.5999
+margin_left = -50.4
+margin_top = -98.4
+margin_right = 50.6
+margin_bottom = 22.6
+rect_pivot_offset = Vector2( 50, 54 )
 texture = ExtResource( 26 )
 expand = true
 stretch_mode = 1
 
-[node name="ColorRect" type="ColorRect" parent="Main/Tree/PlantScrollContainer/Control" groups=["NotCentered"]]
-anchor_left = 0.314
-anchor_top = 0.939
-anchor_right = 0.314
-anchor_bottom = 0.939
-margin_left = -95.452
-margin_top = -20.2001
-margin_right = 54.548
-margin_bottom = 39.7999
-color = Color( 0.85098, 0.85098, 0.85098, 1 )
+[node name="Fill" type="TextureRect" parent="Main/Tree/ScrollController/PlantScrollContainer/Control/PlantProduction" groups=["NotCentered"]]
+modulate = Color( 0.811765, 0.231373, 0.231373, 1 )
+material = ExtResource( 27 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -50.5
+margin_top = -60.5
+margin_right = 50.5
+margin_bottom = 60.5
+rect_pivot_offset = Vector2( 50, 54 )
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/Tree/PlantScrollContainer/Control/ColorRect"]
-margin_right = 149.0
-margin_bottom = 59.0
+[node name="SellingBoothRight" type="TextureRect" parent="Main/Tree/ScrollController/PlantScrollContainer/Control" groups=["NotCentered"]]
+anchor_left = 0.93
+anchor_top = 0.948
+anchor_right = 0.93
+anchor_bottom = 0.948
+margin_left = -29.4401
+margin_top = -47.4
+margin_right = 29.5599
+margin_bottom = 22.6
+rect_pivot_offset = Vector2( 50, 54 )
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Main/Tree/PlantScrollContainer/Control/ColorRect/VBoxContainer"]
-modulate = Color( 0, 0, 0, 1 )
-margin_right = 149.0
-margin_bottom = 27.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_fonts/normal_font = ExtResource( 24 )
-bbcode_enabled = true
-bbcode_text = "[center]100 maçãs[/center]"
-text = "100 maçãs"
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="Main/Tree/PlantScrollContainer/Control/ColorRect/VBoxContainer"]
-modulate = Color( 0, 0, 0, 1 )
-margin_top = 31.0
-margin_right = 149.0
-margin_bottom = 59.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_fonts/normal_font = ExtResource( 24 )
-bbcode_enabled = true
-bbcode_text = "[center]2/s[/center]"
-text = "2/s"
-
-[node name="GrowthProgress" type="TextureRect" parent="Main/Tree/PlantScrollContainer/Control" groups=["NotCentered"]]
-material = ExtResource( 28 )
-margin_top = 393.0
-margin_right = 30.0
-margin_bottom = 628.0
+[node name="GrowthProgress" type="TextureRect" parent="Main/Tree/ScrollController/PlantScrollContainer/Control" groups=["NotCentered"]]
+margin_top = 392.0
+margin_right = 50.0
+margin_bottom = 626.0
 rect_scale = Vector2( 1, -1 )
 texture = ExtResource( 11 )
 expand = true
 flip_v = true
 
-[node name="RootScrollContainer" type="ScrollContainer" parent="Main/Tree"]
-anchor_top = 0.557
+[node name="Road" type="ColorRect" parent="Main/Tree/ScrollController/PlantScrollContainer/Control"]
+margin_left = -650.0
+margin_top = 1740.0
+margin_right = 1403.0
+margin_bottom = 1800.0
+color = Color( 0.156863, 0.156863, 0.156863, 1 )
+
+[node name="RootScrollContainer" type="Container" parent="Main/Tree/ScrollController"]
+anchor_top = 0.556
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -0.643066
-margin_right = 12.0
-margin_bottom = -2.0
-mouse_filter = 1
-scroll_horizontal_enabled = false
-script = ExtResource( 10 )
+margin_top = 0.399902
+rect_clip_content = true
+script = ExtResource( 31 )
+horizontal_scroll_enabled = false
 
-[node name="Control" type="Control" parent="Main/Tree/RootScrollContainer"]
-margin_right = 718.0
+[node name="Control" type="Control" parent="Main/Tree/ScrollController/RootScrollContainer"]
+margin_right = 720.0
 margin_bottom = 10000.0
-rect_min_size = Vector2( 0, 10000 )
+rect_min_size = Vector2( 720, 10000 )
 mouse_filter = 1
 size_flags_horizontal = 3
+script = ExtResource( 23 )
 
-[node name="Terrain" parent="Main/Tree/RootScrollContainer/Control" instance=ExtResource( 20 )]
-
-[node name="GroundElementsController" type="Node2D" parent="Main/Tree/RootScrollContainer/Control/Terrain"]
+[node name="GroundElementsController" type="Node2D" parent="Main/Tree/ScrollController/RootScrollContainer/Control"]
 script = ExtResource( 21 )
+terrain_path = NodePath("../Terrain")
 ground_elements_config = ExtResource( 22 )
 
-[node name="Root" type="Node2D" parent="Main/Tree/RootScrollContainer/Control"]
+[node name="Terrain" parent="Main/Tree/ScrollController/RootScrollContainer/Control" instance=ExtResource( 20 )]
+
+[node name="Root" type="Node2D" parent="Main/Tree/ScrollController/RootScrollContainer/Control"]
 position = Vector2( 360, 0 )
 script = ExtResource( 5 )
 tree_structure_config = ExtResource( 16 )
 
 [node name="VisualMetricSystem" type="Node2D" parent="Main/Tree"]
 script = ExtResource( 29 )
-plant_control_node_path = NodePath("../PlantScrollContainer/Control")
-root_control_node_path = NodePath("../RootScrollContainer/Control")
+plant_control_node_path = NodePath("../ScrollController/PlantScrollContainer/Control")
+root_control_node_path = NodePath("../ScrollController/RootScrollContainer/Control")
 metric_system_config = ExtResource( 30 )
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -328,7 +339,6 @@ margin_bottom = -14.0
 mouse_filter = 2
 
 [node name="TopHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD"]
-visible = false
 anchor_left = 0.058
 anchor_top = 0.812
 anchor_right = 0.942
@@ -340,21 +350,26 @@ margin_bottom = 0.799927
 custom_constants/separation = 20
 
 [node name="ButtonsVBoxContainer(VAlignement)" type="VBoxContainer" parent="UI/BottomHUD/TopHBoxContainer"]
-margin_right = 310.0
+margin_right = 636.0
 margin_bottom = 120.0
 size_flags_horizontal = 3
 alignment = 2
 
 [node name="ButtonsHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)"]
 margin_top = 30.0
-margin_right = 310.0
+margin_right = 636.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 90, 90 )
 size_flags_horizontal = 3
 size_flags_vertical = 0
 custom_constants/separation = 20
+script = ExtResource( 32 )
+draggable_buttons_config = ExtResource( 33 )
+bottom_scroll_container_control_path = NodePath("../../../../../Main/Tree/ScrollController/RootScrollContainer/Control")
+top_scroll_container_control_path = NodePath("../../../../../Main/Tree/ScrollController/PlantScrollContainer/Control")
 
 [node name="UpgradesButton" type="Button" parent="UI/BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)/ButtonsHBoxContainer"]
+visible = false
 margin_right = 90.0
 margin_bottom = 90.0
 rect_min_size = Vector2( 90, 90 )
@@ -362,23 +377,8 @@ rect_pivot_offset = Vector2( 493.5, 354 )
 size_flags_stretch_ratio = 0.28
 text = "salutation"
 
-[node name="CollectiblesButton" type="Button" parent="UI/BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)/ButtonsHBoxContainer"]
-margin_left = 110.0
-margin_right = 200.0
-margin_bottom = 90.0
-rect_min_size = Vector2( 90, 90 )
-rect_pivot_offset = Vector2( 30, -5 )
-size_flags_stretch_ratio = 0.28
-
-[node name="BoostersButton" type="Button" parent="UI/BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)/ButtonsHBoxContainer"]
-margin_left = 220.0
-margin_right = 310.0
-margin_bottom = 90.0
-rect_min_size = Vector2( 90, 90 )
-rect_pivot_offset = Vector2( 30, -5 )
-size_flags_stretch_ratio = 0.28
-
 [node name="MissionsHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD/TopHBoxContainer"]
+visible = false
 margin_left = 330.0
 margin_right = 636.0
 margin_bottom = 120.0
@@ -406,6 +406,7 @@ custom_constants/separation = 20
 margin_right = 690.0
 margin_bottom = 150.0
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
 
 [node name="Popups" type="Control" parent="UI"]
 anchor_left = 0.3
@@ -447,7 +448,7 @@ render_target_v_flip = true
 [node name="low_poly_truck" parent="Viewport" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.38432, 0 )
 
-[connection signal="pressed" from="UI/BottomHUD/TopHBoxContainer/MissionsHBoxContainer/MissionsPlaceHolder" to="Main/Tree/PlantScrollContainer/Control/Plant" method="_on_Button_pressed"]
-[connection signal="pressed" from="UI/BottomHUD/TopHBoxContainer/MissionsHBoxContainer/MissionsPlaceHolder" to="Main/Tree/RootScrollContainer/Control/Root" method="_on_Button_pressed"]
-[connection signal="pressed" from="UI/BottomHUD/BottomHBoxContainer/IncrementalButton" to="Main/Tree/PlantScrollContainer/Control/Plant" method="_on_Button_pressed"]
-[connection signal="pressed" from="UI/BottomHUD/BottomHBoxContainer/IncrementalButton" to="Main/Tree/RootScrollContainer/Control/Root" method="_on_IncrementalButton_pressed"]
+[connection signal="pressed" from="UI/BottomHUD/TopHBoxContainer/MissionsHBoxContainer/MissionsPlaceHolder" to="Main/Tree/ScrollController/PlantScrollContainer/Control/Plant" method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/BottomHUD/TopHBoxContainer/MissionsHBoxContainer/MissionsPlaceHolder" to="Main/Tree/ScrollController/RootScrollContainer/Control/Root" method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/BottomHUD/BottomHBoxContainer/IncrementalButton" to="Main/Tree/ScrollController/PlantScrollContainer/Control/Plant" method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/BottomHUD/BottomHBoxContainer/IncrementalButton" to="Main/Tree/ScrollController/RootScrollContainer/Control/Root" method="_on_IncrementalButton_pressed"]

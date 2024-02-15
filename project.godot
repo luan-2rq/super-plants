@@ -59,10 +59,45 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://External/TerrainDestruction/Scripts/ColPol.gd"
 }, {
+"base": "Container",
+"class": "CustomScrollContainer",
+"language": "GDScript",
+"path": "res://CustomScrollContainer.gd"
+}, {
 "base": "Node2D",
 "class": "DirectionalTreeNode",
 "language": "GDScript",
 "path": "res://Game/Scripts/Tree/DirectionalTreeNode.gd"
+}, {
+"base": "ColorRect",
+"class": "DraggableButton",
+"language": "GDScript",
+"path": "res://Game/Scripts/Draggables/DraggableButton.gd"
+}, {
+"base": "HBoxContainer",
+"class": "DraggableButtonController",
+"language": "GDScript",
+"path": "res://Game/Scripts/Draggables/DraggableButtonsController.gd"
+}, {
+"base": "Resource",
+"class": "DraggableConfig",
+"language": "GDScript",
+"path": "res://Game/Scripts/Draggables/DraggableConfig.gd"
+}, {
+"base": "Node2D",
+"class": "DraggableItem",
+"language": "GDScript",
+"path": "res://Game/Scripts/Draggables/DraggableItem.gd"
+}, {
+"base": "Resource",
+"class": "DraggablesConfig",
+"language": "GDScript",
+"path": "res://Game/Scripts/Draggables/DraggablesConfig.gd"
+}, {
+"base": "CanvasLayer",
+"class": "EconomyManager",
+"language": "GDScript",
+"path": "res://Game/Scripts/EconomyManager.gd"
 }, {
 "base": "Area2D",
 "class": "GroundElement",
@@ -164,10 +199,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://External/SaveManager.gd"
 }, {
+"base": "Control",
+"class": "ScrollController",
+"language": "GDScript",
+"path": "res://Game/Scripts/ScrollController.gd"
+}, {
+"base": "DraggableItem",
+"class": "SmallTruckItem",
+"language": "GDScript",
+"path": "res://Game/Prefabs/SmallTruckItem.gd"
+}, {
 "base": "Node2D",
 "class": "Terrain",
 "language": "GDScript",
 "path": "res://External/TerrainDestruction/Scripts/Terrain.gd"
+}, {
+"base": "DraggableButton",
+"class": "TransportDragButton",
+"language": "GDScript",
+"path": "res://Game/Scripts/Draggables/Buttons/TransportDragButton.gd"
 }, {
 "base": "TreeStructureConfig",
 "class": "TreeConfig",
@@ -235,7 +285,14 @@ _global_script_class_icons={
 "CheckpointData": "",
 "CheckpointsConfig": "",
 "ColPol": "",
+"CustomScrollContainer": "",
 "DirectionalTreeNode": "",
+"DraggableButton": "",
+"DraggableButtonController": "",
+"DraggableConfig": "",
+"DraggableItem": "",
+"DraggablesConfig": "",
+"EconomyManager": "",
 "GroundElement": "",
 "GroundElementsConfig": "",
 "GroundElementsController": "",
@@ -256,7 +313,10 @@ _global_script_class_icons={
 "RootGrowthVelocity": "",
 "RootManager": "",
 "SaveManager": "",
+"ScrollController": "",
+"SmallTruckItem": "",
 "Terrain": "",
+"TransportDragButton": "",
 "TreeConfig": "",
 "TreeStructureConfig": "",
 "UpgradeCell": "",
@@ -286,8 +346,8 @@ Enums="*res://Game/Scripts/Arquitecture/Enums.gd"
 
 window/size/width=720
 window/size/height=1600
-window/size/test_width=1386
-window/size/test_height=1848
+window/size/test_width=459
+window/size/test_height=1020
 window/dpi/allow_hidpi=true
 window/handheld/orientation="portrait"
 window/stretch/mode="viewport"

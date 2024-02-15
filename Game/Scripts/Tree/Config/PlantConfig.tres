@@ -8,7 +8,7 @@
 script = ExtResource( 3 )
 step_length = 0.7
 __ = "Structural"
-max_depth = 1000
+max_depth = 40
 max_height = 0
 bake_interval = 1.0
 branch_angle_range = 1.5

@@ -4,11 +4,11 @@ class_name PlantManager
 export(PackedScene) var extremity
 var offset = 250
 
-onready var plant : NormalTreeNode = $PlantScrollContainer/Control/Plant
-onready var plant_scroll_container =  $PlantScrollContainer
-onready var plant_scroll_container_control = $PlantScrollContainer/Control
+onready var plant : NormalTreeNode = $ScrollController/PlantScrollContainer/Control/Plant
+onready var plant_scroll_container =  $ScrollController/PlantScrollContainer
+onready var plant_scroll_container_control = $ScrollController/PlantScrollContainer/Control
 
-onready var root : DirectionalTreeNode = $RootScrollContainer/Control/Root
+onready var root : DirectionalTreeNode = $ScrollController/RootScrollContainer/Control/Root
 
 #Pumping
 var temporary_line
@@ -17,11 +17,7 @@ var screen_pressed
 var beginning_extremity : Area2D
 var end_extremity : Area2D
 
-func _ready():
-	#Set initial scroll
-	var initial_scroll = plant_scroll_container_control.rect_size.y - plant_scroll_container.rect_size.y
-	plant_scroll_container.set_deferred('scroll_vertical', initial_scroll)
-	
+func _ready():	
 	temporary_line = Line2D.new()
 	temporary_line.add_point(Vector2.ZERO)
 	root.add_child(temporary_line)
@@ -43,6 +39,7 @@ func _input(event):
 		var area = get_tree().get_root().get_node("Main/UI/Popups")
 		if event.pressed:
 			if is_mouse_over(beginning_extremity.global_position, beginning_extremity.texture.get_size() * beginning_extremity.scale):
+				Events.emit_signal("enable_follow_mode")
 				screen_pressed = true
 				if event.pressed:
 					temporary_line.remove_point(1)
@@ -60,6 +57,7 @@ func _input(event):
 				for ground_element in end_extremity.get_overlapping_areas():
 					if ground_element is Groundwater:
 						ground_element.pump(0.05)
+				Events.emit_signal("disable_follow_mode")
 
 func _process(delta):
 	if screen_pressed:
@@ -68,9 +66,6 @@ func _process(delta):
 		end_extremity.position = get_global_mouse_position() -  root.get_global_position()
 
 func is_mouse_over(rect_global_position: Vector2, rect_size: Vector2) -> bool:
-	# Get the global mouse position
 	var mouse_position = get_viewport().get_mouse_position()
-	# Calculate the rect based on the provided position and size
 	var rect = Rect2(rect_global_position.x, rect_global_position.y, rect_size.x, rect_size.y)
-	# Check if the mouse is inside the rect
 	return rect.has_point(mouse_position)
