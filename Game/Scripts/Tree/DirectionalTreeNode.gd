@@ -20,8 +20,7 @@ func _ready():
 func grow_tree():
 	for i in range(branchs.size()):
 		branchs[i].instance.grow_directional(tree_structure_config.step_length, direction)
-		terrain.carve(branchs[i].instance.points[-1] + Vector2(global_position.x, 0), 50)
-		print(branchs[i].instance.points[-1] + Vector2(global_position.x, 0))
+		terrain.carve(branchs[i].instance.points[-1] + self.branchs[i].instance.global_position, 50)
 		
 	if tree == null:
 		tree = BranchData.new(null, 0, 0, 0, 0, tree_structure_config.bake_interval, 0)

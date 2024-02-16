@@ -9,6 +9,7 @@
 [ext_resource path="res://Game/Cenas/Main.gd" type="Script" id=7]
 [ext_resource path="res://Game/Scripts/Checkpoints/CheckpointConfig.gd" type="Script" id=8]
 [ext_resource path="res://Game/Scripts/Checkpoints/CheckpointsConfig.gd" type="Script" id=9]
+[ext_resource path="res://External/Terrain/Terrain.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Game/Sprites/images.png" type="Texture" id=11]
 [ext_resource path="res://Game/Scripts/Tree/PlantManager.gd" type="Script" id=12]
 [ext_resource path="res://Game/Prefabs/Upgrades/UpgradesScreen.tscn" type="PackedScene" id=13]
@@ -18,7 +19,6 @@
 [ext_resource path="res://Game/Prefabs/ShopScreen.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Game/Scripts/ScreensController.gd" type="Script" id=18]
 [ext_resource path="res://Game/Prefabs/Extrimity.tscn" type="PackedScene" id=19]
-[ext_resource path="res://External/TerrainDestruction/Prefabs/Terrain.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Game/Scripts/GroundElements/GroundElementsController.gd" type="Script" id=21]
 [ext_resource path="res://Game/Scripts/GroundElements/GroundElementsConfig.tres" type="Resource" id=22]
 [ext_resource path="res://Game/Scripts/NonUIElementsCentralizer.gd" type="Script" id=23]
@@ -29,7 +29,7 @@
 [ext_resource path="res://Game/Scripts/ScrollController.gd" type="Script" id=28]
 [ext_resource path="res://Game/Scripts/VisualMetricSystem.gd" type="Script" id=29]
 [ext_resource path="res://Game/Configs/MetricSystemConfig.tres" type="Resource" id=30]
-[ext_resource path="res://CustomScrollContainer.gd" type="Script" id=31]
+[ext_resource path="res://Game/Scripts/CustomScrollContainer.gd" type="Script" id=31]
 [ext_resource path="res://Game/Scripts/Draggables/DraggableButtonsController.gd" type="Script" id=32]
 [ext_resource path="res://Game/Configs/DraggablesConfig.tres" type="Resource" id=33]
 
@@ -227,7 +227,7 @@ script = ExtResource( 21 )
 terrain_path = NodePath("../Terrain")
 ground_elements_config = ExtResource( 22 )
 
-[node name="Terrain" parent="Main/Tree/ScrollController/RootScrollContainer/Control" instance=ExtResource( 20 )]
+[node name="Terrain" parent="Main/Tree/ScrollController/RootScrollContainer/Control" instance=ExtResource( 10 )]
 
 [node name="Root" type="Node2D" parent="Main/Tree/ScrollController/RootScrollContainer/Control"]
 position = Vector2( 360, 0 )

@@ -25,7 +25,7 @@ func position_ground_elements():
 			break
 	for i in range(ground_elements_config.groundwater.size()):
 		var cur_groundwater = ground_elements_config.groundwater[i].scene.instance()
-		terrain.add_child(cur_groundwater)
+		add_child(cur_groundwater)
 		cur_groundwater.global_position = positions[i]
 		
 func minimum_distance_achieved(positions):

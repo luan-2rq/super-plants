@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://CustomScrollContainer.gd" type="Script" id=1]
+[ext_resource path="res://Game/Scripts/CustomScrollContainer.gd" type="Script" id=1]
 [ext_resource path="res://Game/Sprites/white-square-background-56v690fpm25a3o6s.jpg" type="Texture" id=2]
 
 [node name="Node2D" type="Node2D"]

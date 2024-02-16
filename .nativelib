@@ -1,0 +1,11 @@
+{
+    "id": "54065e07-1291-4b4f-b899-7683b4d8cd6a",
+    "platforms": [
+        "all",
+        "android",
+        "ios",
+        "osx",
+        "tvos"
+    ],
+    "packages": {}
+}
