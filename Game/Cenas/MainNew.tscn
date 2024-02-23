@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Game/Scripts/Tree/NormalTreeNode.gd" type="Script" id=1]
 [ext_resource path="res://Game/Scripts/EconomyManager.gd" type="Script" id=2]
@@ -19,7 +19,8 @@
 [ext_resource path="res://Game/Prefabs/ShopScreen.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Game/Scripts/ScreensController.gd" type="Script" id=18]
 [ext_resource path="res://Game/Prefabs/Extrimity.tscn" type="PackedScene" id=19]
-[ext_resource path="res://Game/Scripts/GroundElements/GroundElementsController.gd" type="Script" id=21]
+[ext_resource path="res://Game/Materials/GrowthProgressBar.tres" type="Material" id=20]
+[ext_resource path="res://Game/Scripts/GroundElements/GroundElementsManager.gd" type="Script" id=21]
 [ext_resource path="res://Game/Scripts/GroundElements/GroundElementsConfig.tres" type="Resource" id=22]
 [ext_resource path="res://Game/Scripts/NonUIElementsCentralizer.gd" type="Script" id=23]
 [ext_resource path="res://Game/Fonts/FontPreset.tres" type="DynamicFont" id=24]
@@ -102,7 +103,6 @@ anchor_bottom = 0.556
 margin_bottom = 0.399902
 rect_clip_content = true
 script = ExtResource( 31 )
-horizontal_scroll_enabled = false
 v_scroll = 910
 
 [node name="Control" type="Control" parent="Main/Tree/ScrollController/PlantScrollContainer"]
@@ -190,6 +190,7 @@ expand = true
 stretch_mode = 1
 
 [node name="GrowthProgress" type="TextureRect" parent="Main/Tree/ScrollController/PlantScrollContainer/Control" groups=["NotCentered"]]
+material = ExtResource( 20 )
 margin_top = 392.0
 margin_right = 50.0
 margin_bottom = 626.0
@@ -212,7 +213,6 @@ anchor_bottom = 1.0
 margin_top = 0.399902
 rect_clip_content = true
 script = ExtResource( 31 )
-horizontal_scroll_enabled = false
 
 [node name="Control" type="Control" parent="Main/Tree/ScrollController/RootScrollContainer"]
 margin_right = 720.0
@@ -222,10 +222,10 @@ mouse_filter = 1
 size_flags_horizontal = 3
 script = ExtResource( 23 )
 
-[node name="GroundElementsController" type="Node2D" parent="Main/Tree/ScrollController/RootScrollContainer/Control"]
+[node name="GroundElementsManager" type="Node2D" parent="Main/Tree/ScrollController/RootScrollContainer/Control" groups=["NotCentered"]]
 script = ExtResource( 21 )
-terrain_path = NodePath("../Terrain")
 ground_elements_config = ExtResource( 22 )
+terrain_path = NodePath("../Terrain")
 
 [node name="Terrain" parent="Main/Tree/ScrollController/RootScrollContainer/Control" instance=ExtResource( 10 )]
 
@@ -236,6 +236,7 @@ tree_structure_config = ExtResource( 16 )
 
 [node name="VisualMetricSystem" type="Node2D" parent="Main/Tree"]
 script = ExtResource( 29 )
+scroll_controller_path = NodePath("../ScrollController")
 plant_control_node_path = NodePath("../ScrollController/PlantScrollContainer/Control")
 root_control_node_path = NodePath("../ScrollController/RootScrollContainer/Control")
 metric_system_config = ExtResource( 30 )
@@ -282,8 +283,8 @@ margin_right = 143.0
 margin_bottom = 20.0
 custom_fonts/normal_font = ExtResource( 24 )
 bbcode_enabled = true
-bbcode_text = "5k"
-text = "5k"
+bbcode_text = "0"
+text = "0"
 scroll_active = false
 
 [node name="ProgressBarPlaceHolder" type="ColorRect" parent="UI/TopHUD/MarginContainer/Control"]
@@ -311,8 +312,8 @@ margin_right = 66.5
 margin_bottom = 15.5
 custom_fonts/normal_font = ExtResource( 24 )
 bbcode_enabled = true
-bbcode_text = "5k"
-text = "5k"
+bbcode_text = "0"
+text = "0"
 scroll_active = false
 
 [node name="SettingsButton" type="Button" parent="UI/TopHUD/MarginContainer/Control"]
@@ -340,24 +341,25 @@ mouse_filter = 2
 
 [node name="TopHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD"]
 anchor_left = 0.058
-anchor_top = 0.812
+anchor_top = 0.922
 anchor_right = 0.942
-anchor_bottom = 0.887
-margin_left = -0.260002
-margin_top = 0.799927
-margin_right = 0.259949
-margin_bottom = 0.799927
+anchor_bottom = 0.997
+margin_left = -0.259998
+margin_top = -0.200073
+margin_right = 0.259888
+margin_bottom = -0.199951
 custom_constants/separation = 20
 
 [node name="ButtonsVBoxContainer(VAlignement)" type="VBoxContainer" parent="UI/BottomHUD/TopHBoxContainer"]
-margin_right = 636.0
+margin_right = 369.0
 margin_bottom = 120.0
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
 alignment = 2
 
 [node name="ButtonsHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)"]
 margin_top = 30.0
-margin_right = 636.0
+margin_right = 369.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 90, 90 )
 size_flags_horizontal = 3
@@ -367,6 +369,8 @@ script = ExtResource( 32 )
 draggable_buttons_config = ExtResource( 33 )
 bottom_scroll_container_control_path = NodePath("../../../../../Main/Tree/ScrollController/RootScrollContainer/Control")
 top_scroll_container_control_path = NodePath("../../../../../Main/Tree/ScrollController/PlantScrollContainer/Control")
+terrain_path = NodePath("../../../../../Main/Tree/ScrollController/RootScrollContainer/Control/Terrain")
+ground_elements_manager_path = NodePath("../../../../../Main/Tree/ScrollController/RootScrollContainer/Control/GroundElementsManager")
 
 [node name="UpgradesButton" type="Button" parent="UI/BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)/ButtonsHBoxContainer"]
 visible = false
@@ -378,20 +382,21 @@ size_flags_stretch_ratio = 0.28
 text = "salutation"
 
 [node name="MissionsHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD/TopHBoxContainer"]
-visible = false
-margin_left = 330.0
+margin_left = 389.0
 margin_right = 636.0
 margin_bottom = 120.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
 alignment = 2
 
 [node name="MissionsPlaceHolder" type="Button" parent="UI/BottomHUD/TopHBoxContainer/MissionsHBoxContainer"]
-margin_right = 306.0
+margin_right = 247.0
 margin_bottom = 120.0
 size_flags_horizontal = 3
 
 [node name="BottomHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD"]
+visible = false
 anchor_left = 0.021
 anchor_top = 0.897
 anchor_right = 0.979

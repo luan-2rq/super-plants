@@ -1,8 +1,10 @@
 extends Node2D
 class_name VisualMetricSystem
 
+export(NodePath) var scroll_controller_path
 export(NodePath) var plant_control_node_path
 export(NodePath) var root_control_node_path
+onready var scroll_controller = get_node(scroll_controller_path)
 onready var plant_control_node = get_node(plant_control_node_path)
 onready var root_control_node = get_node(root_control_node_path)
 

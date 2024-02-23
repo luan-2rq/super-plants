@@ -46,8 +46,8 @@ func grow_tree():
 			while i < active_branchs.size():
 				if active_branchs[i].filled_percentage < 1:
 					var result : BranchPointsResult = active_branchs[i].instance.grow(tree_structure_config.step_length)
-					if (result.points[-1].y * tree_structure_config.initial_branch_direction.y + active_branchs[i].instance.global_position.y - tree.instance.global_position.y) * tree_structure_config.initial_branch_direction.y > cur_max_point.y:
-						cur_max_point = ((result.points[-1] * tree_structure_config.initial_branch_direction.y) + active_branchs[i].instance.global_position - tree.instance.global_position) * tree_structure_config.initial_branch_direction.y
+					if abs(result.points[-1].y + active_branchs[i].instance.global_position.y - (self.get_parent().rect_global_position.y + self.get_parent().rect_size.y)) > cur_max_point.y:
+						cur_max_point = (result.points[-1] + active_branchs[i].instance.global_position - (self.get_parent().rect_global_position + self.get_parent().rect_size)).abs()
 					if result.full_grown:
 						for child in active_branchs[i].children:
 							if child.position_in_parent >= active_branchs[i].filled_percentage:
@@ -77,8 +77,8 @@ func grow_tree():
 					branch_to_be_spawned.instance.width = 2
 					branch_parent.instance.add_child(branch_to_be_spawned.instance)
 					var result : BranchPointsResult = branch_to_be_spawned.instance.grow(tree_structure_config.step_length)
-					if (result.points[-1].y * tree_structure_config.initial_branch_direction.y + branch_to_be_spawned.instance.global_position.y - tree.instance.global_position.y) * tree_structure_config.initial_branch_direction.y > cur_max_point.y:
-						cur_max_point = ((result.points[-1] * tree_structure_config.initial_branch_direction.y)+ branch_to_be_spawned.instance.global_position - tree.instance.global_position) * tree_structure_config.initial_branch_direction.y
+					if abs(result.points[-1].y + branch_to_be_spawned.instance.global_position.y - (self.get_parent().rect_global_position.y + self.get_parent().rect_size.y)) > cur_max_point.y:
+						cur_max_point = (result.points[-1] + branch_to_be_spawned.instance.global_position - (self.get_parent().rect_global_position + self.get_parent().rect_size)).abs()
 						
 					#3.2: Coloca na fila de spawn os filhos da branch spawnada
 					var branch_count = Random.range_int(1, tree_structure_config.max_branch_count)
@@ -105,8 +105,7 @@ func grow_tree():
 
 func _process(delta): 
 	#tree_structure_config.step_length = grow_step * delta
-	grow_tree()
-	
+	pass
 func init(data):
 	tree = data[0]
 	active_branchs.append(tree)

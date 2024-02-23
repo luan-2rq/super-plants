@@ -20,3 +20,5 @@ signal enable_scroll()
 
 signal enable_follow_mode()
 signal disable_follow_mode()
+
+signal on_start_pump(data)

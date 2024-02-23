@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource( 3 )
-step_length = 0.7
+step_length = 0.25
 __ = "Structural"
 max_depth = 40
 max_height = 0
@@ -19,9 +19,9 @@ ___ = "Visual"
 stem_color = Color( 0.00784314, 0.4, 0.0313726, 1 )
 n_points_per_branch = 5.0
 initial_branch_direction = Vector2( 0, -1 )
-max_branch_count = 3
-initial_branch_length = 200
-max_branch_length = 120.0
-max_leaf_count = 3
+max_branch_count = 1
+initial_branch_length = 500
+max_branch_length = 280.0
+max_leaf_count = 21
 leaf_texture = ExtResource( 1 )
 leaf_color = Color( 0.0941176, 0.933333, 0.262745, 1 )

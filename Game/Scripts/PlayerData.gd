@@ -3,6 +3,7 @@ class_name PlayerData
 
 #Wallet
 var SC : BigNumber
+var SC_per_sec : BigNumber = BigNumber.new(1, 0)
 var HC : BigNumber
 
 #Production

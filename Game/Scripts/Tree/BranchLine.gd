@@ -21,6 +21,7 @@ func _init(branch_data : BranchData, tree_config : TreeStructureConfig):
 func _ready():
 	static_body = StaticBody2D.new()
 	add_child(static_body)
+	static_body.collision_layer = 2
 	
 	raycast = RayCast2DDraw.new()
 	raycast.global_position = self.global_position + points[-1] if points.size() > 0 else Vector2.ZERO
@@ -77,14 +78,6 @@ func add_point(position : Vector2, index : int = -1):
 			leafs.remove(i)
 			i-=1
 		i+=1
-
-#Points must be of size 2 >
-func expand(point_a : Vector2, point_b : Vector2, delta : int) -> PoolVector2Array:
-	var right_vec = (point_b - point_a).normalized().rotated(1.5708).normalized()
-	var left_vec = (point_b - point_a).normalized().rotated(-1.5708).normalized()
-	
-	var result = PoolVector2Array([right_vec * point_b * delta, left_vec * point_b * delta])
-	return result
 	
 func grow(length) -> BranchPointsResult:
 	var points_result : BranchPointsResult = BranchPointsResult.new(false, PoolVector2Array())
@@ -127,8 +120,9 @@ func grow(length) -> BranchPointsResult:
 	#Verifica colisões com outras branchs
 	if raycast.is_colliding():
 		if raycast.get_collider() != static_body and !raycast.get_collider().is_in_group(str(tree_config.get_instance_id())):
-			points_result.full_grown = true
-			raycast.enabled = false
+			pass
+			#points_result.full_grown = true
+			#raycast.enabled = false
 			
 	if branch_data.current_length == branch_data.max_length:
 		points_result.full_grown = true
@@ -142,15 +136,16 @@ func grow(length) -> BranchPointsResult:
 		i+=1
 
 	var line_poly = Geometry.offset_polygon_2d(self.points, width/2)
+	#if static_body.get_child_count() > 0:
+		#static_body.get_child(0).polygon = line_poly
 	#print("Size: " + str(line_poly.size()))
 	
 	for poly in line_poly:
 		if static_body.get_child_count() <= 0:
 			var col = CollisionPolygon2D.new()
 			col.add_to_group(str(tree_config.get_instance_id()), true)
-			col.polygon = poly
+			col.polygon = line_poly[0]
 			static_body.add_child(col)
-			static_body.collision_layer = 2
 	return points_result
 
 func grow_directional(length, direction : Vector2):
@@ -230,10 +225,10 @@ func trim_points(points : PoolVector2Array, bounds : Bounds) -> BranchPointsResu
 	points.resize(new_size)
 	return BranchPointsResult.new(full_grown, points)
 
-#DEBUGGGING
-func _draw():
-	pass
-	# Draw the collision polygon in red
-	#var collision_polygon = static_body.get_child(0)
-	#if collision_polygon is CollisionPolygon2D:
-		#draw_colored_polygon(collision_polygon.polygon, Color(1, 0, 0))
+#Points must be of size 2 >
+func expand(point_a : Vector2, point_b : Vector2, delta : int) -> PoolVector2Array:
+	var right_vec = (point_b - point_a).normalized().rotated(1.5708).normalized()
+	var left_vec = (point_b - point_a).normalized().rotated(-1.5708).normalized()
+	
+	var result = PoolVector2Array([right_vec * point_b * delta, left_vec * point_b * delta])
+	return result

@@ -16,7 +16,6 @@ var direction = Vector2(0, 1)
 func _ready():
 	pass
 
-
 func grow_tree():
 	for i in range(branchs.size()):
 		branchs[i].instance.grow_directional(tree_structure_config.step_length, direction)

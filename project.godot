@@ -360,9 +360,9 @@ _global_script_classes=[ {
 "path": "res://Game/Scripts/GroundElements/GroundElementsConfig.gd"
 }, {
 "base": "Node2D",
-"class": "GroundElementsController",
+"class": "GroundElementsManager",
 "language": "GDScript",
-"path": "res://Game/Scripts/GroundElements/GroundElementsController.gd"
+"path": "res://Game/Scripts/GroundElements/GroundElementsManager.gd"
 }, {
 "base": "GroundElement",
 "class": "Groundwater",
@@ -379,10 +379,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/GroundElements/GroundwaterData.gd"
 }, {
-"base": "Object",
+"base": "Resource",
 "class": "GrowData",
 "language": "GDScript",
 "path": "res://Game/Scripts/Tree/GrowData.gd"
+}, {
+"base": "DraggableConfig",
+"class": "InnerScannerConfig",
+"language": "GDScript",
+"path": "res://InnerScannerConfig.gd"
+}, {
+"base": "DraggableItem",
+"class": "InnerScannerItem",
+"language": "GDScript",
+"path": "res://Game/Scripts/Scanner/InnerScannerItem.gd"
 }, {
 "base": "Sprite",
 "class": "Leaf",
@@ -473,6 +483,16 @@ _global_script_classes=[ {
 "class": "Terrain",
 "language": "GDScript",
 "path": "res://External/Terrain/Terrain.gd"
+}, {
+"base": "DraggableItem",
+"class": "TerrestrialScanner",
+"language": "GDScript",
+"path": "res://Game/Scripts/ExcavatorItem.gd"
+}, {
+"base": "DraggableConfig",
+"class": "TerrestrialScannerConfig",
+"language": "GDScript",
+"path": "res://Game/Scripts/Scanner/ExcavatorConfig.gd"
 }, {
 "base": "DraggableButton",
 "class": "TransportDragButton",
@@ -605,11 +625,13 @@ _global_script_class_icons={
 "GDEaseFunc": "",
 "GroundElement": "",
 "GroundElementsConfig": "",
-"GroundElementsController": "",
+"GroundElementsManager": "",
 "Groundwater": "",
 "GroundwaterConfig": "",
 "GroundwaterData": "",
 "GrowData": "",
+"InnerScannerConfig": "",
+"InnerScannerItem": "",
 "Leaf": "",
 "MetricSystemConfig": "",
 "NonUIElementsCentralizer": "",
@@ -628,6 +650,8 @@ _global_script_class_icons={
 "SmallTruckItem": "",
 "SplashContainer": "res://addons/awesome_splash/assets/icon/splash_container_icon.png",
 "Terrain": "",
+"TerrestrialScanner": "",
+"TerrestrialScannerConfig": "",
 "TransportDragButton": "",
 "TreeConfig": "",
 "TreeStructureConfig": "",
@@ -664,6 +688,7 @@ gd="*res://addons/godot-action/utils_gd_action.tscn"
 
 window/size/width=720
 window/size/height=1600
+window/size/always_on_top=true
 window/dpi/allow_hidpi=true
 window/handheld/orientation="portrait"
 window/stretch/mode="viewport"

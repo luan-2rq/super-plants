@@ -47,15 +47,15 @@ func _on_disable_scroll():
 	print("Disable Scroll")
 	plant_scroll_container.set_vertical_scroll_enabled(false)
 	root_scroll_container.set_vertical_scroll_enabled(false)
-	#plant_scroll_container.set_horizontal_scroll_enabled(false)
-	#root_scroll_container.set_horizontal_scroll_enabled(false)
+	plant_scroll_container.set_horizontal_scroll_enabled(false)
+	root_scroll_container.set_horizontal_scroll_enabled(false)
 	
 func _on_enable_scroll():
 	print("Enable Scroll")
 	plant_scroll_container.set_vertical_scroll_enabled(true)
 	root_scroll_container.set_vertical_scroll_enabled(true)
-	#plant_scroll_container.set_horizontal_scroll_enabled(true
-	#root_scroll_container.set_horizontal_scroll_enabled(true)
+	plant_scroll_container.set_horizontal_scroll_enabled(true)
+	root_scroll_container.set_horizontal_scroll_enabled(true)
 	
 func _on_enable_follow_mode():
 	print("Enable Follow Mode")

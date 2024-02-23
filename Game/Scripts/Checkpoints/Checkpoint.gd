@@ -15,5 +15,5 @@ func _ready():
 
 func _verify_checkpoint_achieved(tree_type, max_point):
 	if tree_type == checkpoint_config.tree_type:
-		if max_point.y > control_vertical_rect_size - rect_position.y:
+		if control_vertical_rect_size - max_point.y < rect_position.y + rect_size.y:
 			visible = false

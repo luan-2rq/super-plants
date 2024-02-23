@@ -38,7 +38,13 @@ func _ready() -> void:
 	apply_scroll()
 	
 func _on_resize():
-	self.max_scroll = $Control.rect_size - rect_size
+	self.max_scroll = clamp_to_zero($Control.rect_size - rect_size)
+	
+func clamp_to_zero(vector : Vector2):
+	var clamped_to_zero = Vector2()
+	clamped_to_zero.x = clamp(vector.x, 0, INF)
+	clamped_to_zero.y = clamp(vector.y, 0, INF)
+	return clamped_to_zero
 	
 func _input(event: InputEvent) -> void:
 	if vertical_scroll_enabled or horizontal_scroll_enabled:
@@ -63,27 +69,46 @@ func _input(event: InputEvent) -> void:
 			if dragging:
 				var direction_vector = (last_drag_pos - event.position)
 				last_drag_pos = event.position
-				if vertical_scroll_enabled:
-					set_v_scroll(v_scroll + direction_vector.y)
-				if horizontal_scroll_enabled:
-					set_h_scroll(h_scroll + direction_vector.x)
-				
+				if abs(direction_vector.y) > abs(direction_vector.x):
+					if vertical_scroll_enabled:
+						set_v_scroll(v_scroll + direction_vector.y)
+					else:
+						if horizontal_scroll_enabled:
+							set_h_scroll(h_scroll + direction_vector.x)
+				else:		
+					if horizontal_scroll_enabled:
+						set_h_scroll(h_scroll + direction_vector.x)
+					else:
+						if vertical_scroll_enabled:
+							set_v_scroll(v_scroll + direction_vector.y)
+						
+						
 			if event is InputEventMouseButton:
-				if event.button_index == BUTTON_WHEEL_UP and event.is_pressed():
-					set_v_scroll(v_scroll - event.get_factor() * rect_size.y /8) 
-				if event.button_index == BUTTON_WHEEL_DOWN and event.is_pressed():
-					set_v_scroll(v_scroll + event.get_factor() * rect_size.y /8) 
-				if event.button_index == BUTTON_WHEEL_LEFT and event.is_pressed():
-					set_h_scroll(h_scroll - event.get_factor() * rect_size.x /8)
-				if event.button_index == BUTTON_WHEEL_RIGHT and event.is_pressed():
-					set_h_scroll(h_scroll + + event.get_factor() * rect_size.x /8)
+				if is_mouse_over(self.rect_global_position, self.rect_size):
+					if event.button_index == BUTTON_WHEEL_UP and event.is_pressed():
+						set_v_scroll(v_scroll - event.get_factor() * rect_size.y /8) 
+					if event.button_index == BUTTON_WHEEL_DOWN and event.is_pressed():
+						set_v_scroll(v_scroll + event.get_factor() * rect_size.y /8) 
+					if event.button_index == BUTTON_WHEEL_LEFT and event.is_pressed():
+						set_h_scroll(h_scroll - event.get_factor() * rect_size.x /8)
+					if event.button_index == BUTTON_WHEEL_RIGHT and event.is_pressed():
+						set_h_scroll(h_scroll + + event.get_factor() * rect_size.x /8)
 					
 			if event is InputEventPanGesture:
 				if is_mouse_over(self.rect_global_position, self.rect_size):
-					if vertical_scroll_enabled:
-						set_v_scroll(v_scroll + event.delta.y * 8)
-					if horizontal_scroll_enabled:
-						set_h_scroll(h_scroll + event.delta.x * 8)
+					if(!dragging):
+						if abs(event.delta.y) > abs(event.delta.x):
+							if vertical_scroll_enabled:
+								set_v_scroll(v_scroll + event.delta.y* 8)
+							else:
+								if horizontal_scroll_enabled:
+									set_h_scroll(h_scroll + event.delta.x* 8)
+						else:		
+							if horizontal_scroll_enabled:
+								set_h_scroll(h_scroll + event.delta.x* 8)
+							else:
+								if vertical_scroll_enabled:
+									set_v_scroll(v_scroll + event.delta.y* 8)
 
 func set_v_scroll(value):
 	self.v_scroll = clamp(value, 0, max_scroll.y)

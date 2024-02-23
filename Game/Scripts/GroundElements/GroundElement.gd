@@ -1,11 +1,11 @@
 extends Area2D
 class_name GroundElement
 
+onready var terrain = $"../../Terrain"
 onready var sprite : Sprite = $Sprite
 onready var collision_polygon_2d : CollisionPolygon2D = $CollisionPolygon2D
 
 func _ready():
-	pass
 	var polys = sprite_to_polygon()
 	collision_polygon_2d.polygon = Transform2D(0, Vector2(-sprite.texture.get_size().x/2, -sprite.texture.get_size().y/2)).xform(polys[0])
 	
@@ -23,6 +23,10 @@ func sprite_to_polygon():
 		  5
 		)
 	return polys
+	
+func reveal():
+	#Fix to use current groundelement radius
+	var quadrants = terrain.carve(self.global_position, 100)
 
 func overlaps(area_2d):
 	return overlaps_area(area_2d)

@@ -106,7 +106,6 @@ func _avg_position(array: Array):
 		sum += p
 	return sum/len(array)
 
-
 func _new_pol(polygon):
 	"""
 	Returns Pol instance
@@ -114,4 +113,5 @@ func _new_pol(polygon):
 	"""
 	var pol = Pol.instance()
 	pol.polygon = polygon
+	#pol.color = Color(Random.range_float(0, 1), Random.range_float(0, 1), Random.range_float(0, 1), 1)
 	return pol
