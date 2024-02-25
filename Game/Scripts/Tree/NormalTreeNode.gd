@@ -16,6 +16,7 @@ var cur_max_point = Vector2.ZERO
 
 var grow_step = 10
 	
+
 #FUNÇÃO INCREMENTAL PARA CRESCER A ÁRVORE: -> Sem Retorno
 # 1: Gera o primeiro branch
 # 2: Aplica crescimento nos branchs ativos
@@ -106,6 +107,7 @@ func grow_tree():
 func _process(delta): 
 	#tree_structure_config.step_length = grow_step * delta
 	pass
+	
 func init(data):
 	tree = data[0]
 	active_branchs.append(tree)

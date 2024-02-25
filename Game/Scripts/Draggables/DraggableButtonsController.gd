@@ -25,13 +25,17 @@ func _ready() -> void:
 	referential_line = Line2D.new()
 	referential_line.add_to_group("NotCentered")
 	bottom_scroll_container_control.add_child(referential_line)
+	
+	_instantiate_buttons()
+
+func _instantiate_buttons():	
 	for draggable_button_config in draggable_buttons_config.draggable_buttons_config:
 		var button_instance = draggable_button_config.button_scene.instance()
 		button_instance.config = draggable_button_config
 		add_child(button_instance)
 		buttons.append(button_instance)
 		button_instance.connect("clicked", self, "_on_draggable_button_toggled", [button_instance])
-		
+
 func _on_draggable_button_toggled(pressed_button):
 	Events.emit_signal("disable_scroll")
 	self.cur_pressed_button = pressed_button

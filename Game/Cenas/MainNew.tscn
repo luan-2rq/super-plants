@@ -73,6 +73,8 @@ margin_right = 0.159973
 margin_bottom = 0.599854
 script = ExtResource( 12 )
 extremity = ExtResource( 19 )
+plant_production_fill_path = NodePath("ScrollController/PlantScrollContainer/Control/PlantProduction/Fill")
+plant_production_fill_material = ExtResource( 27 )
 
 [node name="BackgroundPlant" type="ColorRect" parent="Main/Tree"]
 anchor_right = 1.0

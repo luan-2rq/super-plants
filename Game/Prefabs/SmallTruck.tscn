@@ -6,6 +6,8 @@
 
 [node name="SmallTruck" type="Node2D"]
 script = ExtResource( 2 )
+fill_material = ExtResource( 3 )
+fill_sprite_path = NodePath("Background/Fill")
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 0.768627, 0.854902, 0.00392157, 1 )
@@ -14,7 +16,7 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -500 )
 
 [node name="Background" type="Sprite" parent="."]
-modulate = Color( 0.0196078, 0.27451, 0.545098, 1 )
+modulate = Color( 0.156863, 0.443137, 0.745098, 1 )
 position = Vector2( -8, 0 )
 scale = Vector2( 0.035, 0.035 )
 texture = ExtResource( 1 )

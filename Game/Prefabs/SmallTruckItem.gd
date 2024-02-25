@@ -1,13 +1,12 @@
 extends DraggableItem
 class_name SmallTruckItem
 
-var start_action = false
+export(Material) var fill_material
+export(NodePath) var fill_sprite_path
+onready	var fill_sprite : Sprite = get_node(fill_sprite_path)
+
+func _ready() -> void:
+	fill_sprite.set_material(fill_material.duplicate())
 
 func start_action() -> void:
-	start_action = true
-	
-func _proccess(delta):
-	if start_action:
-		pass
-	else:
-		pass
+	pass

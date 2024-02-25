@@ -2,7 +2,14 @@ extends Control
 class_name PlantManager
 
 export(PackedScene) var extremity
+export(NodePath) var plant_production_fill_path
+export(Material) var plant_production_fill_material
+
 var offset = 250
+var production_yield_time = 1
+var elapsed_time = 0
+
+onready var plant_producion_fill = get_node(plant_production_fill_path)
 
 onready var plant : NormalTreeNode = $ScrollController/PlantScrollContainer/Control/Plant
 onready var plant_scroll_container =  $ScrollController/PlantScrollContainer
@@ -11,6 +18,7 @@ onready var plant_scroll_container_control = $ScrollController/PlantScrollContai
 onready var root : DirectionalTreeNode = $ScrollController/RootScrollContainer/Control/Root
 
 onready var grow_data = GrowData.new()
+
 #Pumping
 var temporary_line
 var dragging_root : bool
@@ -31,6 +39,8 @@ func _ready():
 	
 	Events.connect("on_start_pump", self, "_on_water_pump_start")
 	Events.connect("on_grow", self, "_on_plant_grow")
+	
+	plant_producion_fill.set_material(plant_production_fill_material.duplicate())
 
 #To do: input this root logic from here
 func _input(event):
@@ -69,6 +79,11 @@ func _process(delta):
 	
 	if grow_data.height_to_grow > grow_data.height:
 		plant.grow_tree()
+	
+	elapsed_time += delta
+	if production_yield_time < elapsed_time:
+		plant_producion_fill.material.set_shader_param("fill_percentage", plant_producion_fill.material.get_shader_param("fill_percentage") + 0.05)
+		elapsed_time = 0
 
 func is_mouse_over(rect_global_position: Vector2, rect_size: Vector2) -> bool:
 	var mouse_position = get_viewport().get_mouse_position()

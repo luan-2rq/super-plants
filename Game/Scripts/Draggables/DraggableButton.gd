@@ -1,10 +1,19 @@
-extends ColorRect
+extends Control
 class_name DraggableButton
 
-var config
+export(NodePath) var quantity_label_path
+export(NodePath) var price_label_path
 
+onready var quantity_label = get_node(quantity_label_path)
+onready var price_label = get_node(price_label_path)
+
+var config
 signal clicked
 var pressed = false
+	
+func _ready() -> void:
+	price_label.bbcode_text = "[center]"+str(config.price)+"[/center]"
+	#quantity_label.bbcode = "[center]"+str(config.price)+"[/center]"
 	
 func _input(event):
 	if event is InputEventMouseButton:

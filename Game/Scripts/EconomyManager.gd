@@ -12,10 +12,11 @@ func _ready() -> void:
 	player_data = PlayerData.new(BigNumber.new(0, 0), BigNumber.new(0, 0))
 
 func _process(delta) -> void:
-	elapsed_time += delta
-	if elapsed_time > yield_time:
-		elapsed_time = 0
-		self.add_currency(Enums.CurrencyType.SC, player_data.SC_per_sec)
+	pass
+	#elapsed_time += delta
+	#if elapsed_time > yield_time:
+		#elapsed_time = 0
+		#self.add_currency(Enums.CurrencyType.SC, player_data.SC_per_sec)
 		
 func add_currency(currency_name, amount):
 	match currency_name:
