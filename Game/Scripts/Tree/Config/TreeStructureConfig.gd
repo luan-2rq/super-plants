@@ -22,6 +22,8 @@ export var bounds : Resource
 
 export(Enums.TreeType) var tree_type
 
+export(int) var initial_points_density
+
 #Visual
 export var ___ = "Visual"
 export var stem_color : Color

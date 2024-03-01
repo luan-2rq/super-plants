@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource( 1 )
-step_length = 10
+step_length = 0.05
 __ = "Structural"
 max_depth = 1000
 max_height = 0
@@ -14,6 +14,7 @@ branch_angle_range = 1.5
 initial_branch_count = 4
 bounds = ExtResource( 2 )
 tree_type = 1
+initial_points_density = 3
 ___ = "Visual"
 stem_color = Color( 0.254902, 0.231373, 0.0117647, 1 )
 n_points_per_branch = 5.0
@@ -23,3 +24,4 @@ initial_branch_length = 200
 max_branch_length = 120.0
 max_leaf_count = 0
 leaf_color = Color( 0, 0, 0, 1 )
+max_collectable_count = 0

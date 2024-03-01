@@ -32,14 +32,12 @@ func _on_close():
 	Events.emit_signal('close_popup', name)
 
 func _on_language_forward():
-	print('Current index: ' + str(current_locale_index))
 	current_locale_index = (current_locale_index + 1) % locales.size()
 	var next_locale = locales[current_locale_index]
 	TranslationServer.set_locale(next_locale)
 	set_current_language_text(next_locale)
 	
 func _on_language_backward():
-	print('Current index: ' + str(current_locale_index))
 	current_locale_index = (current_locale_index - 1) % locales.size()
 	var past_locale = locales[current_locale_index]
 	TranslationServer.set_locale(past_locale)

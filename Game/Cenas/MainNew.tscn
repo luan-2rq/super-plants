@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Game/Scripts/Tree/NormalTreeNode.gd" type="Script" id=1]
 [ext_resource path="res://Game/Scripts/EconomyManager.gd" type="Script" id=2]
@@ -26,7 +26,6 @@
 [ext_resource path="res://Game/Fonts/FontPreset.tres" type="DynamicFont" id=24]
 [ext_resource path="res://Game/Scripts/TopHUDController.gd" type="Script" id=25]
 [ext_resource path="res://Game/Sprites/white-square-background-56v690fpm25a3o6s.jpg" type="Texture" id=26]
-[ext_resource path="res://Game/Materials/FillMaterial.tres" type="Material" id=27]
 [ext_resource path="res://Game/Scripts/ScrollController.gd" type="Script" id=28]
 [ext_resource path="res://Game/Scripts/VisualMetricSystem.gd" type="Script" id=29]
 [ext_resource path="res://Game/Configs/MetricSystemConfig.tres" type="Resource" id=30]
@@ -63,26 +62,24 @@ checkpoint_vertical_size = 70.0
 [node name="Main" type="Node2D"]
 script = ExtResource( 7 )
 
-[node name="Main" type="CanvasLayer" parent="."]
+[node name="MainCanvas" type="CanvasLayer" parent="."]
 script = ExtResource( 2 )
 
-[node name="Tree" type="Control" parent="Main"]
+[node name="Tree" type="Control" parent="MainCanvas"]
 anchor_right = 0.997
 anchor_bottom = 0.999
 margin_right = 0.159973
 margin_bottom = 0.599854
 script = ExtResource( 12 )
 extremity = ExtResource( 19 )
-plant_production_fill_path = NodePath("ScrollController/PlantScrollContainer/Control/PlantProduction/Fill")
-plant_production_fill_material = ExtResource( 27 )
 
-[node name="BackgroundPlant" type="ColorRect" parent="Main/Tree"]
+[node name="BackgroundPlant" type="ColorRect" parent="MainCanvas/Tree"]
 anchor_right = 1.0
 anchor_bottom = 0.556
 margin_bottom = 0.495972
 color = Color( 0.294118, 0.584314, 0.847059, 1 )
 
-[node name="BackgroundRoot" type="ColorRect" parent="Main/Tree"]
+[node name="BackgroundRoot" type="ColorRect" parent="MainCanvas/Tree"]
 anchor_top = 0.557
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -90,7 +87,7 @@ margin_top = -0.643005
 margin_bottom = 0.460083
 color = Color( 0.639216, 0.368627, 0.12549, 1 )
 
-[node name="ScrollController" type="Control" parent="Main/Tree"]
+[node name="ScrollController" type="Control" parent="MainCanvas/Tree"]
 anchor_right = 1.003
 anchor_bottom = 1.001
 margin_right = -0.153931
@@ -99,7 +96,7 @@ script = ExtResource( 28 )
 plant_scroll_container_path = NodePath("PlantScrollContainer")
 root_scroll_container_path = NodePath("RootScrollContainer")
 
-[node name="PlantScrollContainer" type="Container" parent="Main/Tree/ScrollController"]
+[node name="PlantScrollContainer" type="Container" parent="MainCanvas/Tree/ScrollController"]
 anchor_right = 1.0
 anchor_bottom = 0.556
 margin_bottom = 0.399902
@@ -107,7 +104,7 @@ rect_clip_content = true
 script = ExtResource( 31 )
 v_scroll = 910
 
-[node name="Control" type="Control" parent="Main/Tree/ScrollController/PlantScrollContainer"]
+[node name="Control" type="Control" parent="MainCanvas/Tree/ScrollController/PlantScrollContainer"]
 margin_top = -910.0
 margin_right = 720.0
 margin_bottom = 890.0
@@ -117,7 +114,7 @@ size_flags_horizontal = 3
 script = ExtResource( 6 )
 checkpoint_configs = SubResource( 4 )
 
-[node name="Polygon2D3" type="Polygon2D" parent="Main/Tree/ScrollController/PlantScrollContainer/Control"]
+[node name="Polygon2D3" type="Polygon2D" parent="MainCanvas/Tree/ScrollController/PlantScrollContainer/Control"]
 visible = false
 position = Vector2( 666.184, 1757.51 )
 scale = Vector2( 1.7698, 1.22512 )
@@ -125,7 +122,7 @@ color = Color( 0.376471, 0.219608, 0.0784314, 1 )
 offset = Vector2( 101.172, -221.099 )
 polygon = PoolVector2Array( -496.237, 261.299, -474.799, 216.37, -453.362, 183.264, -424.268, 150.158, -375.075, 127.961, -319.508, 118.654, -260.153, 120.981, -97.886, 145.59, -9.74023, 144.774, 63.1495, 163.548, 137.143, 164.286, 212.857, 147.143, 258.674, 150.158, 300.018, 174.987, 330.643, 206.911, 361.268, 245.928, 375.05, 267.211, 254.08, 264.846, -452.11, 261.737 )
 
-[node name="Screen" type="Sprite" parent="Main/Tree/ScrollController/PlantScrollContainer/Control"]
+[node name="Screen" type="Sprite" parent="MainCanvas/Tree/ScrollController/PlantScrollContainer/Control"]
 visible = false
 position = Vector2( 360, 1625 )
 scale = Vector2( 1.4, 1.4 )
@@ -134,64 +131,20 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Polygon2D" type="Polygon2D" parent="Main/Tree/ScrollController/PlantScrollContainer/Control"]
+[node name="Polygon2D" type="Polygon2D" parent="MainCanvas/Tree/ScrollController/PlantScrollContainer/Control"]
 position = Vector2( 360, 1772 )
 scale = Vector2( 1.73641, 0.50202 )
 color = Color( 0.803922, 0.458824, 0.156863, 1 )
 offset = Vector2( 94.6793, -189.116 )
 polygon = PoolVector2Array( -533.7, 115.414, -419.487, 83.5425, -218.498, 39.7195, -90.0721, 15.8161, 131.65, 41.7115, 300.965, 57.6471, 444.94, 51.6713, 532.477, 31.7517, 535.356, 280.746, -536.146, 244.891 )
 
-[node name="Plant" type="Node2D" parent="Main/Tree/ScrollController/PlantScrollContainer/Control"]
+[node name="Plant" type="Node2D" parent="MainCanvas/Tree/ScrollController/PlantScrollContainer/Control"]
 position = Vector2( 360, 1720 )
 scale = Vector2( 1.5, 1.5 )
 script = ExtResource( 1 )
 tree_structure_config = ExtResource( 3 )
 
-[node name="PlantProduction" type="TextureRect" parent="Main/Tree/ScrollController/PlantScrollContainer/Control" groups=["NotCentered"]]
-anchor_left = 0.32
-anchor_top = 0.948
-anchor_right = 0.32
-anchor_bottom = 0.948
-margin_left = -50.4
-margin_top = -98.4
-margin_right = 50.6
-margin_bottom = 22.6
-rect_pivot_offset = Vector2( 50, 54 )
-texture = ExtResource( 26 )
-expand = true
-stretch_mode = 1
-
-[node name="Fill" type="TextureRect" parent="Main/Tree/ScrollController/PlantScrollContainer/Control/PlantProduction" groups=["NotCentered"]]
-modulate = Color( 0.811765, 0.231373, 0.231373, 1 )
-material = ExtResource( 27 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -50.5
-margin_top = -60.5
-margin_right = 50.5
-margin_bottom = 60.5
-rect_pivot_offset = Vector2( 50, 54 )
-texture = ExtResource( 26 )
-expand = true
-stretch_mode = 1
-
-[node name="SellingBoothRight" type="TextureRect" parent="Main/Tree/ScrollController/PlantScrollContainer/Control" groups=["NotCentered"]]
-anchor_left = 0.93
-anchor_top = 0.948
-anchor_right = 0.93
-anchor_bottom = 0.948
-margin_left = -29.4401
-margin_top = -47.4
-margin_right = 29.5599
-margin_bottom = 22.6
-rect_pivot_offset = Vector2( 50, 54 )
-texture = ExtResource( 26 )
-expand = true
-stretch_mode = 1
-
-[node name="GrowthProgress" type="TextureRect" parent="Main/Tree/ScrollController/PlantScrollContainer/Control" groups=["NotCentered"]]
+[node name="GrowthProgress" type="TextureRect" parent="MainCanvas/Tree/ScrollController/PlantScrollContainer/Control" groups=["NotCentered"]]
 material = ExtResource( 20 )
 margin_top = 392.0
 margin_right = 50.0
@@ -201,14 +154,26 @@ texture = ExtResource( 11 )
 expand = true
 flip_v = true
 
-[node name="Road" type="ColorRect" parent="Main/Tree/ScrollController/PlantScrollContainer/Control"]
+[node name="Road" type="ColorRect" parent="MainCanvas/Tree/ScrollController/PlantScrollContainer/Control"]
 margin_left = -650.0
 margin_top = 1740.0
 margin_right = 1403.0
 margin_bottom = 1800.0
 color = Color( 0.156863, 0.156863, 0.156863, 1 )
 
-[node name="RootScrollContainer" type="Container" parent="Main/Tree/ScrollController"]
+[node name="StaticBody2D" type="StaticBody2D" parent="MainCanvas/Tree/ScrollController/PlantScrollContainer/Control" groups=["NotCentered"]]
+position = Vector2( 0, 890 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MainCanvas/Tree/ScrollController/PlantScrollContainer/Control/StaticBody2D"]
+polygon = PoolVector2Array( -70, 448, 0, 449, -1, 828, 723, 825, 720, 437, 794, 439, 795, 887, -72, 889 )
+
+[node name="Sprite" type="Sprite" parent="MainCanvas/Tree/ScrollController/PlantScrollContainer/Control"]
+visible = false
+position = Vector2( 662.5, 1684.5 )
+scale = Vector2( 0.091, 0.089 )
+texture = ExtResource( 26 )
+
+[node name="RootScrollContainer" type="Container" parent="MainCanvas/Tree/ScrollController"]
 anchor_top = 0.556
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -216,7 +181,7 @@ margin_top = 0.399902
 rect_clip_content = true
 script = ExtResource( 31 )
 
-[node name="Control" type="Control" parent="Main/Tree/ScrollController/RootScrollContainer"]
+[node name="Control" type="Control" parent="MainCanvas/Tree/ScrollController/RootScrollContainer"]
 margin_right = 720.0
 margin_bottom = 10000.0
 rect_min_size = Vector2( 720, 10000 )
@@ -224,19 +189,19 @@ mouse_filter = 1
 size_flags_horizontal = 3
 script = ExtResource( 23 )
 
-[node name="GroundElementsManager" type="Node2D" parent="Main/Tree/ScrollController/RootScrollContainer/Control" groups=["NotCentered"]]
+[node name="GroundElementsManager" type="Node2D" parent="MainCanvas/Tree/ScrollController/RootScrollContainer/Control" groups=["NotCentered"]]
 script = ExtResource( 21 )
 ground_elements_config = ExtResource( 22 )
 terrain_path = NodePath("../Terrain")
 
-[node name="Terrain" parent="Main/Tree/ScrollController/RootScrollContainer/Control" instance=ExtResource( 10 )]
+[node name="Terrain" parent="MainCanvas/Tree/ScrollController/RootScrollContainer/Control" instance=ExtResource( 10 )]
 
-[node name="Root" type="Node2D" parent="Main/Tree/ScrollController/RootScrollContainer/Control"]
+[node name="Root" type="Node2D" parent="MainCanvas/Tree/ScrollController/RootScrollContainer/Control"]
 position = Vector2( 360, 0 )
 script = ExtResource( 5 )
 tree_structure_config = ExtResource( 16 )
 
-[node name="VisualMetricSystem" type="Node2D" parent="Main/Tree"]
+[node name="VisualMetricSystem" type="Node2D" parent="MainCanvas/Tree"]
 script = ExtResource( 29 )
 scroll_controller_path = NodePath("../ScrollController")
 plant_control_node_path = NodePath("../ScrollController/PlantScrollContainer/Control")
@@ -337,8 +302,6 @@ rect_pivot_offset = Vector2( 30, -5 )
 [node name="BottomHUD" type="Control" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -14.0
-margin_bottom = -14.0
 mouse_filter = 2
 
 [node name="TopHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD"]
@@ -369,10 +332,10 @@ size_flags_vertical = 0
 custom_constants/separation = 20
 script = ExtResource( 32 )
 draggable_buttons_config = ExtResource( 33 )
-bottom_scroll_container_control_path = NodePath("../../../../../Main/Tree/ScrollController/RootScrollContainer/Control")
-top_scroll_container_control_path = NodePath("../../../../../Main/Tree/ScrollController/PlantScrollContainer/Control")
-terrain_path = NodePath("../../../../../Main/Tree/ScrollController/RootScrollContainer/Control/Terrain")
-ground_elements_manager_path = NodePath("../../../../../Main/Tree/ScrollController/RootScrollContainer/Control/GroundElementsManager")
+bottom_scroll_container_control_path = NodePath("../../../../../MainCanvas/Tree/ScrollController/RootScrollContainer/Control")
+top_scroll_container_control_path = NodePath("../../../../../MainCanvas/Tree/ScrollController/PlantScrollContainer/Control")
+terrain_path = NodePath("../../../../../MainCanvas/Tree/ScrollController/RootScrollContainer/Control/Terrain")
+ground_elements_manager_path = NodePath("../../../../../MainCanvas/Tree/ScrollController/RootScrollContainer/Control/GroundElementsManager")
 
 [node name="UpgradesButton" type="Button" parent="UI/BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)/ButtonsHBoxContainer"]
 visible = false
@@ -455,7 +418,7 @@ render_target_v_flip = true
 [node name="low_poly_truck" parent="Viewport" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.38432, 0 )
 
-[connection signal="pressed" from="UI/BottomHUD/TopHBoxContainer/MissionsHBoxContainer/MissionsPlaceHolder" to="Main/Tree/ScrollController/PlantScrollContainer/Control/Plant" method="_on_Button_pressed"]
-[connection signal="pressed" from="UI/BottomHUD/TopHBoxContainer/MissionsHBoxContainer/MissionsPlaceHolder" to="Main/Tree/ScrollController/RootScrollContainer/Control/Root" method="_on_Button_pressed"]
-[connection signal="pressed" from="UI/BottomHUD/BottomHBoxContainer/IncrementalButton" to="Main/Tree/ScrollController/PlantScrollContainer/Control/Plant" method="_on_Button_pressed"]
-[connection signal="pressed" from="UI/BottomHUD/BottomHBoxContainer/IncrementalButton" to="Main/Tree/ScrollController/RootScrollContainer/Control/Root" method="_on_IncrementalButton_pressed"]
+[connection signal="pressed" from="UI/BottomHUD/TopHBoxContainer/MissionsHBoxContainer/MissionsPlaceHolder" to="MainCanvas/Tree/ScrollController/PlantScrollContainer/Control/Plant" method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/BottomHUD/TopHBoxContainer/MissionsHBoxContainer/MissionsPlaceHolder" to="MainCanvas/Tree/ScrollController/RootScrollContainer/Control/Root" method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/BottomHUD/BottomHBoxContainer/IncrementalButton" to="MainCanvas/Tree/ScrollController/PlantScrollContainer/Control/Plant" method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/BottomHUD/BottomHBoxContainer/IncrementalButton" to="MainCanvas/Tree/ScrollController/RootScrollContainer/Control/Root" method="_on_IncrementalButton_pressed"]

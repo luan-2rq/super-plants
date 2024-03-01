@@ -9,4 +9,7 @@ func _ready():
 	collision_shape.position.y = config.scanning_range.y
 
 func start_action():
-	terrain.carve(self.global_position, 100)
+	if .start_action():
+		terrain.carve(self.global_position, 100)
+	else:
+		queue_free()

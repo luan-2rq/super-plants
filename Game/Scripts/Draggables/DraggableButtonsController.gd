@@ -42,7 +42,6 @@ func _on_draggable_button_toggled(pressed_button):
 
 func _process(delta: float) -> void:
 	if cur_pressed_button:
-		#print("Is hovered: "+str(is_mouse_over(pressed_button.rect_global_position, pressed_button.rect_size)))
 		if cur_pressed_button.pressed:
 			if !is_mouse_over(cur_pressed_button.rect_global_position, cur_pressed_button.rect_size):	
 				if dragging == false:

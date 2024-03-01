@@ -10,6 +10,8 @@ custom_constants/margin_top = 20
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 20
 script = ExtResource( 2 )
+client_secret = "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"
+client_ID = "951790261759-bap2f20qu6brq3kns32gv7dl9go7dkfd.apps.googleusercontent.com"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 20.0

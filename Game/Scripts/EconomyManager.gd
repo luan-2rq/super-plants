@@ -1,5 +1,6 @@
 extends CanvasLayer
-class_name EconomyManager
+
+var instance = null
 
 var player_data : PlayerData
 var elapsed_time : float = 0
@@ -8,8 +9,14 @@ var elapsed_time : float = 0
 var yield_time : int = 1
 
 func _ready() -> void:
+	# Ensure only one instance of the singleton exists
+	if instance == null:
+		instance = self
+	else:
+		# Destroy duplicate instances
+		self.queue_free()
 	#To do: get playerdata from save manager
-	player_data = PlayerData.new(BigNumber.new(0, 0), BigNumber.new(0, 0))
+	player_data = PlayerData.new(BigNumber.new(200, 0), BigNumber.new(0, 0))
 
 func _process(delta) -> void:
 	pass
@@ -21,22 +28,35 @@ func _process(delta) -> void:
 func add_currency(currency_name, amount):
 	match currency_name:
 		Enums.CurrencyType.HC:
-			player_data.HC = BigNumber.sum(player_data.HC, amount)
+			player_data.HC.sum(amount)
 			Events.emit_signal("on_HC_changed", player_data.HC)
 		Enums.CurrencyType.SC:
-			player_data.SC = BigNumber.sum(player_data.SC, amount)
+			player_data.SC.sum(amount)
 			Events.emit_signal("on_SC_changed", player_data.SC)
 		_:
+			push_error("Currency type passed is not valid.")
 			pass
-			
+	
+# Returns wheter there was enough currency to remove or not		
 func remove_currency(currency_name, amount):
 	match currency_name:
 		Enums.CurrencyType.HC:
-			player_data.HC = BigNumber.subtract(player_data.HC, amount)
-			Events.emit_signal("on_HC_changed", player_data.HC)
-		Enums.CurrencyType.SC:
-			player_data.SC = BigNumber.subtract(player_data.SC, amount)
-			Events.emit_signal("on_SC_changed", player_data.SC)
+			if player_data.HC.greater_or_equal_than(amount):
+				player_data.HC.subtract(amount)
+				Events.emit_signal("on_HC_changed", player_data.HC)
+				return true
+			else:
+				print("Not enough currency")
+				return false
+		Enums.CurrencyType.SC:	
+			if player_data.SC.greater_or_equal_than(amount):
+				player_data.SC.subtract(amount)
+				Events.emit_signal("on_SC_changed", player_data.SC)
+				return true
+			else:
+				print("Not enough currency")
+				return false
 		_:
+			push_error("Currency type passed is not valid.")
 			pass
 

@@ -1,8 +1,8 @@
 extends Node2D
 class_name Terrain
 
-export(int) var quadrant_size = 25
-export(Vector2) var quadrant_grid_size = Vector2(70,240)
+export(int) var quadrant_size = 300
+export(Vector2) var quadrant_grid_size = Vector2(4,10)
 
 var quadrants_grid: Array = []
 

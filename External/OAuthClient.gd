@@ -1,10 +1,13 @@
 tool
 extends Node
 
-const PORT := 31419
+#Redirect INFO
 const BINDING := "127.0.0.1"
-const client_secret := "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"
-const client_ID := "733903954371-al2di3o2rtt52sqg9vu1d9m1tpfa98fp.apps.googleusercontent.com"
+const PORT := 31419
+
+export(String) var client_secret := "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"
+export(String) var  client_ID := "733903954371-al2di3o2rtt52sqg9vu1d9m1tpfa98fp.apps.googleusercontent.com"
+
 const auth_server := "https://accounts.google.com/o/oauth2/v2/auth"
 const token_req := "https://oauth2.googleapis.com/token"
 

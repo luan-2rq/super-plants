@@ -12,6 +12,8 @@ var raycast : RayCast2DDraw
 #VISUALS 
 #Leaves
 var leafs : Array
+#Collectables
+var collectables : Array
 
 func _init(branch_data : BranchData, tree_config : TreeStructureConfig):
 	self.branch_data = branch_data
@@ -35,6 +37,14 @@ func _ready():
 		var position_on_branch = Random.range_float(0, 1)
 		var rotation = Random.range_float(-PI, PI)
 		leafs.append(Leaf.new(position_on_branch, Vector2.RIGHT.rotated(rotation)))
+	
+	#collectables
+	for i in range(branch_data.collectable_count):
+		var position_on_branch = Random.range_float(0, 1)
+		var rotation = Random.range_float(-PI, PI)
+		collectables.append(tree_config.collectable_prefab.instance())
+		collectables[i].rotation = rotation
+		collectables[i].position_on_branch = position_on_branch
 
 func add_leaf(leaf : Leaf):
 	leaf.position = points[int(leaf.position_on_branch*(points.size()-1))]
@@ -46,20 +56,23 @@ func add_leaf(leaf : Leaf):
 	leaf.scale = Vector2(0.05, 0.05)
 	add_child(leaf)
 	
-func add_collectable():
-	pass
+func add_collectable(collectable : Collectable):
+	collectable.position = points[int(collectable.position_on_branch*(points.size()-1))]
+	collectable.rotation = rotation
+	collectable.z_index = 2
+	add_child(collectable)
 
 func add_point(position : Vector2, index : int = -1):
-	if static_body.get_child(0) == null:
-		var line_poly = Geometry.offset_polygon_2d(points, width/2)
+	#if static_body.get_child(0) == null:
+		#var line_poly = Geometry.offset_polygon_2d(points, width/2)
 		#print("Size: " + str(line_poly.size()))
 
-		for poly in line_poly:
-			var col = CollisionPolygon2D.new()
-			col.polygon = poly
-			static_body.add_child(col)
-	else:
-		pass
+		#for poly in line_poly:
+			#var col = CollisionPolygon2D.new()
+			#col.polygon = poly
+			#static_body.add_child(col)
+	#else:
+		#pass
 		#var new_polygon_points = expand(points[-1] if points.size() > 0 else Vector2.ZERO, position, width /2)
 		#var new_polygon = static_body.get_child(0).polygon
 		#for point in new_polygon_points:
@@ -76,6 +89,13 @@ func add_point(position : Vector2, index : int = -1):
 		if leafs[i].position_on_branch >= branch_data.filled_percentage:
 			add_leaf(leafs[i])
 			leafs.remove(i)
+			i-=1
+		i+=1
+	i=0
+	while i <  self.collectables.size():
+		if collectables[i].position_on_branch >= branch_data.filled_percentage:
+			add_collectable(collectables[i])
+			collectables.remove(i)
 			i-=1
 		i+=1
 	
@@ -134,37 +154,47 @@ func grow(length) -> BranchPointsResult:
 			leafs.remove(i)
 			i-=1
 		i+=1
+	i=0
+	while i <  self.collectables.size():
+		if collectables[i].position_on_branch >= branch_data.filled_percentage:
+			add_collectable(collectables[i])
+			collectables.remove(i)
+			i-=1
+		i+=1
 
 	var line_poly = Geometry.offset_polygon_2d(self.points, width/2)
 	#if static_body.get_child_count() > 0:
 		#static_body.get_child(0).polygon = line_poly
 	#print("Size: " + str(line_poly.size()))
 	
-	for poly in line_poly:
-		if static_body.get_child_count() <= 0:
-			var col = CollisionPolygon2D.new()
-			col.add_to_group(str(tree_config.get_instance_id()), true)
-			col.polygon = line_poly[0]
-			static_body.add_child(col)
+	#for poly in line_poly:
+		#if static_body.get_child_count() <= 0:
+			#var col = CollisionPolygon2D.new()
+			#col.add_to_group(str(tree_config.get_instance_id()), true)
+			#col.polygon = line_poly[0]
+			#static_body.add_child(col)
 	return points_result
 
-func grow_directional(length, direction : Vector2):
-	branch_data.current_length += length
-	
+#Param to is global position
+func grow_directional(grow_amount : float):
 	if branch_data.final_points.size() == 0:
-		branch_data.initial_points = generate_points_directional(length, direction, Vector2.ZERO, tree_config.branch_angle_range)
+		branch_data.initial_points = generate_points_directionally_to(Vector2.ZERO, tree_config.branch_angle_range)
 		branch_data.final_points = generate_curve_points(branch_data.initial_points, tree_config.bake_interval)
-		
-		self.points = branch_data.final_points
-	else:
-		var initial_point = branch_data.initial_points[-1]
-		var new_initial_points = generate_points_directional(length, direction, initial_point, tree_config.branch_angle_range)
-		var new_final_points = generate_curve_points(new_initial_points, tree_config.bake_interval)
-		new_initial_points.remove(0)
-		new_final_points.remove(0)
-		branch_data.initial_points.append_array(new_initial_points)
-		branch_data.final_points.append_array(new_final_points)
-		self.points = branch_data.final_points
+	branch_data.current_length += grow_amount
+	
+	for i in range(branch_data.last_point_index, branch_data.final_points.size()):
+		if branch_data.final_points[i].length() >= branch_data.current_length:
+			var final_points_size = branch_data.final_points.size()
+			var point = branch_data.final_points[i]
+			var total_length = branch_data.final_points[i].length()
+			var cur_length =  branch_data.current_length
+			branch_data.last_point_index = i
+			break
+	
+	var cur_points = self.points
+	for i in range(self.points.size(), branch_data.last_point_index):
+		cur_points.push_back(branch_data.final_points[i])
+	self.points = cur_points
 
 func generate_points_random_direction(angle_range : float, initial_direction : Vector2) -> PoolVector2Array:
 	var points = PoolVector2Array()
@@ -181,21 +211,26 @@ func generate_points_random_direction(angle_range : float, initial_direction : V
 		
 	return points
 
-func generate_points_directional(length, direction : Vector2, initial_point : Vector2, angle_range : float):
+func generate_points_directionally_to(initial_point : Vector2, angle_range : float):
 	var result = PoolVector2Array()
-	var final_point = initial_point + length * direction
-	var point_distance = length / tree_config.n_points_per_step
+	var final_point = self.branch_data.to - self.global_position 
+	var n_points = final_point.length() * tree_config.initial_points_density
+	var point_distance = final_point.length() / n_points
 	
 	result.append(initial_point)
+	result.append(final_point*3/8)
+	result.append(final_point*4/8)
+	result.append(final_point*7/8)
 	result.append(final_point)
 	
-	var cur_dir = direction
-	var cur_point
-	for i in range(1, tree_config.n_points_per_step - 1):
-		var angle_to_rotate = Random.range_float(-angle_range, angle_range)
-		cur_dir = cur_dir.rotated(angle_to_rotate)
-		cur_point = result[i-1] + point_distance * cur_dir
-		result.insert(i, cur_point)
+	##To do: add logic to make it curvilinear
+	#var cur_dir = final_point.normalized()
+	#var cur_point
+	#for i in range(1, n_points - 1):
+		#var angle_to_rotate = Random.range_float(-angle_range, angle_range)
+		#cur_dir = cur_dir.rotated(angle_to_rotate)
+		#cur_point = result[i-1] + point_distance * cur_dir
+		#result.insert(i, cur_point)
 	return result
 	
 func generate_curve_points(initial_points : PoolVector2Array, bake_inteval : float) -> PoolVector2Array:
@@ -203,9 +238,11 @@ func generate_curve_points(initial_points : PoolVector2Array, bake_inteval : flo
 	curve.bake_interval = bake_inteval
 	curve.add_point(initial_points[0])
 	
-	for i in range(1, initial_points.size()- 2):
+	for i in range(1, initial_points.size()-1):
 		var in_out = (initial_points[i+1] - initial_points[i-1]) / 3
 		curve.add_point(initial_points[i], -in_out, in_out)
+		
+	curve.add_point(initial_points[-1])
 		
 	return curve.get_baked_points()
 

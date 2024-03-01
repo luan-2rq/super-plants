@@ -30,90 +30,82 @@ static func align(a : BigNumber, b: BigNumber):
 			a.value = a.value / pow(10, expoent_difference) if (expoent_difference <= MAX_EXP_DIFFERENCE) else 0.0
 			a.expoent = b.expoent
 	
-static func multiply(a: BigNumber, b : BigNumber) -> BigNumber:
-	var result: BigNumber
-	var copyA = load(script_path).new(a.value, a.expoent)
+func multiply(b : BigNumber):
 	var copyB = load(script_path).new(b.value, b.expoent)
-	align(copyA, copyB)
-	result = load(script_path).new(copyA.value * copyB.value, a.expoent + b.expoent)
-	result.normalize()
-	return result
+	align(self, copyB)
+	self.value = self.value * copyB.value
+	self.expoent = self.expoent + b.expoent
+	normalize()
 	
-static func divide(a: BigNumber, b : BigNumber) -> BigNumber:
-	var result: BigNumber
-	var copyA = load(script_path).new(a.value, a.expoent)
+func divide(b : BigNumber):
 	var copyB = load(script_path).new(b.value, b.expoent)
-	align(copyA, copyB)
-	result = load(script_path).new(copyA.value / copyB.value, a.expoent - b.expoent)
-	result.normalize()
-	return result
+	align(self, copyB)
+	self.value = self.value / copyB.value
+	self.expoent = self.expoent - b.expoent
+	normalize()
 
-static func sum(a: BigNumber, b) -> BigNumber:
-	var copyA = load(script_path).new(a.value, a.expoent)
+func sum(b : BigNumber):
 	var copyB = load(script_path).new(b.value, b.expoent)
-	align(copyA, copyB)
-	var result: BigNumber = load(script_path).new(copyA.value + copyB.value, copyA.expoent)
-	result.normalize()
-	return result
+	align(self, copyB)
+	self.value = self.value + copyB.value
+	normalize()
 
-static func subtract(a: BigNumber, b) -> BigNumber:
-	var copyA = load(script_path).new(a.value, a.expoent)
+func subtract(b : BigNumber):
 	var copyB = load(script_path).new(b.value, b.expoent)
-	align(copyA, copyB)
-	var result: BigNumber = load(script_path).new(copyA.value - copyB.value, copyA.expoent)
-	result.normalize()
-	return result
+	align(self, copyB)
+	self.value = self.value - copyB.value
+	self.expoent = self.expoent
+	normalize()
 
-static func power(a: BigNumber, b):
-	var copy = load(script_path).new(a.value, a.expoent)
-	copy.value = pow(copy.value, b)
-	copy.expoent *= b
-	return copy
+func power(b : float):
+	self.value = pow(self.value, b)
+	self.expoent *= b
+	normalize()
 	
-static func equal(a : BigNumber, b):
+func equal(b : BigNumber):
 	var copyA
 	var copyB
-	copyA = load(script_path).new(a.value, a.expoent)
+	copyA = load(script_path).new(self.value, self.expoent)
 	copyB = load(script_path).new(b.value, b.expoent)
 	align(copyA,  copyB)
 	return copyA.value == copyB.value
 		
-static func different(a : BigNumber, b):
+func different(b : BigNumber):
 	var copyA
 	var copyB
-	copyA = load(script_path).new(a.value, a.expoent)
+	copyA = load(script_path).new(self.value, self.expoent)
 	copyB = load(script_path).new(b.value, b.expoent)
 	align(copyA, copyB)
 	return copyA.value != copyB.value
 	
-static func greater_than(a : BigNumber, b):
+func greater_than(b : BigNumber):
 	var copyA
 	var copyB
-	copyA = load(script_path).new(a.value, a.expoent)
+	copyA = load(script_path).new(self.value, self.expoent)
 	copyB = load(script_path).new(b.value, b.expoent)
 	align(copyA, copyB)
 	return copyA.value > copyB.value
 	
-static func greater_or_equal_than(a : BigNumber, b):
+func greater_or_equal_than(b : BigNumber):
 	var copyA
 	var copyB
-	copyA = load(script_path).new(a.value, a.expoent)
+	copyA = load(script_path).new(self.value, self.expoent)
 	copyB = load(script_path).new(b.value, b.expoent)
 	align(copyA, copyB)
 	return copyA.value >= copyB.value
 		
-static func less_than(a : BigNumber, b):
+func less_than(b : BigNumber):
 	var copyA
 	var copyB
-	copyA = load(script_path).new(a.value, a.expoent)
+	copyA = load(script_path).new(self.value, self.expoent)
 	copyB = load(script_path).new(b.value, b.expoent)
 	align(copyA, copyB)
 	return copyA.value < copyB.value
 		
-static func less_or_equal_than(a : BigNumber, b):
+func less_or_equal_than(b : BigNumber):
 	var copyA
 	var copyB
-	copyA = load(script_path).new(a.value, a.expoent)
+	copyA = load(script_path).new(self.value, self.expoent)
 	copyB = load(script_path).new(b.value, b.expoent)
 	align(copyA, copyB)
 	return copyA.value <= copyB.value

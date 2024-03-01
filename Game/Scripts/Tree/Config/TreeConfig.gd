@@ -13,3 +13,9 @@ export var max_branch_length : float = 50
 export var max_leaf_count : int
 export(Texture) var leaf_texture : Texture
 export var leaf_color : Color
+
+#Collectable
+export var max_collectable_count : int
+export(Texture) var collectable_texture : Texture
+export(PackedScene) var collectable_prefab
+#export var collectable_color : Color

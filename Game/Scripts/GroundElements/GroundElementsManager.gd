@@ -34,13 +34,13 @@ func position_ground_elements():
 		add_child(cur_groundwater)
 		cur_groundwater.global_position = positions[i]
 		
-func closest_ground_element_direction(pos : Vector2):
+func closest_ground_element(pos : Vector2):
 	if ground_elements.size() > 0:
 		var closest_ground_element = ground_elements[0]
 		for i in range(1, ground_elements.size()):
 			if ground_elements[i].global_position.distance_to(pos) < closest_ground_element.global_position.distance_to(pos):
 				closest_ground_element = ground_elements[i]
-		return (closest_ground_element.global_position-pos).normalized()
+		return closest_ground_element
 	
 func minimum_distance_achieved(positions):
 	for i in range(positions.size()-1):
@@ -54,3 +54,5 @@ func minimum_distance_achieved(positions):
 
 func _on_reveal_ground_element(ground_element):
 	ground_element.reveal()
+	
+

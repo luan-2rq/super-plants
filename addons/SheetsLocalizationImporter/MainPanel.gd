@@ -5,7 +5,6 @@ const main_panel = preload("res://addons/SheetsLocalizationImporter/Localization
 var main_panel_instance
 
 func _enter_tree():
-	print("entered tree")
 	main_panel_instance = main_panel.instance()
 	get_editor_interface().get_editor_viewport().add_child(main_panel_instance)
 	make_visible(false)

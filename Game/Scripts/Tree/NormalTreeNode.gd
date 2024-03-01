@@ -15,7 +15,9 @@ var active_branchs : Array = Array()#BranchData
 var cur_max_point = Vector2.ZERO
 
 var grow_step = 10
-	
+var branch_count = 0
+
+var elapsed_time = 0
 
 #FUNÇÃO INCREMENTAL PARA CRESCER A ÁRVORE: -> Sem Retorno
 # 1: Gera o primeiro branch
@@ -26,7 +28,7 @@ func grow_tree():
 	if cur_depth <= tree_structure_config.max_depth:
 		#1: Gera primeiro branch e coloca os filhos na filha de spawn
 		if tree == null:
-			tree = BranchData.new(null, cur_depth, 0, tree_structure_config.initial_branch_length, tree_structure_config.n_points_per_branch, tree_structure_config.bake_interval, 0)
+			tree = BranchData.new(null, cur_depth, 0, tree_structure_config.initial_branch_length, tree_structure_config.n_points_per_branch, tree_structure_config.bake_interval, 0, 0)
 			tree.instance = BranchLine.new(tree, tree_structure_config)
 			tree.instance.width = 5
 			tree.global_pos = self.global_position
@@ -35,9 +37,10 @@ func grow_tree():
 			
 			tree.instance.grow(tree_structure_config.step_length)
 			cur_depth += 1
+			branch_count += 1
 			for i in range(tree_structure_config.initial_branch_count):
 				var position_in_parent = Random.range_float(0, 1)
-				cur_branch = BranchData.new(tree, cur_depth, position_in_parent, tree_structure_config.max_branch_length, tree_structure_config.n_points_per_branch, tree_structure_config.bake_interval, Random.range_int(0,  tree_structure_config.max_leaf_count))
+				cur_branch = BranchData.new(tree, cur_depth, position_in_parent, tree_structure_config.max_branch_length, tree_structure_config.n_points_per_branch, tree_structure_config.bake_interval, Random.range_int(0,  tree_structure_config.max_leaf_count), Random.range_int(0,  tree_structure_config.max_collectable_count))
 				tree.add_branch_child(cur_branch)
 				branchs_to_be_spawned.append(cur_branch)
 		else:
@@ -70,6 +73,7 @@ func grow_tree():
 				branch_to_be_spawned = branchs_to_be_spawned[i]
 				branch_parent = branchs_to_be_spawned[i].parent
 				if branch_parent.filled_percentage >= branch_to_be_spawned.position_in_parent:
+					branch_count += 1
 					#3.1: Spawna branch
 					branch_to_be_spawned.global_pos = branch_parent.global_pos + branch_parent.instance.points[int((branch_parent.instance.points.size()-1) * branch_to_be_spawned.position_in_parent / branch_parent.filled_percentage)]
 					var local_position = branch_parent.instance.points[int((branch_parent.instance.points.size()-1) * branch_to_be_spawned.position_in_parent / branch_parent.filled_percentage)]
@@ -87,7 +91,7 @@ func grow_tree():
 						if cur_depth == branch_to_be_spawned.depth:
 							cur_depth += 1
 						var position_in_parent = Random.range_float(0, 1)
-						cur_branch = BranchData.new(branch_to_be_spawned, cur_depth, position_in_parent, tree_structure_config.max_branch_length, tree_structure_config.n_points_per_branch, tree_structure_config.bake_interval, Random.range_int(0, tree_structure_config.max_leaf_count))
+						cur_branch = BranchData.new(branch_to_be_spawned, cur_depth, position_in_parent, tree_structure_config.max_branch_length, tree_structure_config.n_points_per_branch, tree_structure_config.bake_interval, Random.range_int(0, tree_structure_config.max_leaf_count), Random.range_int(0,  tree_structure_config.max_collectable_count))
 						branch_to_be_spawned.add_branch_child(cur_branch)
 						branchs_to_be_spawned.append(cur_branch)
 					
@@ -105,8 +109,10 @@ func grow_tree():
 
 
 func _process(delta): 
-	#tree_structure_config.step_length = grow_step * delta
-	pass
+	elapsed_time += delta
+	if elapsed_time > 2:
+		print("Branch count: " + str(branch_count))
+		elapsed_time = 0
 	
 func init(data):
 	tree = data[0]

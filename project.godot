@@ -9,10 +9,20 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "DocItem",
+"class": "ArgumentDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/argument_doc_item.gd"
+}, {
 "base": "Node2D",
 "class": "AspectNode",
 "language": "GDScript",
 "path": "res://addons/awesome_splash/core/AspectNode.gd"
+}, {
+"base": "Reference",
+"class": "AuthProvider",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/auth_provider.gd"
 }, {
 "base": "Node2D",
 "class": "AweListTextNode",
@@ -84,6 +94,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/Checkpoints/CheckpointsConfig.gd"
 }, {
+"base": "DocItem",
+"class": "ClassDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/class_doc_item.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Collectable",
+"language": "GDScript",
+"path": "res://Game/Scripts/Collectable.gd"
+}, {
+"base": "DocItem",
+"class": "ConstantDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/constant_doc_item.gd"
+}, {
 "base": "Container",
 "class": "CustomScrollContainer",
 "language": "GDScript",
@@ -93,6 +118,16 @@ _global_script_classes=[ {
 "class": "DirectionalTreeNode",
 "language": "GDScript",
 "path": "res://Game/Scripts/Tree/DirectionalTreeNode.gd"
+}, {
+"base": "Reference",
+"class": "DocExporter",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_exporter/doc_exporter.gd"
+}, {
+"base": "Reference",
+"class": "DocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/doc_item.gd"
 }, {
 "base": "Control",
 "class": "DraggableButton",
@@ -119,10 +154,90 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/Draggables/DraggablesConfig.gd"
 }, {
-"base": "CanvasLayer",
-"class": "EconomyManager",
+"base": "AuthProvider",
+"class": "FacebookProvider",
 "language": "GDScript",
-"path": "res://Game/Scripts/EconomyManager.gd"
+"path": "res://addons/godot-firebase/auth/providers/facebook.gd"
+}, {
+"base": "HTTPRequest",
+"class": "FirebaseAuth",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/auth.gd"
+}, {
+"base": "Node",
+"class": "FirebaseDatabase",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/database/database.gd"
+}, {
+"base": "Node",
+"class": "FirebaseDatabaseReference",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/database/reference.gd"
+}, {
+"base": "Node",
+"class": "FirebaseDatabaseStore",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/database/database_store.gd"
+}, {
+"base": "Node",
+"class": "FirebaseDynamicLinks",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/dynamiclinks/dynamiclinks.gd"
+}, {
+"base": "Node",
+"class": "FirebaseFirestore",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore.gd"
+}, {
+"base": "Node",
+"class": "FirebaseFunctions",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/functions/functions.gd"
+}, {
+"base": "Resource",
+"class": "FirebaseResource",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/database/resource.gd"
+}, {
+"base": "Node",
+"class": "FirebaseStorage",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/storage/storage.gd"
+}, {
+"base": "Reference",
+"class": "FirebaseUserData",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/user_data.gd"
+}, {
+"base": "Reference",
+"class": "FirestoreCollection",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore_collection.gd"
+}, {
+"base": "Reference",
+"class": "FirestoreDocument",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore_document.gd"
+}, {
+"base": "Reference",
+"class": "FirestoreQuery",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore_query.gd"
+}, {
+"base": "Reference",
+"class": "FirestoreTask",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore_task.gd"
+}, {
+"base": "Position2D",
+"class": "FloatingText",
+"language": "GDScript",
+"path": "res://Game/Scripts/FloatingText.gd"
+}, {
+"base": "Reference",
+"class": "FunctionTask",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/functions/function_task.gd"
 }, {
 "base": "Reference",
 "class": "GDAction",
@@ -349,6 +464,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-action/ease_func.gd"
 }, {
+"base": "AuthProvider",
+"class": "GitHubProvider",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/providers/github.gd"
+}, {
+"base": "AuthProvider",
+"class": "GoogleProvider",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/providers/google.gd"
+}, {
 "base": "Area2D",
 "class": "GroundElement",
 "language": "GDScript",
@@ -399,6 +524,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/Tree/Leaf.gd"
 }, {
+"base": "DocItem",
+"class": "MethodDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/method_doc_item.gd"
+}, {
 "base": "Resource",
 "class": "MetricSystemConfig",
 "language": "GDScript",
@@ -434,6 +564,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/Upgrades/UpgradeStrategies/ProductionRateUpgrade.gd"
 }, {
+"base": "DocItem",
+"class": "PropertyDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/property_doc_item.gd"
+}, {
 "base": "RayCast2D",
 "class": "RayCast2DDraw",
 "language": "GDScript",
@@ -459,7 +594,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://External/SaveManager.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "ScreenLoader",
 "language": "GDScript",
 "path": "res://src/preview_demo/ScreenLoader.gd"
@@ -469,15 +604,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/ScrollController.gd"
 }, {
-"base": "DraggableItem",
-"class": "SmallTruckItem",
+"base": "DocItem",
+"class": "SignalDocItem",
 "language": "GDScript",
-"path": "res://Game/Prefabs/SmallTruckItem.gd"
+"path": "res://addons/silicon.util.custom_docs/doc_item/signal_doc_item.gd"
 }, {
 "base": "Node2D",
 "class": "SplashContainer",
 "language": "GDScript",
 "path": "res://addons/awesome_splash/core/SplashContainer.gd"
+}, {
+"base": "Reference",
+"class": "StorageReference",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/storage/storage_reference.gd"
+}, {
+"base": "Reference",
+"class": "StorageTask",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/storage/storage_task.gd"
 }, {
 "base": "Node2D",
 "class": "Terrain",
@@ -508,6 +653,16 @@ _global_script_classes=[ {
 "class": "TreeStructureConfig",
 "language": "GDScript",
 "path": "res://Game/Scripts/Tree/Config/TreeStructureConfig.gd"
+}, {
+"base": "DraggableItem",
+"class": "TruckItem",
+"language": "GDScript",
+"path": "res://Game/Scripts/Transport/TruckItem.gd"
+}, {
+"base": "AuthProvider",
+"class": "TwitterProvider",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/providers/twitter.gd"
 }, {
 "base": "Node",
 "class": "UpgradeCell",
@@ -555,7 +710,9 @@ _global_script_classes=[ {
 "path": "res://Game/Scripts/Settings/SettingsData.gd"
 } ]
 _global_script_class_icons={
+"ArgumentDocItem": "",
 "AspectNode": "res://addons/awesome_splash/assets/icon/aspect_node_icon.png",
+"AuthProvider": "",
 "AweListTextNode": "res://addons/awesome_splash/assets/icon/list_text_node_icon.png",
 "AweSplashScreen": "res://addons/awesome_splash/assets/icon/splash_screen_icon.png",
 "AweSplashScreenViewport": "",
@@ -570,14 +727,35 @@ _global_script_class_icons={
 "CheckpointConfig": "",
 "CheckpointData": "",
 "CheckpointsConfig": "",
+"ClassDocItem": "",
+"Collectable": "",
+"ConstantDocItem": "",
 "CustomScrollContainer": "",
 "DirectionalTreeNode": "",
+"DocExporter": "",
+"DocItem": "",
 "DraggableButton": "",
 "DraggableButtonController": "",
 "DraggableConfig": "",
 "DraggableItem": "",
 "DraggablesConfig": "",
-"EconomyManager": "",
+"FacebookProvider": "",
+"FirebaseAuth": "",
+"FirebaseDatabase": "",
+"FirebaseDatabaseReference": "",
+"FirebaseDatabaseStore": "",
+"FirebaseDynamicLinks": "",
+"FirebaseFirestore": "",
+"FirebaseFunctions": "",
+"FirebaseResource": "",
+"FirebaseStorage": "",
+"FirebaseUserData": "",
+"FirestoreCollection": "",
+"FirestoreDocument": "",
+"FirestoreQuery": "",
+"FirestoreTask": "",
+"FloatingText": "",
+"FunctionTask": "",
 "GDAction": "",
 "GDActionColorize": "",
 "GDActionCustomAction": "",
@@ -623,6 +801,8 @@ _global_script_class_icons={
 "GDActionVisibility": "",
 "GDActionWait": "",
 "GDEaseFunc": "",
+"GitHubProvider": "",
+"GoogleProvider": "",
 "GroundElement": "",
 "GroundElementsConfig": "",
 "GroundElementsManager": "",
@@ -633,6 +813,7 @@ _global_script_class_icons={
 "InnerScannerConfig": "",
 "InnerScannerItem": "",
 "Leaf": "",
+"MethodDocItem": "",
 "MetricSystemConfig": "",
 "NonUIElementsCentralizer": "",
 "NormalTreeNode": "",
@@ -640,6 +821,7 @@ _global_script_class_icons={
 "PlayerData": "",
 "ProductValueUpgrade": "",
 "ProductionRateUpgrade": "",
+"PropertyDocItem": "",
 "RayCast2DDraw": "",
 "RootConfig": "",
 "RootGrowthVelocity": "",
@@ -647,14 +829,18 @@ _global_script_class_icons={
 "SaveManager": "",
 "ScreenLoader": "",
 "ScrollController": "",
-"SmallTruckItem": "",
+"SignalDocItem": "",
 "SplashContainer": "res://addons/awesome_splash/assets/icon/splash_container_icon.png",
+"StorageReference": "",
+"StorageTask": "",
 "Terrain": "",
 "TerrestrialScanner": "",
 "TerrestrialScannerConfig": "",
 "TransportDragButton": "",
 "TreeConfig": "",
 "TreeStructureConfig": "",
+"TruckItem": "",
+"TwitterProvider": "",
 "UpgradeCell": "",
 "UpgradeConfig": "",
 "UpgradeData": "",
@@ -683,6 +869,8 @@ Events="*res://Game/Scripts/Arquitecture/Events.gd"
 Enums="*res://Game/Scripts/Arquitecture/Enums.gd"
 sp="*res://addons/awesome_splash/utils_splash.gd"
 gd="*res://addons/godot-action/utils_gd_action.tscn"
+EconomyManager="*res://Game/Scripts/EconomyManager.gd"
+Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
 
 [display]
 
@@ -696,7 +884,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/SheetsLocalizationImporter/plugin.cfg", "res://addons/awesome_splash/plugin.cfg", "res://addons/godot-action/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/SheetsLocalizationImporter/plugin.cfg", "res://addons/awesome_splash/plugin.cfg", "res://addons/godot-action/plugin.cfg", "res://addons/godot-firebase/plugin.cfg", "res://addons/http-sse-client/plugin.cfg", "res://addons/silicon.util.custom_docs/plugin.cfg" )
 
 [gui]
 

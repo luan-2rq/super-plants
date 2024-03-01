@@ -2,14 +2,8 @@ extends Control
 class_name PlantManager
 
 export(PackedScene) var extremity
-export(NodePath) var plant_production_fill_path
-export(Material) var plant_production_fill_material
 
 var offset = 250
-var production_yield_time = 1
-var elapsed_time = 0
-
-onready var plant_producion_fill = get_node(plant_production_fill_path)
 
 onready var plant : NormalTreeNode = $ScrollController/PlantScrollContainer/Control/Plant
 onready var plant_scroll_container =  $ScrollController/PlantScrollContainer
@@ -39,8 +33,6 @@ func _ready():
 	
 	Events.connect("on_start_pump", self, "_on_water_pump_start")
 	Events.connect("on_grow", self, "_on_plant_grow")
-	
-	plant_producion_fill.set_material(plant_production_fill_material.duplicate())
 
 #To do: input this root logic from here
 func _input(event):
@@ -61,6 +53,7 @@ func _input(event):
 					var line = temporary_line.duplicate()
 					var end_extremity_duplicate = extremity.instance()
 					end_extremity_duplicate.position = temporary_line.get_point_position(1)
+					print("Expected position: " + str(end_extremity_duplicate.position))
 					#self.direction = (get_global_mouse_position() - plant.get_global_position()).normalized()
 					root.add_child(line)
 					root.add_child(end_extremity_duplicate)
@@ -68,6 +61,7 @@ func _input(event):
 					for ground_element in end_extremity.get_overlapping_areas():
 						if ground_element is Groundwater:
 							ground_element.pump(0.05)
+					root.generate_branch(end_extremity_duplicate.global_position)
 					Events.emit_signal("disable_follow_mode")
 
 func _process(delta):
@@ -79,11 +73,6 @@ func _process(delta):
 	
 	if grow_data.height_to_grow > grow_data.height:
 		plant.grow_tree()
-	
-	elapsed_time += delta
-	if production_yield_time < elapsed_time:
-		plant_producion_fill.material.set_shader_param("fill_percentage", plant_producion_fill.material.get_shader_param("fill_percentage") + 0.05)
-		elapsed_time = 0
 
 func is_mouse_over(rect_global_position: Vector2, rect_size: Vector2) -> bool:
 	var mouse_position = get_viewport().get_mouse_position()
