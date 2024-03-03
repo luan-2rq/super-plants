@@ -10,8 +10,12 @@ onready var top_scroll_container_control = get_node(top_scroll_container_control
 #Internal
 export(NodePath) var terrain_path
 export(NodePath) var ground_elements_manager_path
+export(NodePath) var train_path
+export(NodePath) var arrow_controller_path
 onready var terrain = get_node(terrain_path)
 onready var ground_elements_manager = get_node(ground_elements_manager_path)
+onready var train = get_node(train_path)
+onready var arrow_controller = get_node(arrow_controller_path)
 
 var buttons : Array
 
@@ -47,6 +51,10 @@ func _process(delta: float) -> void:
 				if dragging == false:
 					dragging = true
 					cur_game_item = cur_pressed_button.config.item_scene.instance()
+					cur_game_item.terrain = terrain
+					cur_game_item.ground_elements_manager = ground_elements_manager
+					cur_game_item.train = train
+					cur_game_item.arrow_controller = arrow_controller
 					cur_game_item.config = cur_pressed_button.config
 					if cur_pressed_button.config.draggable_type == Enums.DraggableType.Internal:
 						bottom_scroll_container_control.add_child(cur_game_item)
@@ -60,8 +68,6 @@ func _process(delta: float) -> void:
 			dragging = false
 			referential_line.clear_points()
 			
-			cur_game_item.terrain = terrain
-			cur_game_item.ground_elements_manager = ground_elements_manager
 			cur_game_item.start_action()
 			
 			cur_pressed_button = null

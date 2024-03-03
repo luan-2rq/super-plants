@@ -8,12 +8,13 @@ func _process(delta):
 	$MainCanvas/Tree/ScrollController/PlantScrollContainer/Control/Screen.texture = texture
 		
 func _ready() -> void:
-	Firebase.Auth.connect("login_succeeded", self, "_on_signup_success")
-	Firebase.Auth.connect("signup_succeeded", self, "_on_login_success")
-	Firebase.Auth.connect("login_failed", self, "_on_login_fail")
-	Firebase.Auth.connect("auth_request", self, "_on_auth_request")
+	pass
+	#Firebase.Auth.connect("login_succeeded", self, "_on_signup_success")
+	#Firebase.Auth.connect("signup_succeeded", self, "_on_login_success")
+	#Firebase.Auth.connect("login_failed", self, "_on_login_fail")
+	#Firebase.Auth.connect("auth_request", self, "_on_auth_request")
 
-	Firebase.Auth.check_auth_file()
+	#Firebase.Auth.check_auth_file()
 	
 func _on_signup_success(result):
 	Firebase.Auth.save_auth(result)

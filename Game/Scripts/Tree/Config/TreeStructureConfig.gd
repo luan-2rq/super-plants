@@ -22,7 +22,7 @@ export var bounds : Resource
 
 export(Enums.TreeType) var tree_type
 
-export(int) var initial_points_density
+export(float) var initial_points_density = 0.2
 
 #Visual
 export var ___ = "Visual"

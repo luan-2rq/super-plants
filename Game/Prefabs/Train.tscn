@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Game/Scripts/Train/Train.gd" type="Script" id=1]
+[ext_resource path="res://Game/Sprites/white-square-background-56v690fpm25a3o6s.jpg" type="Texture" id=2]
+[ext_resource path="res://Game/Scripts/Train/TrainWagon.gd" type="Script" id=3]
+[ext_resource path="res://Game/Scripts/Train/TrainConfig.tres" type="Resource" id=4]
+
+[node name="Train" type="Position2D"]
+script = ExtResource( 1 )
+train_config = ExtResource( 4 )
+first_wagon_path = NodePath("Wagon")
+train_front_path = NodePath("TrainFront")
+
+[node name="TrainFront" type="Sprite" parent="."]
+position = Vector2( -6.40869e-06, -3.8147e-06 )
+scale = Vector2( 0.09, 0.072 )
+z_index = 10
+texture = ExtResource( 2 )
+offset = Vector2( 500, -500 )
+
+[node name="Wagon" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.156863 )
+position = Vector2( -73.8, 3.81458e-06 )
+scale = Vector2( 0.072, 0.056 )
+z_index = 10
+texture = ExtResource( 2 )
+offset = Vector2( 500, -500 )
+script = ExtResource( 3 )

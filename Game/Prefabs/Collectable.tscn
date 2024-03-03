@@ -9,6 +9,7 @@
 extents = Vector2( 580, 580 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
+collision_layer = 2
 script = ExtResource( 2 )
 floating_text_scene = ExtResource( 4 )
 fill_sprite_path = NodePath("CollisionShape2D/Holder/Fill")

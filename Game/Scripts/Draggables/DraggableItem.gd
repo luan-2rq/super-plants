@@ -6,6 +6,8 @@ var floating_text_scene = preload("res://Game/Prefabs/FloatingText.tscn")
 var config : DraggableConfig
 var terrain : Terrain
 var ground_elements_manager : GroundElementsManager
+var train : Train
+var arrow_controller : ArrowsController
 
 #Every inherited implementation must also call this function, when overriding this fucntion.
 # This functions returns wether it was possible or not to complete action

@@ -5,6 +5,9 @@ onready var terrain = $"../../Terrain"
 onready var sprite : Sprite = $Sprite
 onready var collision_polygon_2d : CollisionPolygon2D = $CollisionPolygon2D
 
+var data : GroundElementData
+var arrows : Array
+
 func _ready():
 	var polys = sprite_to_polygon()
 	collision_polygon_2d.polygon = Transform2D(0, Vector2(-sprite.texture.get_size().x/2, -sprite.texture.get_size().y/2)).xform(polys[0])
@@ -27,6 +30,14 @@ func sprite_to_polygon():
 func reveal():
 	#Fix to use current groundelement radius
 	var quadrants = terrain.carve(self.global_position, 100)
+	#Remove arrows
+	for arrow in arrows:
+		arrow.get_parent().remove_child(arrow)
+	arrows.clear()
+
+func add_arrow(arrow, arrow_data):
+	arrows.append(arrow)
+	data.arrows.append(arrow_data)
 
 func overlaps(area_2d):
 	return overlaps_area(area_2d)

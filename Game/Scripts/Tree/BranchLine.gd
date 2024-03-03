@@ -214,23 +214,51 @@ func generate_points_random_direction(angle_range : float, initial_direction : V
 func generate_points_directionally_to(initial_point : Vector2, angle_range : float):
 	var result = PoolVector2Array()
 	var final_point = self.branch_data.to - self.global_position 
-	var n_points = final_point.length() * tree_config.initial_points_density
-	var point_distance = final_point.length() / n_points
+	var total_points : int = final_point.length() * tree_config.initial_points_density
+	var point_distance = final_point.length() / total_points
+	
+	var direction = final_point.normalized()
+	var length = final_point.length()
 	
 	result.append(initial_point)
-	result.append(final_point*3/8)
-	result.append(final_point*4/8)
-	result.append(final_point*7/8)
 	result.append(final_point)
 	
+	var n_in_between_points : int = total_points - 2 if (total_points - 2) % 2 == 0 else total_points - 3
+	
+	var min_length = point_distance / 2
+	var max_length = point_distance * 2
+	var total_length = n_in_between_points
+	
+	var lengths = random_lengths(n_in_between_points, min_length, max_length, total_length)
+	
+	var max_curve_distance = 30
+	var min_curve_distance = 30 / 2
+	
+	var curve_points = 0
+	#for i in range(n_in_between_points):
+		#var cur_point
+		#if i%2 == 0:
+			#if curve_points%2==0:
+				#cur_point = result[-1] + lengths[i] * direction
+				#cur_point.x += max_curve_distance
+			#else:
+				#cur_point = result[-1] + lengths[i] * direction
+				#cur_point.x -= max_curve_distance
+			#curve_points+=1
+		#else:
+			#cur_point = result[-1] + lengths[i] * direction
+			#cur_point.x = 0
+		#result.insert(i+1, cur_point)
+		
+	#print("Tamanho: "+ str(result.size()))
 	##To do: add logic to make it curvilinear
 	#var cur_dir = final_point.normalized()
-	#var cur_point
-	#for i in range(1, n_points - 1):
+	var cur_point
+	for i in range(1, total_points - 2):
 		#var angle_to_rotate = Random.range_float(-angle_range, angle_range)
 		#cur_dir = cur_dir.rotated(angle_to_rotate)
-		#cur_point = result[i-1] + point_distance * cur_dir
-		#result.insert(i, cur_point)
+		cur_point = result[i-1] + point_distance * direction
+		result.insert(i, cur_point)
 	return result
 	
 func generate_curve_points(initial_points : PoolVector2Array, bake_inteval : float) -> PoolVector2Array:
@@ -269,3 +297,21 @@ func expand(point_a : Vector2, point_b : Vector2, delta : int) -> PoolVector2Arr
 	
 	var result = PoolVector2Array([right_vec * point_b * delta, left_vec * point_b * delta])
 	return result
+	
+#Calculate N random length values, that are between x and y and sum to z
+func random_lengths(n: int, min_length: float, max_length: float, total_length: float) -> Array:
+	var values = []
+	var total_sum = 0.0
+
+	# Generate N random values between range x and y
+	for i in range(n):
+		var random_value = rand_range(min_length, max_length)
+		values.append(random_value)
+		total_sum += random_value
+
+	# Adjust values so the sum is z
+	var scale_factor = total_length / total_sum
+	for i in range(n):
+		values[i] *= scale_factor
+
+	return values

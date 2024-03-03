@@ -14,6 +14,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/silicon.util.custom_docs/doc_item/argument_doc_item.gd"
 }, {
+"base": "Resource",
+"class": "ArrowData",
+"language": "GDScript",
+"path": "res://Game/Scripts/ArrowData.gd"
+}, {
+"base": "Resource",
+"class": "ArrowsConfig",
+"language": "GDScript",
+"path": "res://Game/Scripts/ArrowsConfig.gd"
+}, {
+"base": "Node",
+"class": "ArrowsController",
+"language": "GDScript",
+"path": "res://Game/Scripts/ArrowsController.gd"
+}, {
 "base": "Node2D",
 "class": "AspectNode",
 "language": "GDScript",
@@ -53,6 +68,11 @@ _global_script_classes=[ {
 "class": "BigNumber",
 "language": "GDScript",
 "path": "res://External/BigNumbers/BigNumber.gd"
+}, {
+"base": "Control",
+"class": "BoostsController",
+"language": "GDScript",
+"path": "res://Game/Scripts/BoostsScreen.gd"
 }, {
 "base": "Resource",
 "class": "Bounds",
@@ -480,9 +500,19 @@ _global_script_classes=[ {
 "path": "res://Game/Scripts/GroundElements/GroundElement.gd"
 }, {
 "base": "Resource",
+"class": "GroundElementData",
+"language": "GDScript",
+"path": "res://Game/Scripts/GroundElements/GroundElementData.gd"
+}, {
+"base": "Resource",
 "class": "GroundElementsConfig",
 "language": "GDScript",
 "path": "res://Game/Scripts/GroundElements/GroundElementsConfig.gd"
+}, {
+"base": "Resource",
+"class": "GroundElementsData",
+"language": "GDScript",
+"path": "res://Game/Scripts/GroundElements/GroundElementsData.gd"
 }, {
 "base": "Node2D",
 "class": "GroundElementsManager",
@@ -639,6 +669,36 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/Scanner/ExcavatorConfig.gd"
 }, {
+"base": "Node",
+"class": "Train",
+"language": "GDScript",
+"path": "res://Game/Scripts/Train/Train.gd"
+}, {
+"base": "Resource",
+"class": "TrainConfig",
+"language": "GDScript",
+"path": "res://Game/Scripts/Train/TrainConfig.gd"
+}, {
+"base": "Resource",
+"class": "TrainData",
+"language": "GDScript",
+"path": "res://Game/Scripts/Train/TrainData.gd"
+}, {
+"base": "Node",
+"class": "TrainWagon",
+"language": "GDScript",
+"path": "res://Game/Scripts/Train/TrainWagon.gd"
+}, {
+"base": "DraggableConfig",
+"class": "TrainWagonConfig",
+"language": "GDScript",
+"path": "res://Game/Scripts/Train/TrainWagonConfig.gd"
+}, {
+"base": "DraggableItem",
+"class": "TrainWagonItem",
+"language": "GDScript",
+"path": "res://Game/Scripts/Train/TrainWagonItem.gd"
+}, {
 "base": "DraggableButton",
 "class": "TransportDragButton",
 "language": "GDScript",
@@ -694,6 +754,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/Upgrades/UpgradesConfig.gd"
 }, {
+"base": "Control",
+"class": "UpgradesController",
+"language": "GDScript",
+"path": "res://Game/Scripts/Upgrades/UpgradesController.gd"
+}, {
 "base": "Resource",
 "class": "UpgradesData",
 "language": "GDScript",
@@ -711,6 +776,9 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ArgumentDocItem": "",
+"ArrowData": "",
+"ArrowsConfig": "",
+"ArrowsController": "",
 "AspectNode": "res://addons/awesome_splash/assets/icon/aspect_node_icon.png",
 "AuthProvider": "",
 "AweListTextNode": "res://addons/awesome_splash/assets/icon/list_text_node_icon.png",
@@ -719,6 +787,7 @@ _global_script_class_icons={
 "AweTextNode": "res://addons/awesome_splash/assets/icon/text_node_icon.png",
 "AweTimer": "",
 "BigNumber": "",
+"BoostsController": "",
 "Bounds": "",
 "BranchData": "",
 "BranchLine": "",
@@ -804,7 +873,9 @@ _global_script_class_icons={
 "GitHubProvider": "",
 "GoogleProvider": "",
 "GroundElement": "",
+"GroundElementData": "",
 "GroundElementsConfig": "",
+"GroundElementsData": "",
 "GroundElementsManager": "",
 "Groundwater": "",
 "GroundwaterConfig": "",
@@ -836,6 +907,12 @@ _global_script_class_icons={
 "Terrain": "",
 "TerrestrialScanner": "",
 "TerrestrialScannerConfig": "",
+"Train": "",
+"TrainConfig": "",
+"TrainData": "",
+"TrainWagon": "",
+"TrainWagonConfig": "",
+"TrainWagonItem": "",
 "TransportDragButton": "",
 "TreeConfig": "",
 "TreeStructureConfig": "",
@@ -847,6 +924,7 @@ _global_script_class_icons={
 "UpgradeManager": "",
 "UpgradeStrategy": "",
 "UpgradesConfig": "",
+"UpgradesController": "",
 "UpgradesData": "",
 "VisualMetricSystem": "",
 "settings_data": ""
@@ -858,8 +936,8 @@ Python="/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
 
 [application]
 
-config/name="Tree"
-run/main_scene="res://Game/Cenas/SplashScene.tscn"
+config/name="Super Plants"
+run/main_scene="res://Game/Cenas/MainNew.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -877,6 +955,8 @@ Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
 window/size/width=720
 window/size/height=1600
 window/size/always_on_top=true
+window/size/test_width=459
+window/size/test_height=1020
 window/dpi/allow_hidpi=true
 window/handheld/orientation="portrait"
 window/stretch/mode="viewport"

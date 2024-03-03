@@ -26,9 +26,14 @@ func generate_branch(to : Vector2, parent : BranchData = null):
 		var local_position = Vector2.ZERO
 		var branch = BranchData.new(null, 1, 1, 0, 0, tree_structure_config.bake_interval, 0, 0, to)
 		branch.instance = BranchLine.new(branch, tree_structure_config)
-		branch.instance.width = 10
+		branch.instance.width = 15
 		branch.instance.z_index = 10
 		branch.instance.position = local_position
+		
+		var width_curve = Curve.new()
+		width_curve.add_point(Vector2(0, 1))
+		width_curve.add_point(Vector2(3, 0.2))
+		#branch.instance.width_curve = width_curve
 		
 		branchs.append(branch)
 		self.add_child(branch.instance)
@@ -36,10 +41,14 @@ func generate_branch(to : Vector2, parent : BranchData = null):
 		var local_position = parent.instance.points[-1]
 		var branch = BranchData.new(parent, 1, 1, 0, 0, tree_structure_config.bake_interval, 0, 0, to)
 		branch.instance = BranchLine.new(branch, tree_structure_config)
-		branch.instance.width = 10
+		branch.instance.width = 15
 		branch.instance.z_index = 10
 		branch.instance.position = local_position
 		
+		var width_curve = Curve.new()
+		width_curve.add_point(Vector2(0, 1))
+		width_curve.add_point(Vector2(3, 0.2))
+		#branch.instance.width_curve = width_curve
+		
 		branchs.append(branch)
 		parent.instance.add_child(branch.instance)
-
