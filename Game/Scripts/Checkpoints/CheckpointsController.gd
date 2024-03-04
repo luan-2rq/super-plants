@@ -2,11 +2,23 @@ extends NonUIElementsCentralizer
 
 export(Resource) var checkpoint_configs
 var checkpoints : Array
+var checkpoints_data : CheckpointsData
+
 onready var screen_size = OS.window_size
 
 func _ready():
-	for checkpoint_config in checkpoint_configs.checkpoints:
-		add_checkpoint(CheckpointData.new(false), checkpoint_config)
+	#To do: get checkpoints data from save manager
+	checkpoints_data = CheckpointsData.new()
+	
+	if checkpoints_data.checkpoints.size() <= 0:
+		for checkpoint_config in checkpoint_configs.checkpoints:
+			#checkpoint data
+			var checkpoint_data = CheckpointData.new()
+			checkpoints_data.checkpoints.append(checkpoint_data)
+			add_checkpoint(checkpoint_data, checkpoint_config)
+	else:
+		for i in range(checkpoints_data.checkpoints.size()):
+			add_checkpoint(checkpoints_data.checkpoints[i], checkpoint_configs.checkpoints[i])
 
 func add_checkpoint(checkpoint_data : CheckpointData, checkpoint_config : CheckpointConfig):
 	var checkpoint = Checkpoint.new(checkpoint_data, checkpoint_config, self.rect_size.y)

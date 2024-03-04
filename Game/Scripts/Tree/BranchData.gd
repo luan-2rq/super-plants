@@ -11,7 +11,6 @@ var children : Array
 var position_in_parent : float
 var global_pos : Vector2
 
-#Pode ser passado por parâmetro#
 #Length and density
 var max_length : float
 var n_points : int
@@ -31,6 +30,9 @@ var leaf_count : int
 
 #Collectable
 var collectable_count : int
+
+#Ground Element
+var overlapping_ground_element : GroundElement = null
 
 #Instance
 var instance

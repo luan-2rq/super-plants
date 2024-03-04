@@ -127,19 +127,19 @@ func get_unit(magnitude: int) -> String:
 			unit = String(char(first_letter + a_position)) + String(char(second_letter + a_position))
 	return unit
 
-func to_string():
-	var decimal_places = 2
+#To do: only show decimal places when decimal part is bigger than 0
+func to_str(decimal_places : int = 2):
 	var unit = 0
 	var formatted_value = 0
 	if expoent >= 3:
 		var magnitude = expoent / 3
 		unit = get_unit(magnitude)
-		formatted_value = self.value * pow(10, expoent - magnitude * 3)
+		formatted_value = ("%0." + str(decimal_places) + "f") % (self.value * pow(10, expoent - magnitude * 3))
 	else:
 		unit = get_unit(0)
-		formatted_value = self.value * pow(10, expoent)
+		formatted_value = ("%0." + str(decimal_places) + "f") % (self.value * pow(10, expoent))
 	#culture invariant
-	return String(formatted_value).replace(",", ".") + unit
+	return formatted_value.replace(",", ".") + unit
 	
 func to_float():
 	var float_value = self.value * pow(10, expoent)

@@ -32,6 +32,7 @@ func add_arrow(scanner) -> void:
 	if distance < arrow.scale.x * arrow_tex_size.x:
 		arrow.scale.x = distance / arrow_tex_size.x
 		ground_elements_manager.reveal_ground_element(closest_ground_element)
+		#Events.emit_signal("on_ground_element_reveal", closest_ground_element.global_position)
 		
 		#Reveal floating text
 		var floating_text = floating_text_scene.instance()
@@ -39,5 +40,3 @@ func add_arrow(scanner) -> void:
 		floating_text.global_position = scanner_global_pos
 		get_tree().get_root().get_node("Main/MainCanvas").add_child(floating_text)
 		floating_text.display_text("You got it right!", Color(0, 1, 0, 1), 0.5)
-		
-

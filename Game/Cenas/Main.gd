@@ -5,7 +5,7 @@ var done = false
 
 func _process(delta):
 	var texture = $Viewport.get_texture()
-	$MainCanvas/Tree/ScrollController/PlantScrollContainer/Control/Screen.texture = texture
+	$MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control/Screen.texture = texture
 		
 func _ready() -> void:
 	pass

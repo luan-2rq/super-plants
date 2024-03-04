@@ -6,8 +6,8 @@ export(NodePath) var root_scroll_container_path
 
 onready var plant_scroll_container =  get_node(plant_scroll_container_path)
 onready var root_scroll_container = get_node(root_scroll_container_path)
-onready var plant_scroll_container_control = plant_scroll_container.get_node("Control")
-onready var root_scroll_container_control = root_scroll_container.get_node("Control")
+onready var plant_scroll_container_control = plant_scroll_container.get_child(0)
+onready var root_scroll_container_control = root_scroll_container.get_child(0)
 
 var plant_scrolling : bool
 var root_scrolling : bool

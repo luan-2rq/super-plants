@@ -22,4 +22,8 @@ signal enable_scroll()
 signal enable_follow_mode()
 signal disable_follow_mode()
 
+signal on_ground_element_reveal(to)
 signal on_start_pump(data)
+
+signal root_full_grown()
+

@@ -4,7 +4,7 @@ class_name CustomScrollContainer
 export(bool) var vertical_scroll_enabled = true
 export(bool) var horizontal_scroll_enabled = true
 
-onready var control_node = $Control
+onready var control_node = get_child(0)
 onready var max_scroll : Vector2
 
 export var v_scroll = 0
@@ -38,7 +38,7 @@ func _ready() -> void:
 	apply_scroll()
 	
 func _on_resize():
-	self.max_scroll = clamp_to_zero($Control.rect_size - rect_size)
+	self.max_scroll = clamp_to_zero(control_node.rect_size - rect_size)
 	
 func clamp_to_zero(vector : Vector2):
 	var clamped_to_zero = Vector2()

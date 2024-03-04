@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
-[ext_resource path="res://InnerScannerConfig.gd" type="Script" id=1]
+[ext_resource path="res://Game/Scripts/InnerScannerConfig.gd" type="Script" id=1]
 [ext_resource path="res://Game/Prefabs/InnerScannerItem.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game/Prefabs/DraggableButton.tscn" type="PackedScene" id=3]
 
@@ -10,5 +10,5 @@ draggable_type = 1
 item_scene = ExtResource( 2 )
 button_scene = ExtResource( 3 )
 currency_type = 1
-price = 40.0
+price = 40000.0
 initial_range_radius = 50.0

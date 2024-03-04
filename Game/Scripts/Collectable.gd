@@ -35,7 +35,7 @@ func _input(event: InputEvent) -> void:
 				floating_text.z_index = 5
 				floating_text.global_position = self.global_position
 				get_tree().get_root().get_node("Main/MainCanvas").add_child(floating_text)
-				floating_text.display_text(str(BigNumber.new(100, 0).to_string()), Color(0,1,0,1))
+				floating_text.display_text(str(BigNumber.new(100, 0).to_str(0)), Color(0,1,0,1))
 				floating_text.connect("anim_ended", self, "_on_floating_text_anim_ended")
 				self.visible = false
 	

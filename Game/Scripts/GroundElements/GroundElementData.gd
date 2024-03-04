@@ -1,8 +1,6 @@
 extends Resource
 class_name GroundElementData
 
-var position : Vector2
+var pos : Vector2
 var arrows : Array
-
-func _init(position : Vector2):
-	self.position = position
+var revealed : bool = false

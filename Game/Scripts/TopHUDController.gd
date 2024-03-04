@@ -16,8 +16,8 @@ func _ready() -> void:
 	Events.connect("on_HC_changed", self, "_on_HC_changed")
 
 func _on_SC_changed(value) -> void:
-	SC_label.bbcode_text = value.to_string()
+	SC_label.bbcode_text = value.to_str(2)
 	
 func _on_HC_changed(value) -> void:
-	HC_label.bbcode_text = value.to_string()
+	HC_label.bbcode_text = value.to_str(0)
 	

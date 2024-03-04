@@ -34,6 +34,7 @@ func reveal():
 	for arrow in arrows:
 		arrow.get_parent().remove_child(arrow)
 	arrows.clear()
+	data.revealed = true
 
 func add_arrow(arrow, arrow_data):
 	arrows.append(arrow)

@@ -177,24 +177,34 @@ func grow(length) -> BranchPointsResult:
 
 #Param to is global position
 func grow_directional(grow_amount : float):
-	if branch_data.final_points.size() == 0:
-		branch_data.initial_points = generate_points_directionally_to(Vector2.ZERO, tree_config.branch_angle_range)
-		branch_data.final_points = generate_curve_points(branch_data.initial_points, tree_config.bake_interval)
-	branch_data.current_length += grow_amount
+	var epsilon = 0.0001
+	if abs(1 - branch_data.filled_percentage) > epsilon:
+		
+		if branch_data.final_points.size() == 0:
+			branch_data.initial_points = generate_points_directionally_to(Vector2.ZERO, tree_config.branch_angle_range)
+			branch_data.final_points = generate_curve_points(branch_data.initial_points, tree_config.bake_interval)
+		branch_data.current_length += grow_amount
 	
-	for i in range(branch_data.last_point_index, branch_data.final_points.size()):
-		if branch_data.final_points[i].length() >= branch_data.current_length:
-			var final_points_size = branch_data.final_points.size()
-			var point = branch_data.final_points[i]
-			var total_length = branch_data.final_points[i].length()
-			var cur_length =  branch_data.current_length
-			branch_data.last_point_index = i
-			break
-	
-	var cur_points = self.points
-	for i in range(self.points.size(), branch_data.last_point_index):
-		cur_points.push_back(branch_data.final_points[i])
-	self.points = cur_points
+		for i in range(branch_data.last_point_index, branch_data.final_points.size()):
+			if branch_data.final_points[i].length() >= branch_data.current_length:
+				var final_points_size = branch_data.final_points.size()
+				var point = branch_data.final_points[i]
+				var total_length = branch_data.final_points[i].length()
+				var cur_length =  branch_data.current_length
+				branch_data.last_point_index = i
+				break
+		
+		var cur_points = self.points
+		for i in range(self.points.size(), branch_data.last_point_index+1):
+			cur_points.push_back(branch_data.final_points[i])
+			
+		branch_data.filled_percentage = (branch_data.last_point_index + 1) / branch_data.final_points.size()
+		
+		self.points = cur_points
+		
+		return false
+	else:
+		return true
 
 func generate_points_random_direction(angle_range : float, initial_direction : Vector2) -> PoolVector2Array:
 	var points = PoolVector2Array()
