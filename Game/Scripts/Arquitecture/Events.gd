@@ -26,4 +26,5 @@ signal on_ground_element_reveal(to)
 signal on_start_pump(data)
 
 signal root_full_grown()
+signal on_emptied_groundwater(groundwater)
 

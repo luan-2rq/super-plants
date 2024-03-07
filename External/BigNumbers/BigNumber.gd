@@ -1,17 +1,16 @@
-extends Reference
+extends Resource
 class_name BigNumber
 
 #GODOT LIMITATION
 const script_path = "res://External/BigNumbers/BigNumber.gd"
 
-var value : float
-var expoent : int
+export var value : float
+export var expoent : int
 
 const UNITS : Array = ["", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc", "UDc", "DDc", "TDc","QaDc", "QiDc", "SxDc", "SpDc", "ODc", "NDc", "Vg", "UVg", "DVg", "TVg", "QaVg", "QiVg", "SxVg", "SpVg", "OVg", "NVg", "Tg", "UTg", "DTg", "TTg", "QaTg", "QiTg", "SxTg", "SpTg", "OTg", "NTg", "Qd", "UQd", "DQd", "TQd", "QaQd", "QiQd", "SxQd", "SpQd", "OQd", "NQd", "Qq", "UQq", "DQq", "TQq", "QaQq", "QiQq", "SxQq", "SpQq", "OQq", "NQq", "Sx", "USx", "DSx", "TSx", "QaSx", "QiSx", "SxSx", "SpSx", "OSx", "NSx", "Sp", "USp", "DSp", "TSp", "QaSp", "QiSp", "SxSp", "SpSp", "OSp", "NSp", "Oc", "UOc", "DOc", "TOc", "QaOc", "QiOc", "SxOc", "SpOc", "OOc", "NOc", "No", "UNo", "DNo", "TNo", "QaNo", "QiNo", "SxNo", "SpNo", "ONo", "NNo", "Ce", "UCe", "DCe", "TCe", "QaCe", "QiCe", "SxCe", "SpCe", "OCe"]
 const DISTANCE_UNITS : Array = ["m", "km", "Mm", "Gm", "Tm", "Pm", "Em", "Zm", "Ym", "Nm", "Dm", "UDm", "DDm", "TDm", "QaDm", "QiDm", "SxDm", "SpDm", "ODm", "NDm", "Vg", "UVg", "DVg", "TVg", "QaVg", "QiVg", "SxVg", "SpVg", "OVg", "NVg", "Tg", "UTg", "DTg", "TTg", "QaTg", "QiTg", "SxTg", "SpTg", "OTg", "NTg", "Qd", "UQd", "DQd", "TQd", "QaQd", "QiQd", "SxQd", "SpQd", "OQd", "NQd", "Qq", "UQq", "DQq", "TQq", "QaQq", "QiQq", "SxQq", "SpQq", "OQq", "NQq", "Sx", "USx", "DSx", "TSx", "QaSx", "QiSx", "SxSx", "SpSx", "OSx", "NSx", "Sp", "USp", "DSp", "TSp", "QaSp", "QiSp", "SxSp", "SpSp", "OSp", "NSp", "Oc", "UOc", "DOc", "TOc", "QaOc", "QiOc", "SxOc", "SpOc", "OOc", "NOc", "No", "UNo", "DNo", "TNo", "QaNo", "QiNo", "SxNo", "SpNo", "ONo", "NNo", "Ce", "UCe", "DCe", "TCe", "QaCe", "QiCe", "SxCe", "SpCe", "OCe"]
 const TEN_CUBED = 1000
 const MAX_EXP_DIFFERENCE = 12
-
 
 func _init(value: float = 0, expoent : int = 1):
 	self.value = value

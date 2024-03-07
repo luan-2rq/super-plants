@@ -10,15 +10,19 @@ var static_body : StaticBody2D
 var raycast : RayCast2DDraw
 
 #VISUALS 
-#Leaves
-var leafs : Array
-#Collectables
-var collectables : Array
 
-func _init(branch_data : BranchData, tree_config : TreeStructureConfig):
+#Leaves
+var leafs_to_spawn : Array
+
+#Collectables
+var collectables_holders_to_spawn : Array
+var collectables_controller : CollectablesController
+
+func _init(branch_data : BranchData, tree_config : TreeStructureConfig, collectables_controller : CollectablesController = null):
 	self.branch_data = branch_data
 	self.tree_config = tree_config
 	self.default_color = tree_config.stem_color
+	self.collectables_controller = collectables_controller
 
 func _ready():
 	static_body = StaticBody2D.new()
@@ -32,35 +36,73 @@ func _ready():
 	raycast.collide_with_areas = true
 	add_child(raycast)
 	
-	#leafs
-	for i in range(branch_data.leaf_count):
-		var position_on_branch = Random.range_float(0, 1)
-		var rotation = Random.range_float(-PI, PI)
-		leafs.append(Leaf.new(position_on_branch, Vector2.RIGHT.rotated(rotation)))
+	#Initialize points
+	#if branch_data.initial_points.size() != 0:
+		#If its not directional
+		#branch_data.final_points = generate_curve_points(branch_data.initial_points, tree_config.bake_interval)
+		
+	var copy_final_points = branch_data.final_points.duplicate()
+	copy_final_points.resize(int(branch_data.filled_percentage*branch_data.final_points.size()))
+	self.points = copy_final_points
 	
-	#collectables
-	for i in range(branch_data.collectable_count):
-		var position_on_branch = Random.range_float(0, 1)
-		var rotation = Random.range_float(-PI, PI)
-		collectables.append(tree_config.collectable_prefab.instance())
-		collectables[i].rotation = rotation
-		collectables[i].position_on_branch = position_on_branch
+	#Initialize leafs
+	if branch_data.leaf_count > 0:
+		if branch_data.leafs_data.size() <= 0:
+			for i in range(branch_data.leaf_count):
+				var position_on_branch = Random.range_float(0, 1)
+				var rot = Random.range_float(-PI, PI)
+				var leaf_data = LeafData.new()
+				leaf_data.pos_on_branch = position_on_branch
+				leaf_data.rot = rot
+				var leaf = Leaf.new(leaf_data)
+				leafs_to_spawn.append(leaf)
+				branch_data.leafs_data.append(leaf_data)
+		else:
+			for leaf_data in branch_data.leafs_data:
+				var leaf = Leaf.new(leaf_data as LeafData)
+				if branch_data.filled_percentage >= leaf.data.pos_on_branch:
+					add_leaf(leaf)
+				else:
+					leafs_to_spawn.append(leaf)
+					
+	#Initialize collectables holders
+	if branch_data.collectable_holder_count > 0:
+		if branch_data.collectables_holders_data.size() <= 0:
+			for i in range(branch_data.collectable_holder_count):
+				var position_on_branch = Random.range_float(0, 1)
+				var rot = Random.range_float(-PI, PI)
+				var collectable_holder_data = CollectableHolderData.new()
+				collectable_holder_data.pos_on_branch = position_on_branch
+				collectable_holder_data.rot = rot
+				var collectable_holder = tree_config.collectable_prefab.instance()
+				collectable_holder.data = collectable_holder_data
+				collectable_holder.collectables_controller = collectables_controller
+				collectables_holders_to_spawn.append(collectable_holder)
+				branch_data.collectables_holders_data.append(collectable_holder_data)
+				#To do: set collectable holder config
+		else:
+			for collectable_holder_data in branch_data.collectables_holders_data:
+				var collectable_holder = tree_config.collectable_prefab.instance()
+				collectable_holder.data = collectable_holder_data
+				collectable_holder.collectables_controller = collectables_controller
+				if branch_data.filled_percentage >= collectable_holder.data.pos_on_branch:
+					add_collectable_holder(collectable_holder)
+				else:
+					collectables_holders_to_spawn.append(collectable_holder)
 
 func add_leaf(leaf : Leaf):
-	leaf.position = points[int(leaf.position_on_branch*(points.size()-1))]
+	leaf.position = self.points[int(leaf.data.pos_on_branch*(self.points.size()-1))]
 	leaf.texture = tree_config.leaf_texture
-	leaf.rotation = rotation
 	leaf.z_index = 1
 	leaf.centered = false
 	leaf.modulate = Color(0.01, 0.9, 0.4, 1)
 	leaf.scale = Vector2(0.05, 0.05)
 	add_child(leaf)
 	
-func add_collectable(collectable : Collectable):
-	collectable.position = points[int(collectable.position_on_branch*(points.size()-1))]
-	collectable.rotation = rotation
-	collectable.z_index = 2
-	add_child(collectable)
+func add_collectable_holder(collectable_holder : CollectableHolder):
+	collectable_holder.position = self.points[int(collectable_holder.data.pos_on_branch*(self.points.size()-1))]
+	collectable_holder.z_index = 2
+	add_child(collectable_holder)
 
 func add_point(position : Vector2, index : int = -1):
 	#if static_body.get_child(0) == null:
@@ -85,17 +127,17 @@ func add_point(position : Vector2, index : int = -1):
 	
 	.add_point(position)
 	var i = 0
-	while i <  leafs.size():
-		if leafs[i].position_on_branch >= branch_data.filled_percentage:
-			add_leaf(leafs[i])
-			leafs.remove(i)
+	while i <  leafs_to_spawn.size():
+		if branch_data.filled_percentage >=leafs_to_spawn[i].data.pos_on_branch:
+			add_leaf(leafs_to_spawn[i])
+			leafs_to_spawn.remove(i)
 			i-=1
 		i+=1
 	i=0
-	while i <  self.collectables.size():
-		if collectables[i].position_on_branch >= branch_data.filled_percentage:
-			add_collectable(collectables[i])
-			collectables.remove(i)
+	while i <  self.collectables_holders_to_spawn.size():
+		if branch_data.filled_percentage >= collectables_holders_to_spawn[i].data.pos_on_branch:
+			add_collectable_holder(collectables_holders_to_spawn[i])
+			collectables_holders_to_spawn.remove(i)
 			i-=1
 		i+=1
 	
@@ -104,15 +146,15 @@ func grow(length) -> BranchPointsResult:
 	
 	if branch_data.final_points.size() == 0:
 		branch_data.initial_points = generate_points_random_direction(tree_config.branch_angle_range, tree_config.initial_branch_direction)
-		branch_data.final_points = generate_curve_points(branch_data.initial_points, branch_data.bake_interval)
+		branch_data.final_points = generate_curve_points(branch_data.initial_points, tree_config.bake_interval)
 		
 		branch_data.current_length += length
-		branch_data.last_point_index = clamp((branch_data.final_points.size()-1) * branch_data.current_length / branch_data.max_length, 0, branch_data.final_points.size() -1)
-		branch_data.filled_percentage = float(branch_data.last_point_index) / branch_data.final_points.size()
+		branch_data.current_index = clamp((branch_data.final_points.size()-1) * branch_data.current_length / tree_config.max_branch_length, 0, branch_data.final_points.size() -1)
+		branch_data.filled_percentage = float(branch_data.current_index) / branch_data.final_points.size()
 		
 		#setting correctly the max size 
 		var cur_points = self.points
-		for i in range(self.points.size(), branch_data.last_point_index+1):
+		for i in range(self.points.size(), branch_data.current_index+1):
 			cur_points.append(branch_data.final_points[i])
 			
 		var processed_points : BranchPointsResult = trim_points(cur_points, tree_config.bounds as Bounds)
@@ -122,10 +164,10 @@ func grow(length) -> BranchPointsResult:
 		self.points = processed_points.points
 	else:
 		branch_data.current_length += length
-		branch_data.last_point_index = clamp((branch_data.final_points.size()-1) * branch_data.current_length / branch_data.max_length, 0,branch_data.final_points.size()-1)
-		branch_data.filled_percentage = float(branch_data.last_point_index) / branch_data.final_points.size()
+		branch_data.current_index = clamp((branch_data.final_points.size()-1) * branch_data.current_length / tree_config.max_branch_length, 0,branch_data.final_points.size()-1)
+		branch_data.filled_percentage = float(branch_data.current_index) / branch_data.final_points.size()
 		var cur_points = self.points
-		for i in range(self.points.size(), branch_data.last_point_index+1):
+		for i in range(self.points.size(), branch_data.current_index+1):
 			cur_points.append(branch_data.final_points[i])
 			
 		var processed_points : BranchPointsResult = trim_points(cur_points, tree_config.bounds as Bounds)
@@ -138,27 +180,27 @@ func grow(length) -> BranchPointsResult:
 	raycast.global_position =  self.global_position + self.points[-1]
 	
 	#Verifica colisões com outras branchs
-	if raycast.is_colliding():
-		if raycast.get_collider() != static_body and !raycast.get_collider().is_in_group(str(tree_config.get_instance_id())):
-			pass
+	#if raycast.is_colliding():
+		#if raycast.get_collider() != static_body and !raycast.get_collider().is_in_group(str(tree_config.get_instance_id())):
+			#pass
 			#points_result.full_grown = true
 			#raycast.enabled = false
 			
-	if branch_data.current_length == branch_data.max_length:
+	if branch_data.current_length == tree_config.max_branch_length:
 		points_result.full_grown = true
 	#Add leaf
 	var i = 0
-	while i <  leafs.size():
-		if leafs[i].position_on_branch >= branch_data.filled_percentage:
-			add_leaf(leafs[i])
-			leafs.remove(i)
+	while i <  leafs_to_spawn.size():
+		if branch_data.filled_percentage >= leafs_to_spawn[i].data.pos_on_branch:
+			add_leaf(leafs_to_spawn[i])
+			leafs_to_spawn.remove(i)
 			i-=1
 		i+=1
 	i=0
-	while i <  self.collectables.size():
-		if collectables[i].position_on_branch >= branch_data.filled_percentage:
-			add_collectable(collectables[i])
-			collectables.remove(i)
+	while i <  self.collectables_holders_to_spawn.size():
+		if branch_data.filled_percentage >= collectables_holders_to_spawn[i].data.pos_on_branch:
+			add_collectable_holder(collectables_holders_to_spawn[i])
+			collectables_holders_to_spawn.remove(i)
 			i-=1
 		i+=1
 
@@ -184,21 +226,27 @@ func grow_directional(grow_amount : float):
 			branch_data.initial_points = generate_points_directionally_to(Vector2.ZERO, tree_config.branch_angle_range)
 			branch_data.final_points = generate_curve_points(branch_data.initial_points, tree_config.bake_interval)
 		branch_data.current_length += grow_amount
-	
-		for i in range(branch_data.last_point_index, branch_data.final_points.size()):
+		
+		for i in range(branch_data.current_index, branch_data.final_points.size()):
 			if branch_data.final_points[i].length() >= branch_data.current_length:
 				var final_points_size = branch_data.final_points.size()
 				var point = branch_data.final_points[i]
 				var total_length = branch_data.final_points[i].length()
-				var cur_length =  branch_data.current_length
-				branch_data.last_point_index = i
+				var cur_length = branch_data.current_length
+				branch_data.current_index = i
 				break
+			elif i == branch_data.final_points.size() - 1:
+				var final_points_size = branch_data.final_points.size()
+				var point = branch_data.final_points[i]
+				var total_length = branch_data.final_points[i].length()
+				var cur_length = branch_data.current_length
+				branch_data.current_index = i
 		
 		var cur_points = self.points
-		for i in range(self.points.size(), branch_data.last_point_index+1):
+		for i in range(self.points.size(), branch_data.current_index+1):
 			cur_points.push_back(branch_data.final_points[i])
 			
-		branch_data.filled_percentage = (branch_data.last_point_index + 1) / branch_data.final_points.size()
+		branch_data.filled_percentage = float(branch_data.current_index + 1) / branch_data.final_points.size()
 		
 		self.points = cur_points
 		
@@ -209,12 +257,12 @@ func grow_directional(grow_amount : float):
 func generate_points_random_direction(angle_range : float, initial_direction : Vector2) -> PoolVector2Array:
 	var points = PoolVector2Array()
 	
-	var point_step = branch_data.max_length / branch_data.n_points
+	var point_step = tree_config.max_branch_length / tree_config.n_points_per_branch
 	var cur_dir = initial_direction
 	var cur_point = points[-1] if self.points.size() > 0 else Vector2.ZERO
 	points.append(cur_point)
 	
-	for i in range(branch_data.n_points - 1):
+	for i in range(tree_config.n_points_per_branch - 1):
 		points.append(points[-1] + cur_dir * point_step)
 		var angle_to_rotate = Random.range_float(-angle_range, angle_range)
 		cur_dir = cur_dir.rotated(angle_to_rotate)

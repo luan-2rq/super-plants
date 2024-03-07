@@ -21,7 +21,9 @@ func add_arrow(scanner) -> void:
 	
 	arrow.rotation = atan2(direction.y, direction.x)
 	
-	var arrow_data = ArrowData.new(scanner_global_pos, distance, direction)
+	var arrow_data = ArrowData.new()
+	arrow_data.init(scanner_global_pos, distance, direction)
+	
 	closest_ground_element.add_arrow(scanner, arrow_data)
 	
 	scanner.get_parent().remove_child(scanner)

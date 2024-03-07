@@ -1,54 +1,49 @@
 #Branch is defined by a Curve and its children
-extends Object
+extends Resource
 class_name BranchData
 
 #Hierarchy
-var depth : int
-var parent : BranchData
-var children : Array
+export var depth : int
+export(Resource) var parent #:BranchData
+
+#Need to find a way to remove children: it is not possible to use it due to recursion in ResourceManager.save
+#Substituir por index?
+export(Array, Resource) var children : Array#:BranchData
 
 #Position
-var position_in_parent : float
-var global_pos : Vector2
-
-#Length and density
-var max_length : float
-var n_points : int
-var bake_interval : float
+export var position_in_parent : float
+export var global_pos : Vector2
 
 #Points
-var initial_points : Array
-var final_points : Array
+export(Array, Vector2) var initial_points : Array
+export(Array, Vector2) var final_points : Array
 
 #Growth
-var filled_percentage : float = 0
-var current_length : float = 0
-var last_point_index : int = 0
+export var filled_percentage : float = 0
+export var current_length : float = 0
+export var current_index : int = 0
 
 #Leafs
-var leaf_count : int
+export var leaf_count : int
+export(Array, Resource) var leafs_data : Array #:LeafData
 
 #Collectable
-var collectable_count : int
+export var collectable_holder_count : int
+export(Array, Resource) var collectables_holders_data : Array #:CollectableHolderData
 
-#Ground Element
-var overlapping_ground_element : GroundElement = null
+export var overlapping_ground_element_index : int
+
+#Directional branch only
+export var to : Vector2
+export var has_grown_completely : bool = false
 
 #Instance
 var instance
 
-var to : Vector2
-
-func _init(parent : BranchData, depth : int, position_in_parent: float, max_length : float, n_points : int, bake_interval : float, leaf_count : int, collectable_count : int, to : Vector2 = Vector2.ZERO):
+func init(parent : BranchData, depth : int, position_in_parent: float, leaf_count : int, collectable_holder_count : int, to : Vector2 = Vector2.ZERO):
 	self.parent = parent
 	self.depth = depth
 	self.position_in_parent = position_in_parent 
-	self.max_length = max_length
-	self.n_points = n_points
-	self.bake_interval = bake_interval
 	self.leaf_count = leaf_count
-	self.collectable_count = collectable_count
+	self.collectable_holder_count = collectable_holder_count
 	self.to = to
-
-func add_branch_child(child):
-	self.children.append(child)

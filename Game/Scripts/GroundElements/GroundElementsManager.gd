@@ -12,27 +12,35 @@ var ground_elements : Array
 var available_ground_elements : Array
 
 func _ready():
-	#To do: get ground elements data from save manager
-	ground_elements_data = GroundElementsData.new()
+	ground_elements_data = SaveManager.get_specific_save(Enums.SaveName.ground_elements_data)
 	
-	if ground_elements_data.ground_elements.size() == 0:
+	if ground_elements_data == null:
+		ground_elements_data = GroundElementsData.new()
+		SaveManager.set_specific_save(Enums.SaveName.ground_elements_data, ground_elements_data)
 		var start_time = OS.get_ticks_msec() / 1000.0
 		var positions = generate_random_ground_elements_positions(ground_elements_config.groundwater.size())
 		var end_time = OS.get_ticks_msec() / 1000.0
 		print("Time to find optimal positions: "+ str(end_time - start_time))
+		var i = 0
 		for pos in positions:
-			instantiate_ground_element(pos)
+			instantiate_ground_element(pos, i)
+			i+=1
 	else:
 		for ground_element in ground_elements_data.ground_elements:
-			instantiate_ground_element(ground_element.pos, ground_element)
+			instantiate_ground_element(ground_element.pos, ground_element.index, ground_element)
 
-func instantiate_ground_element(pos : Vector2, data : GroundElementData = null):
+func instantiate_ground_element(pos : Vector2, index : int = 0, data : GroundElementData = null):
 	var config = (ground_elements_config as GroundElementsConfig)
 	var cur_groundwater = ground_elements_config.groundwater_prefab.instance()
+	
+	#Logic to spawn ground elements
 	if data == null:
 		cur_groundwater.data = GroundwaterData.new()
 		cur_groundwater.data.pos = pos
-		cur_groundwater.data.size = Random.range_int(ground_elements_config.groundwater_size_range.x, ground_elements_config.groundwater_size_range.y)
+		var size = Random.range_int(ground_elements_config.groundwater_size_range.x, ground_elements_config.groundwater_size_range.y)
+		cur_groundwater.data.remaining_water = size
+		cur_groundwater.data.index = index
+		cur_groundwater.data.size = size
 		ground_elements_data.ground_elements.append(cur_groundwater.data)
 	else:
 		cur_groundwater.data = data

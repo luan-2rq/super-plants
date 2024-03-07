@@ -1,6 +1,8 @@
 extends Node
 class_name TrainWagon
 
+var data : Resource
+
 func activate():
 	self.modulate = Color(0,1,0,1)
 

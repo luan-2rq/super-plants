@@ -1,10 +1,6 @@
 extends Resource
 class_name TreeStructureConfig
 
-#Not specific from tree, should be elsewhere
-
-export var step_length : float = 0.05
-
 #Structural
 
 export var __ = "Structural"

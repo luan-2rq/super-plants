@@ -1,4 +1,4 @@
 extends Resource
 class_name GroundElementsData
 
-var ground_elements : Array
+export(Array, Resource) var ground_elements : Array

@@ -16,10 +16,14 @@ func _ready():
 func _process(delta):
 	if data.pumping:
 		if data.fill_percentage > 0:
-			data.fill_percentage -= data.pumping_rate * delta
+			data.remaining_water -= data.pumping_velocity * delta
+			data.fill_percentage = data.remaining_water / data.size
 			material_instance.set_shader_param('fill_percentage', data.fill_percentage)
+		else:
+			data.pumping = false
+			Events.emit_signal("on_emptied_groundwater", self)
 
 func pump(pumping_percentage_rate : float):
-	data.pumping_rate = pumping_percentage_rate
+	data.pumping_velocity = pumping_percentage_rate
 	data.pumping = true
 	Events.emit_signal("on_start_pump", data.size)

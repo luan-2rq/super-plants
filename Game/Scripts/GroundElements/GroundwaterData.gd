@@ -1,7 +1,8 @@
 extends GroundElementData
 class_name GroundwaterData
 
-var pumping_rate : float
-var pumping : bool = false
-var size : int
-var fill_percentage : float = 1
+export var pumping_velocity : float
+export var pumping : bool = false
+export var remaining_water : float
+export var fill_percentage : float = 1
+export var size : int

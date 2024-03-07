@@ -16,7 +16,10 @@ func _ready() -> void:
 		# Destroy duplicate instances
 		self.queue_free()
 	#To do: get playerdata from save manager
-	player_data = PlayerData.new(BigNumber.new(2000, 3), BigNumber.new(0, 0))
+	player_data = SaveManager.get_specific_save(Enums.SaveName.player_data)
+	if player_data == null:
+		player_data = PlayerData.new(BigNumber.new(2000, 3), BigNumber.new(0, 0))
+		SaveManager.set_specific_save(Enums.SaveName.player_data, player_data)
 
 func _process(delta) -> void:
 	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Game/Scripts/Tree/NormalTreeNode.gd" type="Script" id=1]
 [ext_resource path="res://Game/Scripts/EconomyManager.gd" type="Script" id=2]
@@ -37,6 +37,8 @@
 [ext_resource path="res://Game/Scripts/ArrowsController.gd" type="Script" id=35]
 [ext_resource path="res://Game/Configs/ArrowsConfig.tres" type="Resource" id=36]
 [ext_resource path="res://Game/Prefabs/FloatingText.tscn" type="PackedScene" id=37]
+[ext_resource path="res://Game/Scripts/Collectables/CollectablesController.gd" type="Script" id=38]
+[ext_resource path="res://Game/Configs/CollectablesConfig.tres" type="Resource" id=39]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 8 )
@@ -70,6 +72,12 @@ script = ExtResource( 7 )
 [node name="MainCanvas" type="CanvasLayer" parent="."]
 script = ExtResource( 2 )
 
+[node name="(must initialize before)CollectablesController" type="Control" parent="MainCanvas"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 38 )
+collectables_config = ExtResource( 39 )
+
 [node name="PlantManager" type="Control" parent="MainCanvas"]
 anchor_right = 0.997
 anchor_bottom = 0.999
@@ -79,6 +87,7 @@ script = ExtResource( 12 )
 plant_path = NodePath("ScrollController/PlantScrollContainer/Control/Plant")
 plant_scroll_container_path = NodePath("ScrollController/PlantScrollContainer")
 plant_scroll_container_control_path = NodePath("ScrollController/PlantScrollContainer/Control")
+ground_elements_manager_path = NodePath("ScrollController/RootScrollContainer/RootManager/GroundElementsManager")
 
 [node name="BackgroundPlant" type="ColorRect" parent="MainCanvas/PlantManager"]
 anchor_right = 1.0
@@ -150,6 +159,7 @@ position = Vector2( 360, 1720 )
 scale = Vector2( 1.5, 1.5 )
 script = ExtResource( 1 )
 tree_structure_config = ExtResource( 3 )
+collectables_controller_path = NodePath("../../../../../(must initialize before)CollectablesController")
 
 [node name="GrowthProgress" type="TextureRect" parent="MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control" groups=["NotCentered"]]
 material = ExtResource( 20 )
@@ -182,6 +192,7 @@ texture = ExtResource( 26 )
 
 [node name="Train" parent="MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control" instance=ExtResource( 27 )]
 position = Vector2( 0, 1770 )
+collectables_controller_path = NodePath("../../../../../(must initialize before)CollectablesController")
 
 [node name="RootScrollContainer" type="Container" parent="MainCanvas/PlantManager/ScrollController"]
 anchor_top = 0.556

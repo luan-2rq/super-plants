@@ -6,6 +6,7 @@ onready var sprite : Sprite = $Sprite
 onready var collision_polygon_2d : CollisionPolygon2D = $CollisionPolygon2D
 
 var data : GroundElementData
+
 var arrows : Array
 
 func _ready():

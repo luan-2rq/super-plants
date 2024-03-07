@@ -1,4 +1,4 @@
 extends Resource
-class_name settings_data
+class_name SettingsData
 
-var locale : String
+export var locale : int

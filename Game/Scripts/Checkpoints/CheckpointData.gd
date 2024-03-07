@@ -1,4 +1,4 @@
 extends Resource
 class_name CheckpointData
 
-var reached : bool = false
+export var reached : bool = false

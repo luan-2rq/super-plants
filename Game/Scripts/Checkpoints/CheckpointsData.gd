@@ -1,4 +1,4 @@
 extends Resource
 class_name CheckpointsData
 
-var checkpoints : Array
+export(Array, Resource) var checkpoints : Array

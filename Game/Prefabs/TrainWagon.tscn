@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Game/Sprites/white-square-background-56v690fpm25a3o6s.jpg" type="Texture" id=1]
+[ext_resource path="res://Game/Scripts/Train/TrainWagon.gd" type="Script" id=2]
+
+[node name="TrainWagon" type="Sprite"]
+modulate = Color( 1, 1, 1, 0.156863 )
+position = Vector2( -73.8, 3.81458e-06 )
+scale = Vector2( 0.072, 0.056 )
+z_index = 10
+texture = ExtResource( 1 )
+offset = Vector2( 500, -500 )
+script = ExtResource( 2 )

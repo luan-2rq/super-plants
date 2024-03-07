@@ -1,13 +1,38 @@
 extends Node
-class_name SaveManager
 
+const SAVE_PATH := "user://save_game.tres"
+onready var save_resource
 
+var elapsed_time : float = 0
+var save_rate = 5
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	if save_exists():
+		load_save()
+	else:
+		save_resource = Save.new()
 
+func save_game():
+	ResourceSaver.save(SAVE_PATH, save_resource)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	elapsed_time += delta
+	if elapsed_time > save_rate:
+		save_game()
+		elapsed_time = 0
+
+func load_save():
+	save_resource = Save.new()
+	save_resource = load(SAVE_PATH) as Save
+
+func get_specific_save(save_name): 
+	return save_resource.get(str(Enums.SaveName.keys()[save_name]))
+
+func set_specific_save(save_name, save): 
+	save_resource.set(str(Enums.SaveName.keys()[save_name]), save)
+
+func save_exists():
+	var file = File.new()
+	var exists = file.file_exists(SAVE_PATH)
+	file.close()
+	return exists

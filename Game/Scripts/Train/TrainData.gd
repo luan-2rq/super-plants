@@ -1,4 +1,4 @@
 extends Resource
 class_name TrainData
 
-var active_wagons : Array
+export(Array, Resource) var train_wagons : Array

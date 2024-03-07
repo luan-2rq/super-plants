@@ -57,7 +57,12 @@ func _input(event):
 						if ground_element is Groundwater:
 							overlapped_ground_element = ground_element
 							break
-					root.generate_branch(end_extremity_duplicate.global_position, overlapped_ground_element)
+							
+					var overlapped_ground_element_index = -1
+					if overlapped_ground_element:
+						overlapped_ground_element_index = overlapped_ground_element.data.index
+					
+					root.generate_branch(end_extremity_duplicate.global_position, overlapped_ground_element_index)
 					Events.emit_signal("disable_follow_mode")
 
 func is_mouse_over(rect_global_position: Vector2, rect_size: Vector2) -> bool:

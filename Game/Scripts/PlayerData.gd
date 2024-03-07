@@ -2,16 +2,16 @@ extends Resource
 class_name PlayerData
 
 #Wallet
-var SC : BigNumber
-var HC : BigNumber
+export var SC : Resource #: BigNumber
+export var HC : Resource #: BigNumber
 
 #Production
-var fruit_value : BigNumber
-var fruit_production_rate : BigNumber
+export var fruit_value : Resource #: BigNumber
+export var fruit_production_rate : Resource #: BigNumber
 
 #Root
-var root_growth_velocity
-var root_branch_quantity
+export var root_growth_velocity : float
+export var root_branch_quantity : float
 
 func _init(SC : BigNumber = null, HC : BigNumber = null):
 	self.SC = SC
