@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Area2D
 class_name Collectable
 
 export(PackedScene) var floating_text_scene
@@ -9,21 +9,25 @@ export(Material) var fill_material
 onready var fill_sprite = get_node(fill_sprite_path)
 onready var collision_shape = get_node(collision_shape_path)
 
+var collectables_controller : CollectablesController
 var data : CollectableData
 
 var is_collectable : bool = false
 
 func _ready():
 	fill_sprite.material = fill_material.duplicate()
+	connect("area_entered", self, "on_collision")
 	
 func _physics_process(delta):
 	fill_sprite.material.set_shader_param("fill_percentage", fill_sprite.material.get_shader_param("fill_percentage") + 0.05)
 	if !is_collectable:
-		var collided = move_and_collide(Vector2(0, 1))
-		if collided:
+		self.global_position += Vector2(0, 1) * delta * 70
+		if self.global_position.y > collectables_controller.ground.global_position.y:
 			is_collectable = true
-			#EconomyManager.instance.add_currency(Enums.CurrencyType.SC, BigNumber.new(100, 0))
-			#self.queue_free()
+			var collectable_price = collectables_controller.collectables_config.initial_price*UpgradesManager.get_upgrade_value(Enums.UpgradeType.ProductValueUpgrade)
+			collectables_controller.add_collectable(self.global_position, collectable_price, self)
+	#EconomyManager.instance.add_currency(Enums.CurrencyType.SC, BigNumber.new(100, 0))
+	#self.queue_free()
 
 func _input(event: InputEvent) -> void:
 	#if event is InputEventMouseButton:
@@ -32,16 +36,21 @@ func _input(event: InputEvent) -> void:
 	pass
 				#self.collect()
 	
+func on_collision(area):
+	if area.is_in_group("Ground"):
+		if !is_collectable:
+			pass
+		
 func _on_floating_text_anim_ended():
 	self.queue_free()
 	
 func collect():
-	EconomyManager.instance.add_currency(Enums.CurrencyType.SC, BigNumber.new(100, 0))
+	EconomyManager.instance.add_currency(Enums.CurrencyType.SC, BigNumber.new(data.price, 0))
 	var floating_text = floating_text_scene.instance()
 	floating_text.z_index = 5
 	floating_text.global_position = self.global_position
 	get_tree().get_root().get_node("Main/MainCanvas").add_child(floating_text)
-	floating_text.display_text(str(BigNumber.new(100, 0).to_str(0)), Color(0,1,0,1))
+	floating_text.display_text(str(BigNumber.new(data.price, 0).to_str(0)), Color(0,1,0,1))
 	floating_text.connect("anim_ended", self, "_on_floating_text_anim_ended")
 	self.visible = false
 	

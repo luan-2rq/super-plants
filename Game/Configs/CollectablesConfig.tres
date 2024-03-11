@@ -6,3 +6,4 @@
 [resource]
 script = ExtResource( 1 )
 collectable_prefab = ExtResource( 2 )
+initial_price = 100.0

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Game/Scripts/Upgrades/UpgradesManager.gd" type="Script" id=1]
+[ext_resource path="res://Game/Configs/UpgradesConfig.tres" type="Resource" id=2]
+
+[node name="UpgradesManager" type="Node2D"]
+script = ExtResource( 1 )
+upgrades_config = ExtResource( 2 )

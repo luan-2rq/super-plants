@@ -1,6 +1,6 @@
 extends Resource
 class_name GrowData
 
-var height_to_grow : float
-var height : float
-var growth_velocity : float
+export var height_to_grow : float
+export var height : float
+export var growth_velocity : float

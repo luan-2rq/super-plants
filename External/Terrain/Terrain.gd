@@ -7,11 +7,8 @@ export(Vector2) var quadrant_grid_size = Vector2(4,10)
 var quadrants_grid: Array = []
 
 var Quadrant = preload("res://External/Terrain/Quadrant.tscn")
-	
-func _ready() -> void:
-	init()
 
-func init():
+func initialize():
 	for i in range(quadrant_grid_size.x):
 		quadrants_grid.push_back([])
 		for j in range(quadrant_grid_size.y):

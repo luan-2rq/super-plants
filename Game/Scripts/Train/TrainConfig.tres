@@ -7,3 +7,4 @@ script = ExtResource( 1 )
 n_wagons = 10
 wagon_offset = 5
 initial_velocity = 50.0
+initial_max_payload = 500.0

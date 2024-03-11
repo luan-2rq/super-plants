@@ -30,7 +30,7 @@ func sprite_to_polygon():
 	
 func reveal():
 	#Fix to use current groundelement radius
-	var quadrants = terrain.carve(self.global_position, 100)
+	var quadrants = terrain.carve(self.global_position, 150)
 	#Remove arrows
 	for arrow in arrows:
 		arrow.get_parent().remove_child(arrow)

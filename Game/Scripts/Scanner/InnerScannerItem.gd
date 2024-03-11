@@ -13,6 +13,7 @@ func _ready():
 	
 func start_action():
 	if .start_action():
-		arrow_controller.add_arrow(self)
+		arrow_controller.add_arrow(self.global_position)
+		queue_free()
 	else:
 		queue_free()

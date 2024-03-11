@@ -4,27 +4,31 @@ class_name CollectableHolder
 export(PackedScene) var collectable_scene
 export(Resource) var config
 
-var data
+var data : CollectableHolderData
 var collectables_controller : CollectablesController
 
-#To do: get this value from config
-#seconds
-var spawn_rate = 3
+#get it from some 
+var initial_spawn_rate = 10
+var spawn_rate : float = 10
 var elapsed_time : float = 0
 
 func _ready() -> void:
-	#to do: instantiate collectable progressively in code
 	var instance = collectable_scene.instance()
+	instance.collectables_controller = collectables_controller
 	self.add_child(instance)
-	#To do: get price from config and prefab too
-	collectables_controller.add_collectable(instance.global_position, 100, instance)
 	self.rotation = data.rot
-	#self.get_p.remove_child(get_child(0))
+	spawn_rate = initial_spawn_rate / UpgradesManager.get_upgrade_value(Enums.UpgradeType.ProductionRateUpgrade)
+	Events.connect("on_upgrade",self,"_on_production_rate_upgrade")
 
 func _process(delta: float) -> void:
 	elapsed_time += delta
 	if elapsed_time > spawn_rate:
 		elapsed_time = 0
 		var instance = collectable_scene.instance()
+		instance.collectables_controller = collectables_controller
 		self.add_child(instance)
-		collectables_controller.add_collectable(instance.global_position, 100, instance)
+
+func _on_production_rate_upgrade(upgrade_type):
+	if upgrade_type == Enums.UpgradeType.ProductionRateUpgrade:
+		#To do: replace spawn rate for initial spawn rate
+		spawn_rate = initial_spawn_rate / UpgradesManager.get_upgrade_value(Enums.UpgradeType.ProductionRateUpgrade)

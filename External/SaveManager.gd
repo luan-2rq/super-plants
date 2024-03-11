@@ -4,7 +4,7 @@ const SAVE_PATH := "user://save_game.tres"
 onready var save_resource
 
 var elapsed_time : float = 0
-var save_rate = 5
+var save_rate = 2
 
 func _ready():
 	if save_exists():
@@ -25,11 +25,11 @@ func load_save():
 	save_resource = Save.new()
 	save_resource = load(SAVE_PATH) as Save
 
-func get_specific_save(save_name): 
-	return save_resource.get(str(Enums.SaveName.keys()[save_name]))
+func get_specific_save(save_enum): 
+	return save_resource.get(str(Enums.SaveName.keys()[save_enum]))
 
-func set_specific_save(save_name, save): 
-	save_resource.set(str(Enums.SaveName.keys()[save_name]), save)
+func set_specific_save(save_enum, save): 
+	save_resource.set(str(Enums.SaveName.keys()[save_enum]), save)
 
 func save_exists():
 	var file = File.new()

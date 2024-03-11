@@ -1,27 +1,16 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Game/Scripts/Upgrades/UpgradesController.gd" type="Script" id=1]
 [ext_resource path="res://Game/Prefabs/Upgrades/UpgradeCell.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Game/Scripts/Upgrades/UpgradesConfig.gd" type="Script" id=3]
-[ext_resource path="res://Game/Scripts/Upgrades/UpgradeConfig.gd" type="Script" id=4]
+[ext_resource path="res://Game/Configs/UpgradesConfig.tres" type="Resource" id=3]
 
-[sub_resource type="Resource" id=1]
-script = ExtResource( 4 )
-
-[sub_resource type="Resource" id=2]
-script = ExtResource( 4 )
-
-[sub_resource type="Resource" id=3]
-script = ExtResource( 3 )
-upgrades = [ SubResource( 1 ), SubResource( 2 ) ]
-
-[node name="UpgradesScreen" type="Control"]
+[node name="UpgradesPopup" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 close_button_path = NodePath("Background/CloseButton")
 v_box_container_path = NodePath("Background/ScrollContainer/VBoxContainer")
-upgrades_config = SubResource( 3 )
+upgrades_config = ExtResource( 3 )
 upgrade_cell = ExtResource( 2 )
 
 [node name="Background" type="ColorRect" parent="."]

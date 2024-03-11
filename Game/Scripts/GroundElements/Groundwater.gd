@@ -9,7 +9,7 @@ var material_instance
 func _ready():
 	#temporary
 	material_instance = groundwater_material.duplicate()
-	material_instance.set_shader_param('fill_percentage', 1.0)
+	material_instance.set_shader_param('fill_percentage', data.fill_percentage)
 	sprite.set_material(material_instance)
 
 #Controller to recognize if there is a pump over it, if there is activate the pumping proccess

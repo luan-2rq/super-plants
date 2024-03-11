@@ -7,13 +7,20 @@ var ground_elements_data : GroundElementsData
 export(NodePath) var terrain_path
 onready var terrain : Terrain = get_node(terrain_path)
 
+export(NodePath) var arrows_controller_path
+onready var arrows_controller : ArrowsController = get_node(arrows_controller_path)
+
+export(NodePath) var root_scroll_container_path
+onready var root_scroll_container = get_node(root_scroll_container_path)
+
 onready var screen_size = get_viewport().size
 var ground_elements : Array
 var available_ground_elements : Array
 
 func _ready():
+	terrain.initialize()
 	ground_elements_data = SaveManager.get_specific_save(Enums.SaveName.ground_elements_data)
-	
+		
 	if ground_elements_data == null:
 		ground_elements_data = GroundElementsData.new()
 		SaveManager.set_specific_save(Enums.SaveName.ground_elements_data, ground_elements_data)
@@ -28,6 +35,8 @@ func _ready():
 	else:
 		for ground_element in ground_elements_data.ground_elements:
 			instantiate_ground_element(ground_element.pos, ground_element.index, ground_element)
+	arrows_controller.initialize()
+	root_scroll_container.connect("resized", self, "_on_resize")
 
 func instantiate_ground_element(pos : Vector2, index : int = 0, data : GroundElementData = null):
 	var config = (ground_elements_config as GroundElementsConfig)
@@ -45,10 +54,10 @@ func instantiate_ground_element(pos : Vector2, index : int = 0, data : GroundEle
 	else:
 		cur_groundwater.data = data
 	ground_elements.append(cur_groundwater)
+	cur_groundwater.global_position = pos
+	add_child(cur_groundwater)
 	if !cur_groundwater.data.revealed:
 		available_ground_elements.append(cur_groundwater)
-	add_child(cur_groundwater)
-	cur_groundwater.global_position = pos
 
 #Fix this algorithms so it does not take so long
 func generate_random_ground_elements_positions(n: int):
@@ -85,3 +94,7 @@ func reveal_ground_element(ground_element):
 	var ground_element_index = available_ground_elements.rfind(ground_element)
 	available_ground_elements.remove(ground_element_index)
 
+func _on_resize():
+	for ground_element in ground_elements:
+		if ground_element.data.revealed:
+			ground_element.reveal()

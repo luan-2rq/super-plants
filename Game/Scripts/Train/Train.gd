@@ -13,6 +13,9 @@ onready var out_of_screen_offset = train_front.texture.get_size().x * train_fron
 
 var train_data : Resource
 var train_wagons : Array
+var train
+
+var train_wagon_max_capacity = 0
 
 func _ready():
 	get_viewport().connect("size_changed", self, "_on_screen_size_changed")
@@ -35,12 +38,15 @@ func _ready():
 			self.add_child(train_wagon)
 	else:
 		init_from_save()
+	self.train_wagon_max_capacity = train_config.initial_max_payload * UpgradesManager.get_upgrade_value(Enums.UpgradeType.TrainWagonPayloadCapacityUpgrade)
+	Events.connect("on_upgrade", self, "_on_upgrade")
 
 func init_from_save():
 	for train_wagon_data in train_data.train_wagons:
 		var train_wagon = wagon_scene.instance()
 		var train_wagon_size = train_wagon.texture.get_size() * train_wagon.scale
 		train_wagon.data = train_wagon_data
+		train_wagon.data.payload = 0
 		train_wagon.position.x -= train_wagon_data.index * (train_wagon_size.x + train_config.wagon_offset)
 		train_wagons.append(train_wagon)
 		self.add_child(train_wagon)
@@ -58,13 +64,17 @@ func _physics_process(delta: float) -> void:
 	for train_wagon in train_wagons:
 		if train_wagon.global_position.x > screen_size.x + out_of_screen_offset:
 			train_wagon.global_position.x = -out_of_screen_offset
+			train_wagon.data.payload = 0
 	if train_front.global_position.x > screen_size.x + out_of_screen_offset:
 		train_front.global_position.x = -out_of_screen_offset
 	
 	#Collect
 	for train_wagon in train_wagons:
 		if train_wagon.data.active:
-			collectables_controller.collect(train_wagon.global_position.x, train_wagon.global_position.x +  train_wagon.scale.x * train_wagon.texture.get_size().x)
+			#if train_wagon.data.payload < train_config.initial:
+			var available_payload = collectables_controller.collect(train_wagon.global_position.x, train_wagon.global_position.x +  train_wagon.scale.x * train_wagon.texture.get_size().x, train_wagon_max_capacity - train_wagon.data.payload)
+			train_wagon.data.payload = train_wagon_max_capacity - available_payload
+			train_wagon.set_fill(train_wagon.data.payload/train_wagon_max_capacity)
 
 func get_aimed_wagon(var x_position):
 	var aimed_wagon = null
@@ -86,3 +96,7 @@ func select_wagon(train_wagon : TrainWagon):
 
 func deselect_wagon(train_wagon : TrainWagon):
 	train_wagon.deselect()
+
+func _on_upgrade(upgrade_type):
+	if upgrade_type == Enums.UpgradeType.TrainWagonPayloadCapacityUpgrade:
+		self.train_wagon_max_capacity = train_config.initial_max_payload * UpgradesManager.get_upgrade_value(Enums.UpgradeType.TrainWagonPayloadCapacityUpgrade)

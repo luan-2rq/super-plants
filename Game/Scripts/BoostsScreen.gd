@@ -15,7 +15,7 @@ var boosts_data : Resource
 export(PackedScene) var boost_cell
 
 func _ready():
-	open_button.connect('pressed', self, '_on_open')
+	#open_button.connect('pressed', self, '_on_open')
 	close_button.connect('pressed', self, '_on_close')
 	#for boost in boosts_config.boosts:
 		#var boost_cell_instance = boost_cell.instance()

@@ -124,7 +124,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/silicon.util.custom_docs/doc_item/class_doc_item.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Area2D",
 "class": "Collectable",
 "language": "GDScript",
 "path": "res://Game/Scripts/Collectables/Collectable.gd"
@@ -213,6 +213,21 @@ _global_script_classes=[ {
 "class": "DraggablesConfig",
 "language": "GDScript",
 "path": "res://Game/Scripts/Draggables/DraggablesConfig.gd"
+}, {
+"base": "Button",
+"class": "ExpandableCell",
+"language": "GDScript",
+"path": "res://External/ExpandableCells/Scripts/ExpandableCell.gd"
+}, {
+"base": "Container",
+"class": "ExpandableCellsContainer",
+"language": "GDScript",
+"path": "res://External/ExpandableCells/Scripts/ExpandableCellsContainer.gd"
+}, {
+"base": "Control",
+"class": "ExpandableCellsController",
+"language": "GDScript",
+"path": "res://External/ExpandableCells/Scripts/ExpandableCellsController.gd"
 }, {
 "base": "AuthProvider",
 "class": "FacebookProvider",
@@ -614,6 +629,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/Tree/NormalTreeNode.gd"
 }, {
+"base": "Control",
+"class": "OfflineProductionController",
+"language": "GDScript",
+"path": "res://Game/Scripts/OfflineProductionController.gd"
+}, {
 "base": "NormalTreeNode",
 "class": "Plant",
 "language": "GDScript",
@@ -633,16 +653,6 @@ _global_script_classes=[ {
 "class": "PlayerData",
 "language": "GDScript",
 "path": "res://Game/Scripts/PlayerData.gd"
-}, {
-"base": "UpgradeStrategy",
-"class": "ProductValueUpgrade",
-"language": "GDScript",
-"path": "res://Game/Scripts/Upgrades/UpgradeStrategies/ProductValueUpgrade.gd"
-}, {
-"base": "UpgradeStrategy",
-"class": "ProductionRateUpgrade",
-"language": "GDScript",
-"path": "res://Game/Scripts/Upgrades/UpgradeStrategies/ProductionRateUpgrade.gd"
 }, {
 "base": "DocItem",
 "class": "PropertyDocItem",
@@ -668,11 +678,6 @@ _global_script_classes=[ {
 "class": "RootData",
 "language": "GDScript",
 "path": "res://Game/Scripts/RootData.gd"
-}, {
-"base": "UpgradeStrategy",
-"class": "RootGrowthVelocity",
-"language": "GDScript",
-"path": "res://Game/Scripts/Upgrades/UpgradeStrategies/RootGrowthVelocityUpgrade.gd"
 }, {
 "base": "NonUIElementsCentralizer",
 "class": "RootManager",
@@ -814,16 +819,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Scripts/Upgrades/UpgradeData.gd"
 }, {
-"base": "Node2D",
-"class": "UpgradeManager",
-"language": "GDScript",
-"path": "res://Game/Scripts/Upgrades/UpgradeManager.gd"
-}, {
-"base": "Object",
-"class": "UpgradeStrategy",
-"language": "GDScript",
-"path": "res://Game/Scripts/Upgrades/UpgradeStrategy.gd"
-}, {
 "base": "Resource",
 "class": "UpgradesConfig",
 "language": "GDScript",
@@ -886,6 +881,9 @@ _global_script_class_icons={
 "DraggableConfig": "",
 "DraggableItem": "",
 "DraggablesConfig": "",
+"ExpandableCell": "",
+"ExpandableCellsContainer": "",
+"ExpandableCellsController": "",
 "FacebookProvider": "",
 "FirebaseAuth": "",
 "FirebaseDatabase": "",
@@ -966,18 +964,16 @@ _global_script_class_icons={
 "MetricSystemConfig": "",
 "NonUIElementsCentralizer": "",
 "NormalTreeNode": "",
+"OfflineProductionController": "",
 "Plant": "",
 "PlantData": "",
 "PlantManager": "",
 "PlayerData": "",
-"ProductValueUpgrade": "",
-"ProductionRateUpgrade": "",
 "PropertyDocItem": "",
 "RayCast2DDraw": "",
 "Root": "",
 "RootConfig": "",
 "RootData": "",
-"RootGrowthVelocity": "",
 "RootManager": "",
 "Save": "",
 "ScreenLoader": "",
@@ -1006,8 +1002,6 @@ _global_script_class_icons={
 "UpgradeCell": "",
 "UpgradeConfig": "",
 "UpgradeData": "",
-"UpgradeManager": "",
-"UpgradeStrategy": "",
 "UpgradesConfig": "",
 "UpgradesController": "",
 "UpgradesData": "",
@@ -1026,14 +1020,15 @@ config/icon="res://icon.png"
 
 [autoload]
 
-SaveManager="*res://External/SaveManager.gd"
-Random="*res://Game/Scripts/Random.gd"
-Events="*res://Game/Scripts/Arquitecture/Events.gd"
 Enums="*res://Game/Scripts/Arquitecture/Enums.gd"
+Events="*res://Game/Scripts/Arquitecture/Events.gd"
+SaveManager="*res://External/SaveManager.gd"
+UpgradesManager="*res://Game/Prefabs/UpgradesManager.tscn"
+EconomyManager="*res://Game/Scripts/EconomyManager.gd"
+Random="*res://Game/Scripts/Random.gd"
 sp="*res://addons/awesome_splash/utils_splash.gd"
 gd="*res://addons/godot-action/utils_gd_action.tscn"
 Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
-EconomyManager="*res://Game/Scripts/EconomyManager.gd"
 
 [display]
 

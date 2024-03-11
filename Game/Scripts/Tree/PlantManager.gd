@@ -15,7 +15,10 @@ var grow_data
 
 func _ready():
 	#To do: get grow data from save manager
-	grow_data = GrowData.new()
+	grow_data = SaveManager.get_specific_save(Enums.SaveName.grow_data)
+	if grow_data == null:
+		grow_data = GrowData.new()
+		SaveManager.set_specific_save(Enums.SaveName.grow_data, grow_data)
 	Events.connect("root_full_grown", self, "_on_root_full_grown")
 	Events.connect("on_grow", self, "_on_plant_grow")
 	Events.connect("on_emptied_groundwater", self, "_on_groundwater_emptied")

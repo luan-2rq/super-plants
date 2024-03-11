@@ -1,0 +1,44 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://Game/Scripts/Upgrades/UpgradeConfig.gd" type="Script" id=1]
+[ext_resource path="res://Game/Scripts/Upgrades/UpgradesConfig.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 1 )
+upgrade_type = 0
+title_locale_key = "production_rate_upgrade_by_percentage_title"
+description_locale_key = "production_rate_upgrade_by_percentage_description"
+percentage_factor = 0.5
+increase = false
+initial_price_significant = 100.0
+initial_price_exp = 1
+price_percentage_factor = 0.01
+max_upgrades = 10
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 1 )
+upgrade_type = 3
+title_locale_key = "train_wagon_capacity_upgrade_by_percentage_title"
+description_locale_key = "train_wagon_capacity_upgrade_by_percentage_description"
+percentage_factor = 0.01
+increase = true
+initial_price_significant = 1.0
+initial_price_exp = 3
+price_percentage_factor = 0.05
+max_upgrades = 10
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 1 )
+upgrade_type = 1
+title_locale_key = "product_value_upgrade_by_percentage_title"
+description_locale_key = "product_value_upgrade_by_percentage_description"
+percentage_factor = 0.02
+increase = true
+initial_price_significant = 1.0
+initial_price_exp = 3
+price_percentage_factor = 0.01
+max_upgrades = 10
+
+[resource]
+script = ExtResource( 2 )
+upgrades = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ]

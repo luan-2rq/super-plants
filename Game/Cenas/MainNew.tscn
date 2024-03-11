@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://Game/Scripts/Tree/NormalTreeNode.gd" type="Script" id=1]
 [ext_resource path="res://Game/Scripts/EconomyManager.gd" type="Script" id=2]
@@ -12,7 +12,7 @@
 [ext_resource path="res://External/Terrain/Terrain.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Game/Sprites/images.png" type="Texture" id=11]
 [ext_resource path="res://Game/Scripts/Tree/PlantManager.gd" type="Script" id=12]
-[ext_resource path="res://Game/Prefabs/Upgrades/UpgradesScreen.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Game/Prefabs/Upgrades/UpgradeCell.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Game/Scripts/PopupsController.gd" type="Script" id=14]
 [ext_resource path="res://Game/Prefabs/Settings/SettingsPopup.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Game/Scripts/Tree/Config/DirectionalRootConfig.tres" type="Resource" id=16]
@@ -39,6 +39,11 @@
 [ext_resource path="res://Game/Prefabs/FloatingText.tscn" type="PackedScene" id=37]
 [ext_resource path="res://Game/Scripts/Collectables/CollectablesController.gd" type="Script" id=38]
 [ext_resource path="res://Game/Configs/CollectablesConfig.tres" type="Resource" id=39]
+[ext_resource path="res://Game/Prefabs/OfflineProductionPopup.tscn" type="PackedScene" id=40]
+[ext_resource path="res://External/ExpandableCells/Scripts/ExpandableCellsContainer.gd" type="Script" id=41]
+[ext_resource path="res://Game/Scripts/Upgrades/UpgradesController.gd" type="Script" id=42]
+[ext_resource path="res://External/ExpandableCells/Scripts/ExpandableCellsController.gd" type="Script" id=43]
+[ext_resource path="res://Game/Configs/UpgradesConfig.tres" type="Resource" id=44]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 8 )
@@ -71,12 +76,6 @@ script = ExtResource( 7 )
 
 [node name="MainCanvas" type="CanvasLayer" parent="."]
 script = ExtResource( 2 )
-
-[node name="(must initialize before)CollectablesController" type="Control" parent="MainCanvas"]
-margin_right = 40.0
-margin_bottom = 40.0
-script = ExtResource( 38 )
-collectables_config = ExtResource( 39 )
 
 [node name="PlantManager" type="Control" parent="MainCanvas"]
 anchor_right = 0.997
@@ -154,12 +153,18 @@ color = Color( 0.803922, 0.458824, 0.156863, 1 )
 offset = Vector2( 94.6793, -189.116 )
 polygon = PoolVector2Array( -533.7, 115.414, -419.487, 83.5425, -218.498, 39.7195, -90.0721, 15.8161, 131.65, 41.7115, 300.965, 57.6471, 444.94, 51.6713, 532.477, 31.7517, 535.356, 280.746, -536.146, 244.891 )
 
+[node name="CollectablesController" type="Node2D" parent="MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control"]
+scale = Vector2( 0.025, 0.025 )
+script = ExtResource( 38 )
+ground_path = NodePath("../GroundPosition")
+collectables_config = ExtResource( 39 )
+
 [node name="Plant" type="Node2D" parent="MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control"]
 position = Vector2( 360, 1720 )
 scale = Vector2( 1.5, 1.5 )
 script = ExtResource( 1 )
 tree_structure_config = ExtResource( 3 )
-collectables_controller_path = NodePath("../../../../../(must initialize before)CollectablesController")
+collectables_controller_path = NodePath("../CollectablesController")
 
 [node name="GrowthProgress" type="TextureRect" parent="MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control" groups=["NotCentered"]]
 material = ExtResource( 20 )
@@ -178,10 +183,13 @@ margin_right = 1403.0
 margin_bottom = 1800.0
 color = Color( 0.156863, 0.156863, 0.156863, 1 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control" groups=["NotCentered"]]
+[node name="Area2D" type="Area2D" parent="MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control" groups=["Ground", "NotCentered"]]
+visible = false
 position = Vector2( 0, 881.99 )
+collision_layer = 2
+collision_mask = 2
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control/StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control/Area2D"]
 polygon = PoolVector2Array( -70, 448, 0, 449, -1, 828, 723, 825, 720, 437, 794, 439, 795, 887, -72, 889 )
 
 [node name="Sprite" type="Sprite" parent="MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control"]
@@ -192,7 +200,10 @@ texture = ExtResource( 26 )
 
 [node name="Train" parent="MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control" instance=ExtResource( 27 )]
 position = Vector2( 0, 1770 )
-collectables_controller_path = NodePath("../../../../../(must initialize before)CollectablesController")
+collectables_controller_path = NodePath("../CollectablesController")
+
+[node name="GroundPosition" type="Position2D" parent="MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control"]
+position = Vector2( 360, 1700 )
 
 [node name="RootScrollContainer" type="Container" parent="MainCanvas/PlantManager/ScrollController"]
 anchor_top = 0.556
@@ -223,6 +234,8 @@ floating_text_scene = ExtResource( 37 )
 script = ExtResource( 21 )
 ground_elements_config = ExtResource( 22 )
 terrain_path = NodePath("../Terrain")
+arrows_controller_path = NodePath("../ArrowsController")
+root_scroll_container_path = NodePath("../..")
 
 [node name="Terrain" parent="MainCanvas/PlantManager/ScrollController/RootScrollContainer/RootManager" instance=ExtResource( 10 )]
 
@@ -334,7 +347,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="TopHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD"]
+[node name="UpgradesController" type="HBoxContainer" parent="UI/BottomHUD"]
 anchor_left = 0.058
 anchor_top = 0.922
 anchor_right = 0.942
@@ -344,17 +357,38 @@ margin_top = -0.200073
 margin_right = 0.259888
 margin_bottom = -0.199951
 custom_constants/separation = 20
+script = ExtResource( 42 )
+expandable_cells_controller_path = NodePath("ExpandablesCellsController")
+upgrades_config = ExtResource( 44 )
+upgrade_cell = ExtResource( 13 )
 
-[node name="ButtonsVBoxContainer(VAlignement)" type="VBoxContainer" parent="UI/BottomHUD/TopHBoxContainer"]
+[node name="ExpandablesCellsController" type="VBoxContainer" parent="UI/BottomHUD/UpgradesController"]
+visible = false
 margin_right = 308.0
 margin_bottom = 120.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
 alignment = 2
+script = ExtResource( 43 )
 
-[node name="ButtonsHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)"]
-margin_top = 30.0
+[node name="ExpandableCellsContainer" type="Container" parent="UI/BottomHUD/UpgradesController/ExpandablesCellsController"]
+visible = false
 margin_right = 308.0
+margin_bottom = 120.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 41 )
+
+[node name="ButtonsVBoxContainer(VAlignement)2" type="VBoxContainer" parent="UI/BottomHUD/UpgradesController"]
+margin_right = 636.0
+margin_bottom = 120.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+alignment = 2
+
+[node name="ButtonsHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD/UpgradesController/ButtonsVBoxContainer(VAlignement)2"]
+margin_top = 30.0
+margin_right = 636.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 90, 90 )
 size_flags_horizontal = 3
@@ -368,41 +402,6 @@ terrain_path = NodePath("../../../../../MainCanvas/PlantManager/ScrollController
 ground_elements_manager_path = NodePath("../../../../../MainCanvas/PlantManager/ScrollController/RootScrollContainer/RootManager/GroundElementsManager")
 train_path = NodePath("../../../../../MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control/Train")
 arrow_controller_path = NodePath("../../../../../MainCanvas/PlantManager/ScrollController/RootScrollContainer/RootManager/ArrowsController")
-
-[node name="ButtonsVBoxContainer(VAlignement)2" type="VBoxContainer" parent="UI/BottomHUD/TopHBoxContainer"]
-margin_left = 328.0
-margin_right = 636.0
-margin_bottom = 120.0
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
-alignment = 2
-
-[node name="UpgradesHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)2"]
-margin_top = 15.0
-margin_right = 308.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 0, 105 )
-size_flags_horizontal = 3
-size_flags_vertical = 0
-size_flags_stretch_ratio = 0.4
-custom_constants/separation = 10
-alignment = 2
-
-[node name="UpgradesButton" type="Button" parent="UI/BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)2/UpgradesHBoxContainer"]
-margin_left = 98.0
-margin_right = 198.0
-margin_bottom = 105.0
-rect_min_size = Vector2( 100, 100 )
-size_flags_horizontal = 0
-size_flags_vertical = 3
-
-[node name="BoostsButton" type="Button" parent="UI/BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)2/UpgradesHBoxContainer"]
-margin_left = 208.0
-margin_right = 308.0
-margin_bottom = 105.0
-rect_min_size = Vector2( 100, 100 )
-size_flags_horizontal = 0
-size_flags_vertical = 3
 
 [node name="BottomHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD"]
 visible = false
@@ -424,15 +423,18 @@ size_flags_stretch_ratio = 0.7
 
 [node name="Popups" type="Control" parent="UI"]
 anchor_left = 0.3
-anchor_top = 0.097
-anchor_right = 0.7
-anchor_bottom = 0.797
+anchor_top = 0.138
+anchor_right = 0.71
+anchor_bottom = 0.871
 margin_left = -181.0
-margin_top = -0.200012
-margin_right = 181.0
-margin_bottom = 0.799927
+margin_top = 0.199982
+margin_right = 173.8
+margin_bottom = -0.600098
 mouse_filter = 2
 script = ExtResource( 14 )
+
+[node name="OfflineProductionPopup" parent="UI/Popups" instance=ExtResource( 40 )]
+visible = false
 
 [node name="SettingsPopup" parent="UI/Popups" instance=ExtResource( 15 )]
 visible = false
@@ -452,11 +454,6 @@ visible = false
 
 [node name="BoostsScreen" parent="UI/Screens" instance=ExtResource( 34 )]
 visible = false
-open_button_path = NodePath("../../BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)2/UpgradesHBoxContainer/BoostsButton")
-
-[node name="UpgradesPopup" parent="UI/Screens" instance=ExtResource( 13 )]
-visible = false
-open_button_path = NodePath("../../BottomHUD/TopHBoxContainer/ButtonsVBoxContainer(VAlignement)2/UpgradesHBoxContainer/UpgradesButton")
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 900, 250 )
