@@ -724,6 +724,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-firebase/storage/storage_task.gd"
 }, {
+"base": "Resource",
+"class": "StoreConfig",
+"language": "GDScript",
+"path": "res://Game/Scripts/StoreConfig.gd"
+}, {
+"base": "Node",
+"class": "StoreController",
+"language": "GDScript",
+"path": "res://Game/Scripts/StoreController.gd"
+}, {
+"base": "Resource",
+"class": "StoreItemConfig",
+"language": "GDScript",
+"path": "res://Game/Scripts/StoreItemConfig.gd"
+}, {
 "base": "Node2D",
 "class": "Terrain",
 "language": "GDScript",
@@ -983,6 +998,9 @@ _global_script_class_icons={
 "SplashContainer": "res://addons/awesome_splash/assets/icon/splash_container_icon.png",
 "StorageReference": "",
 "StorageTask": "",
+"StoreConfig": "",
+"StoreController": "",
+"StoreItemConfig": "",
 "Terrain": "",
 "TerrestrialScanner": "",
 "TerrestrialScannerConfig": "",
@@ -1026,12 +1044,13 @@ config/icon="res://icon.png"
 Enums="*res://Game/Scripts/Arquitecture/Enums.gd"
 Events="*res://Game/Scripts/Arquitecture/Events.gd"
 SaveManager="*res://External/SaveManager.gd"
+InAppPurchaseManager="*res://Game/Scripts/InAppPurchaseManager.gd"
 UpgradesManager="*res://Game/Prefabs/UpgradesManager.tscn"
 EconomyManager="*res://Game/Scripts/EconomyManager.gd"
-Random="*res://Game/Scripts/Random.gd"
 sp="*res://addons/awesome_splash/utils_splash.gd"
 gd="*res://addons/godot-action/utils_gd_action.tscn"
 Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
+Random="*res://Game/Scripts/Random.gd"
 
 [display]
 
@@ -1087,3 +1106,4 @@ common/enable_pause_aware_picking=true
 
 quality/driver/fallback_to_gles2=true
 vram_compression/import_etc=true
+vram_compression/import_pvrtc=true

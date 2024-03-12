@@ -19,7 +19,7 @@ func _notification(what):
 			for i in range(children_count):
 				fit_child_in_rect(children[i], Rect2(Vector2(), self.rect_size))
 				if i == 0:
-					cell_closed_h_size = _find_child_with_name(children[0], "ClosedContent").rect_size.x * 2
+					cell_closed_h_size = _find_child_with_name(children[0], "ClosedContent").rect_size.x * 1.5
 					closed_h_size_percentage = cell_closed_h_size / children[0].rect_size.x
 					cell_h_size = self.rect_size.x / (1 + (children_count-1) * closed_h_size_percentage)
 					if children_count > 1:
