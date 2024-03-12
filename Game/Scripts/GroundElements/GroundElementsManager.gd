@@ -20,7 +20,7 @@ var available_ground_elements : Array
 func _ready():
 	terrain.initialize()
 	ground_elements_data = SaveManager.get_specific_save(Enums.SaveName.ground_elements_data)
-		
+
 	if ground_elements_data == null:
 		ground_elements_data = GroundElementsData.new()
 		SaveManager.set_specific_save(Enums.SaveName.ground_elements_data, ground_elements_data)
@@ -37,7 +37,6 @@ func _ready():
 			instantiate_ground_element(ground_element.pos, ground_element.index, ground_element)
 	arrows_controller.initialize()
 	root_scroll_container.connect("resized", self, "_on_resize")
-
 func instantiate_ground_element(pos : Vector2, index : int = 0, data : GroundElementData = null):
 	var config = (ground_elements_config as GroundElementsConfig)
 	var cur_groundwater = ground_elements_config.groundwater_prefab.instance()
@@ -55,7 +54,7 @@ func instantiate_ground_element(pos : Vector2, index : int = 0, data : GroundEle
 		cur_groundwater.data = data
 	ground_elements.append(cur_groundwater)
 	cur_groundwater.global_position = pos
-	add_child(cur_groundwater)
+	self.add_child(cur_groundwater)
 	if !cur_groundwater.data.revealed:
 		available_ground_elements.append(cur_groundwater)
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/image_processing20200512-26746-1m42vmr.png-fe273938ab82e8cde3b9b7a6c17fdf00.stex"
+path="res://.import/logo.png-1352bb4d40781c16f84480d76c19ef6e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Sprites/image_processing20200512-26746-1m42vmr.png"
-dest_files=[ "res://.import/image_processing20200512-26746-1m42vmr.png-fe273938ab82e8cde3b9b7a6c17fdf00.stex" ]
+source_file="res://addons/godot-firebase/firebase/logo.png"
+dest_files=[ "res://.import/logo.png-1352bb4d40781c16f84480d76c19ef6e.stex" ]
 
 [params]
 

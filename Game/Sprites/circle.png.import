@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pngtree-money-icon-isolated-dollar-cash-illustration-png-image_6405801.jpg-4ee9b28f644c3956a33cfebbe145a974.stex"
+path="res://.import/circle.png-158a3a92eeba82273d9db4beb584d113.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Sprites/pngtree-money-icon-isolated-dollar-cash-illustration-png-image_6405801.jpg"
-dest_files=[ "res://.import/pngtree-money-icon-isolated-dollar-cash-illustration-png-image_6405801.jpg-4ee9b28f644c3956a33cfebbe145a974.stex" ]
+source_file="res://Game/Sprites/circle.png"
+dest_files=[ "res://.import/circle.png-158a3a92eeba82273d9db4beb584d113.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=1
+flags/repeat=0
 flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false

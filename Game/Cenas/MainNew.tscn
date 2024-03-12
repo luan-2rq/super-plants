@@ -1,8 +1,7 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://Game/Scripts/Tree/NormalTreeNode.gd" type="Script" id=1]
-[ext_resource path="res://Game/Scripts/EconomyManager.gd" type="Script" id=2]
-[ext_resource path="res://Game/Scripts/Tree/Config/PlantConfig.tres" type="Resource" id=3]
+[ext_resource path="res://Game/Configs/PlantConfig.tres" type="Resource" id=3]
 [ext_resource path="res://Game/Folder/low_poly_truck.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Game/Scripts/Tree/DirectionalTreeNode.gd" type="Script" id=5]
 [ext_resource path="res://Game/Scripts/Checkpoints/CheckpointsController.gd" type="Script" id=6]
@@ -15,17 +14,17 @@
 [ext_resource path="res://Game/Prefabs/Upgrades/UpgradeCell.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Game/Scripts/PopupsController.gd" type="Script" id=14]
 [ext_resource path="res://Game/Prefabs/Settings/SettingsPopup.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Game/Scripts/Tree/Config/DirectionalRootConfig.tres" type="Resource" id=16]
+[ext_resource path="res://Game/Configs/DirectionalRootConfig.tres" type="Resource" id=16]
 [ext_resource path="res://Game/Prefabs/ShopScreen.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Game/Scripts/ScreensController.gd" type="Script" id=18]
 [ext_resource path="res://Game/Prefabs/Extrimity.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Game/Materials/GrowthProgressBar.tres" type="Material" id=20]
 [ext_resource path="res://Game/Scripts/GroundElements/GroundElementsManager.gd" type="Script" id=21]
-[ext_resource path="res://Game/Scripts/GroundElements/GroundElementsConfig.tres" type="Resource" id=22]
+[ext_resource path="res://Game/Configs/GroundElementsConfig.tres" type="Resource" id=22]
 [ext_resource path="res://Game/Scripts/Tree/RootManager.gd" type="Script" id=23]
 [ext_resource path="res://Game/Fonts/FontPreset.tres" type="DynamicFont" id=24]
 [ext_resource path="res://Game/Scripts/TopHUDController.gd" type="Script" id=25]
-[ext_resource path="res://Game/Sprites/white-square-background-56v690fpm25a3o6s.jpg" type="Texture" id=26]
+[ext_resource path="res://Game/Sprites/square.jpg" type="Texture" id=26]
 [ext_resource path="res://Game/Prefabs/Train.tscn" type="PackedScene" id=27]
 [ext_resource path="res://Game/Scripts/ScrollController.gd" type="Script" id=28]
 [ext_resource path="res://Game/Scripts/VisualMetricSystem.gd" type="Script" id=29]
@@ -75,7 +74,6 @@ checkpoint_vertical_size = 70.0
 script = ExtResource( 7 )
 
 [node name="MainCanvas" type="CanvasLayer" parent="."]
-script = ExtResource( 2 )
 
 [node name="PlantManager" type="Control" parent="MainCanvas"]
 anchor_right = 0.997
@@ -90,16 +88,18 @@ ground_elements_manager_path = NodePath("ScrollController/RootScrollContainer/Ro
 
 [node name="BackgroundPlant" type="ColorRect" parent="MainCanvas/PlantManager"]
 anchor_right = 1.0
-anchor_bottom = 0.556
-margin_bottom = 0.495972
+anchor_bottom = 0.469
+margin_right = 6.10352e-05
+margin_bottom = 0.0690308
 color = Color( 0.294118, 0.584314, 0.847059, 1 )
 
 [node name="BackgroundRoot" type="ColorRect" parent="MainCanvas/PlantManager"]
-anchor_top = 0.557
+anchor_top = 0.469
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -0.643005
-margin_bottom = 0.460083
+margin_top = 0.0690308
+margin_right = 6.10352e-05
+margin_bottom = 1.00012
 color = Color( 0.639216, 0.368627, 0.12549, 1 )
 
 [node name="ScrollController" type="Control" parent="MainCanvas/PlantManager"]
@@ -113,16 +113,16 @@ root_scroll_container_path = NodePath("RootScrollContainer")
 
 [node name="PlantScrollContainer" type="Container" parent="MainCanvas/PlantManager/ScrollController"]
 anchor_right = 1.0
-anchor_bottom = 0.556
-margin_bottom = 0.399902
+anchor_bottom = 0.469
+margin_bottom = -0.400024
 rect_clip_content = true
 script = ExtResource( 31 )
-v_scroll = 910
+v_scroll = 1050
 
 [node name="Control" type="Control" parent="MainCanvas/PlantManager/ScrollController/PlantScrollContainer"]
-margin_top = -910.0
+margin_top = -1050.0
 margin_right = 720.0
-margin_bottom = 890.0
+margin_bottom = 750.0
 rect_min_size = Vector2( 720, 1800 )
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -206,10 +206,10 @@ collectables_controller_path = NodePath("../CollectablesController")
 position = Vector2( 360, 1700 )
 
 [node name="RootScrollContainer" type="Container" parent="MainCanvas/PlantManager/ScrollController"]
-anchor_top = 0.556
+anchor_top = 0.469
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 0.399902
+margin_top = -0.400024
 rect_clip_content = true
 script = ExtResource( 31 )
 
@@ -348,14 +348,11 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="UpgradesController" type="HBoxContainer" parent="UI/BottomHUD"]
-anchor_left = 0.058
-anchor_top = 0.922
-anchor_right = 0.942
-anchor_bottom = 0.997
-margin_left = -0.259998
-margin_top = -0.200073
-margin_right = 0.259888
-margin_bottom = -0.199951
+anchor_top = 0.897
+anchor_right = 0.997
+anchor_bottom = 1.0
+margin_top = 0.799927
+margin_right = 0.159973
 custom_constants/separation = 20
 script = ExtResource( 42 )
 expandable_cells_controller_path = NodePath("ExpandablesCellsController")
@@ -363,63 +360,65 @@ upgrades_config = ExtResource( 44 )
 upgrade_cell = ExtResource( 13 )
 
 [node name="ExpandablesCellsController" type="VBoxContainer" parent="UI/BottomHUD/UpgradesController"]
-visible = false
-margin_right = 308.0
-margin_bottom = 120.0
+margin_right = 558.0
+margin_bottom = 164.0
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
+size_flags_stretch_ratio = 0.8
 alignment = 2
 script = ExtResource( 43 )
 
-[node name="ExpandableCellsContainer" type="Container" parent="UI/BottomHUD/UpgradesController/ExpandablesCellsController"]
-visible = false
-margin_right = 308.0
-margin_bottom = 120.0
+[node name="MarginContainer" type="MarginContainer" parent="UI/BottomHUD/UpgradesController/ExpandablesCellsController"]
+margin_right = 558.0
+margin_bottom = 164.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_bottom = 5
+
+[node name="ExpandableCellsContainer" type="Container" parent="UI/BottomHUD/UpgradesController/ExpandablesCellsController/MarginContainer"]
+margin_top = 5.0
+margin_right = 553.0
+margin_bottom = 159.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 41 )
 
 [node name="ButtonsVBoxContainer(VAlignement)2" type="VBoxContainer" parent="UI/BottomHUD/UpgradesController"]
-margin_right = 636.0
-margin_bottom = 120.0
+margin_left = 578.0
+margin_right = 718.0
+margin_bottom = 164.0
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
+size_flags_stretch_ratio = 0.2
 alignment = 2
 
-[node name="ButtonsHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD/UpgradesController/ButtonsVBoxContainer(VAlignement)2"]
-margin_top = 30.0
-margin_right = 636.0
-margin_bottom = 120.0
+[node name="MarginContainer" type="MarginContainer" parent="UI/BottomHUD/UpgradesController/ButtonsVBoxContainer(VAlignement)2"]
+margin_top = 44.0
+margin_right = 140.0
+margin_bottom = 164.0
+custom_constants/margin_right = 15
+custom_constants/margin_top = 15
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 15
+
+[node name="ButtonsHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD/UpgradesController/ButtonsVBoxContainer(VAlignement)2/MarginContainer"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 125.0
+margin_bottom = 105.0
 rect_min_size = Vector2( 90, 90 )
 size_flags_horizontal = 3
 size_flags_vertical = 0
 custom_constants/separation = 20
+alignment = 2
 script = ExtResource( 32 )
 draggable_buttons_config = ExtResource( 33 )
-bottom_scroll_container_control_path = NodePath("../../../../../MainCanvas/PlantManager/ScrollController/RootScrollContainer/RootManager")
-top_scroll_container_control_path = NodePath("../../../../../MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control")
-terrain_path = NodePath("../../../../../MainCanvas/PlantManager/ScrollController/RootScrollContainer/RootManager/Terrain")
-ground_elements_manager_path = NodePath("../../../../../MainCanvas/PlantManager/ScrollController/RootScrollContainer/RootManager/GroundElementsManager")
-train_path = NodePath("../../../../../MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control/Train")
-arrow_controller_path = NodePath("../../../../../MainCanvas/PlantManager/ScrollController/RootScrollContainer/RootManager/ArrowsController")
-
-[node name="BottomHBoxContainer" type="HBoxContainer" parent="UI/BottomHUD"]
-visible = false
-anchor_left = 0.021
-anchor_top = 0.897
-anchor_right = 0.979
-anchor_bottom = 0.991
-margin_left = -0.120001
-margin_top = -0.200073
-margin_right = 0.119995
-margin_bottom = 0.399902
-custom_constants/separation = 20
-
-[node name="IncrementalButton" type="Button" parent="UI/BottomHUD/BottomHBoxContainer"]
-margin_right = 690.0
-margin_bottom = 150.0
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.7
+bottom_scroll_container_control_path = NodePath("../../../../../../MainCanvas/PlantManager/ScrollController/RootScrollContainer/RootManager")
+top_scroll_container_control_path = NodePath("../../../../../../MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control")
+terrain_path = NodePath("../../../../../../MainCanvas/PlantManager/ScrollController/RootScrollContainer/RootManager/Terrain")
+ground_elements_manager_path = NodePath("../../../../../../MainCanvas/PlantManager/ScrollController/RootScrollContainer/RootManager/GroundElementsManager")
+train_path = NodePath("../../../../../../MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control/Train")
+arrow_controller_path = NodePath("../../../../../../MainCanvas/PlantManager/ScrollController/RootScrollContainer/RootManager/ArrowsController")
 
 [node name="Popups" type="Control" parent="UI"]
 anchor_left = 0.3
@@ -445,7 +444,6 @@ anchor_top = 0.128
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -6.8
-margin_bottom = -7.0
 mouse_filter = 2
 script = ExtResource( 18 )
 
@@ -462,6 +460,3 @@ render_target_v_flip = true
 
 [node name="low_poly_truck" parent="Viewport" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.38432, 0 )
-
-[connection signal="pressed" from="UI/BottomHUD/BottomHBoxContainer/IncrementalButton" to="MainCanvas/PlantManager/ScrollController/PlantScrollContainer/Control/Plant" method="_on_Button_pressed"]
-[connection signal="pressed" from="UI/BottomHUD/BottomHBoxContainer/IncrementalButton" to="MainCanvas/PlantManager/ScrollController/RootScrollContainer/RootManager/Root" method="_on_IncrementalButton_pressed"]

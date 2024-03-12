@@ -18,7 +18,6 @@ var root_data : Resource
 func _ready():
 	root_data = SaveManager.get_specific_save(Enums.SaveName.root_data)
 	if root_data == null:
-		print("root_data null")
 		root_data = RootData.new()
 		SaveManager.set_specific_save(Enums.SaveName.root_data, root_data)
 	else:

@@ -41,4 +41,4 @@ max_upgrades = 10
 
 [resource]
 script = ExtResource( 2 )
-upgrades = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ]
+upgrades = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 3 ) ]

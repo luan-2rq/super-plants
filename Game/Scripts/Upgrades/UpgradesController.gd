@@ -11,4 +11,4 @@ export(PackedScene) var upgrade_cell
 
 func _ready():
 	upgrades_data = SaveManager.get_specific_save(Enums.SaveName.upgrades_data)
-	expandable_cells_controller.initialize(20,upgrade_cell,upgrades_config.upgrades.size())
+	expandable_cells_controller.initialize(0,upgrade_cell,upgrades_config.upgrades.size())

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://Game/Sprites/leaf.png" type="Texture" id=1]
-[ext_resource path="res://Game/Scripts/Tree/Config/NoBoundsConfig.tres" type="Resource" id=2]
+[ext_resource path="res://Game/Configs/NoBoundsConfig.tres" type="Resource" id=2]
 [ext_resource path="res://Game/Scripts/Tree/Config/TreeConfig.gd" type="Script" id=3]
 [ext_resource path="res://Game/Prefabs/CollectableHolder.tscn" type="PackedScene" id=4]
 

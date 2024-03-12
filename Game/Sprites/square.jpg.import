@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/white-square-background-56v690fpm25a3o6s.jpg-6326d763cd030a2a6c93a1625a2287ec.stex"
+path="res://.import/square.jpg-b47e6863bd1e6141d21a908c74f39ab7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Sprites/white-square-background-56v690fpm25a3o6s.jpg"
-dest_files=[ "res://.import/white-square-background-56v690fpm25a3o6s.jpg-6326d763cd030a2a6c93a1625a2287ec.stex" ]
+source_file="res://Game/Sprites/square.jpg"
+dest_files=[ "res://.import/square.jpg-b47e6863bd1e6141d21a908c74f39ab7.stex" ]
 
 [params]
 

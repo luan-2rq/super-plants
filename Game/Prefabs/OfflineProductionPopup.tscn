@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Game/Sprites/white-square-background-56v690fpm25a3o6s.jpg" type="Texture" id=1]
+[ext_resource path="res://Game/Sprites/square.jpg" type="Texture" id=1]
 [ext_resource path="res://Game/Fonts/FontPreset.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Game/Scripts/OfflineProductionController.gd" type="Script" id=3]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Game/Scripts/ExcavatorItem.gd" type="Script" id=1]
-[ext_resource path="res://Game/Sprites/white-square-background-56v690fpm25a3o6s.jpg" type="Texture" id=2]
+[ext_resource path="res://Game/Sprites/square.jpg" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 168, 388.5 )
