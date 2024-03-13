@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "772623390030",
+    "project_id": "super-plants-dev",
+    "storage_bucket": "super-plants-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772623390030:android:39455d7573eeae78453a1f",
+        "android_client_info": {
+          "package_name": "com.yello.superplants"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo1J5ECa-0Bs9Juj2Osisxcyu-eOuLsY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

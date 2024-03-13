@@ -1,21 +1,21 @@
-[gd_resource type="Resource" load_steps=5 format=2]
+[gd_resource type="Resource" script_class="GroundElementsConfig" load_steps=5 format=3 uid="uid://b1xbvjvfytdix"]
 
-[ext_resource path="res://Game/Scripts/GroundElements/GroundElementsConfig.gd" type="Script" id=1]
-[ext_resource path="res://Game/Prefabs/GroundElement.tscn" type="PackedScene" id=2]
+[ext_resource type="Script" path="res://Game/Scripts/GroundElements/GroundElementsConfig.gd" id="1"]
+[ext_resource type="PackedScene" path="res://Game/Prefabs/GroundElement.tscn" id="2"]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id="1"]
 script/source = "extends Resource
 class_name GroundwaterConfig
 
 
 "
 
-[sub_resource type="Resource" id=2]
-script = SubResource( 1 )
+[sub_resource type="Resource" id="2"]
+script = SubResource("1")
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource("1")
 minimum_elements_distance = 350.0
-groundwater = [ SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ) ]
-groundwater_prefab = ExtResource( 2 )
-groundwater_size_range = Vector2( 100, 500 )
+groundwater = [SubResource("2"), SubResource("2"), SubResource("2"), SubResource("2"), SubResource("2")]
+groundwater_prefab = ExtResource("2")
+groundwater_size_range = Vector2(100, 500)

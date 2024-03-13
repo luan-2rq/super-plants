@@ -1,37 +1,29 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://cqgavgynko6qp"]
 
-[ext_resource path="res://addons/SheetsLocalizationImporter/LocalizationImporter.gd" type="Script" id=1]
-[ext_resource path="res://External/OAuthClient.gd" type="Script" id=2]
+[ext_resource type="Script" path="res://addons/SheetsLocalizationImporter/LocalizationImporter.gd" id="1"]
+[ext_resource type="Script" path="res://External/OAuthClient.gd" id="2"]
 
 [node name="LocalizationImporter" type="MarginContainer"]
-margin_right = 720.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
-script = ExtResource( 2 )
+offset_right = 720.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("2")
 client_secret = "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"
 client_ID = "951790261759-bap2f20qu6brq3kns32gv7dl9go7dkfd.apps.googleusercontent.com"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 700.0
-margin_bottom = 58.0
-script = ExtResource( 1 )
+layout_mode = 2
+script = ExtResource("1")
 save_path = "res://Game/Localization/Localization.csv"
 spreadsheet_id = "1ok2bn-9Wvys7DxZwpxAiWykBsQoQlt1bwSGimgjyTWg"
-localization_sheet_names = [ "Base", "Upgrades", "Store" ]
+localization_sheet_names = ["Base", "Upgrades", "Store"]
 
 [node name="Button" type="Button" parent="VBoxContainer"]
-margin_right = 680.0
-margin_bottom = 20.0
+layout_mode = 2
 text = "Get Localization"
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 680.0
-margin_bottom = 38.0
+layout_mode = 2
 text = "------------"
-align = 1
-valign = 1

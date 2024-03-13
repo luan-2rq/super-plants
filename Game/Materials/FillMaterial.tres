@@ -1,8 +1,8 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dbn1nvagqihhy"]
 
-[ext_resource path="res://Game/Shaders/GroundwaterShader.tres" type="Shader" id=1]
+[ext_resource type="Shader" uid="uid://bsep1rtjgq8vh" path="res://Game/Shaders/GroundwaterShader.tres" id="1"]
 
 [resource]
-shader = ExtResource( 1 )
-shader_param/fill_percentage = 0.0
-shader_param/test = null
+shader = ExtResource("1")
+shader_parameter/fill_percentage = 0.0
+shader_parameter/test = null

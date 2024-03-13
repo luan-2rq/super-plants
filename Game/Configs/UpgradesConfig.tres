@@ -1,10 +1,10 @@
-[gd_resource type="Resource" load_steps=6 format=2]
+[gd_resource type="Resource" script_class="UpgradesConfig" load_steps=6 format=3 uid="uid://cbenxqjqon5s8"]
 
-[ext_resource path="res://Game/Scripts/Upgrades/UpgradeConfig.gd" type="Script" id=1]
-[ext_resource path="res://Game/Scripts/Upgrades/UpgradesConfig.gd" type="Script" id=2]
+[ext_resource type="Script" path="res://Game/Scripts/Upgrades/UpgradeConfig.gd" id="1"]
+[ext_resource type="Script" path="res://Game/Scripts/Upgrades/UpgradesConfig.gd" id="2"]
 
-[sub_resource type="Resource" id=1]
-script = ExtResource( 1 )
+[sub_resource type="Resource" id="1"]
+script = ExtResource("1")
 upgrade_type = 0
 title_locale_key = "production_rate_upgrade_by_percentage_title"
 description_locale_key = "production_rate_upgrade_by_percentage_description"
@@ -15,8 +15,8 @@ initial_price_exp = 1
 price_percentage_factor = 0.01
 max_upgrades = 10
 
-[sub_resource type="Resource" id=2]
-script = ExtResource( 1 )
+[sub_resource type="Resource" id="2"]
+script = ExtResource("1")
 upgrade_type = 3
 title_locale_key = "train_wagon_capacity_upgrade_by_percentage_title"
 description_locale_key = "train_wagon_capacity_upgrade_by_percentage_description"
@@ -27,8 +27,8 @@ initial_price_exp = 3
 price_percentage_factor = 0.05
 max_upgrades = 10
 
-[sub_resource type="Resource" id=3]
-script = ExtResource( 1 )
+[sub_resource type="Resource" id="3"]
+script = ExtResource("1")
 upgrade_type = 1
 title_locale_key = "product_value_upgrade_by_percentage_title"
 description_locale_key = "product_value_upgrade_by_percentage_description"
@@ -40,5 +40,5 @@ price_percentage_factor = 0.01
 max_upgrades = 10
 
 [resource]
-script = ExtResource( 2 )
-upgrades = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 3 ) ]
+script = ExtResource("2")
+upgrades = [SubResource("1"), SubResource("2"), SubResource("3"), SubResource("3")]

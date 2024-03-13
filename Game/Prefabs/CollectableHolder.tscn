@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Game/Scripts/Collectables/CollectableHolder.gd" type="Script" id=1]
-[ext_resource path="res://Game/Sprites/square.jpg" type="Texture" id=2]
+[ext_resource path="res://Game/Sprites/square.jpg" type="Texture2D" id=2]
 [ext_resource path="res://Game/Prefabs/Collectable.tscn" type="PackedScene" id=3]
 
-[node name="Holder" type="Sprite"]
+[node name="Holder" type="Sprite2D"]
 modulate = Color( 0.882353, 0.619608, 0.619608, 1 )
 position = Vector2( 3.8147e-05, 1.90735e-05 )
 scale = Vector2( 0.015, 0.015 )

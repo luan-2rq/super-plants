@@ -1,0 +1,3 @@
+extends TreeStructureConfig
+class_name RootConfig
+

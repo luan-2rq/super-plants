@@ -2,13 +2,14 @@
 
 importer="csv_translation"
 type="Translation"
+uid="uid://bv5b4ssfppaxo"
 
 [deps]
 
-files=[ "res://Game/Localization/Localization.en.translation", "res://Game/Localization/Localization.pt.translation", "res://Game/Localization/Localization.fr.translation", "res://Game/Localization/Localization.es.translation", "res://Game/Localization/Localization.it.translation", "res://Game/Localization/Localization.de.translation", "res://Game/Localization/Localization.ru.translation", "res://Game/Localization/Localization.tr.translation", "res://Game/Localization/Localization.ja.translation", "res://Game/Localization/Localization.ko.translation" ]
+files=["res://Game/Localization/Localization.en.translation", "res://Game/Localization/Localization.pt.translation", "res://Game/Localization/Localization.fr.translation", "res://Game/Localization/Localization.es.translation", "res://Game/Localization/Localization.it.translation", "res://Game/Localization/Localization.de.translation", "res://Game/Localization/Localization.ru.translation", "res://Game/Localization/Localization.tr.translation", "res://Game/Localization/Localization.ja.translation", "res://Game/Localization/Localization.ko.translation"]
 
 source_file="res://Game/Localization/Localization.csv"
-dest_files=[ "res://Game/Localization/Localization.en.translation", "res://Game/Localization/Localization.pt.translation", "res://Game/Localization/Localization.fr.translation", "res://Game/Localization/Localization.es.translation", "res://Game/Localization/Localization.it.translation", "res://Game/Localization/Localization.de.translation", "res://Game/Localization/Localization.ru.translation", "res://Game/Localization/Localization.tr.translation", "res://Game/Localization/Localization.ja.translation", "res://Game/Localization/Localization.ko.translation" ]
+dest_files=["res://Game/Localization/Localization.en.translation", "res://Game/Localization/Localization.pt.translation", "res://Game/Localization/Localization.fr.translation", "res://Game/Localization/Localization.es.translation", "res://Game/Localization/Localization.it.translation", "res://Game/Localization/Localization.de.translation", "res://Game/Localization/Localization.ru.translation", "res://Game/Localization/Localization.tr.translation", "res://Game/Localization/Localization.ja.translation", "res://Game/Localization/Localization.ko.translation"]
 
 [params]
 

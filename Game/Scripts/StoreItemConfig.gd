@@ -1,16 +1,16 @@
 extends Resource
 class_name StoreItemConfig
 
-export var title_locale_key : String
-export var description_locale_key : String
+@export var title_locale_key : String
+@export var description_locale_key : String
 
-export var id : String
+@export var id : String
 
 #Rewards
-export(Array, Enums.SpecialReward) var special_rewards : Array
-export(Resource) var HC : Resource #:BigNumber
-export(Resource) var SC : Resource #:BigNumber
+@export var special_rewards : Array[Enums.SpecialReward]
+@export var HC: BigNumber
+@export var SC: BigNumber
 
 #Payment
-export(Enums.CurrencyType) var payment_type : int
-export(Resource) var payment_value #:BigNumber
+@export var payment_type : Enums.CurrencyType
+@export var payment_value: BigNumber

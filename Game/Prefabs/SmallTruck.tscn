@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Game/Sprites/square.jpg" type="Texture" id=1]
+[ext_resource path="res://Game/Sprites/square.jpg" type="Texture2D" id=1]
 [ext_resource path="res://Game/Scripts/Transport/TruckItem.gd" type="Script" id=2]
 [ext_resource path="res://Game/Materials/FillMaterial.tres" type="Material" id=3]
 
@@ -10,20 +10,20 @@ script = ExtResource( 2 )
 fill_material = ExtResource( 3 )
 fill_sprite_path = NodePath("Background/Fill")
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color( 0.768627, 0.854902, 0.00392157, 1 )
 scale = Vector2( 0.05, 0.025 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -500 )
 
-[node name="Background" type="Sprite" parent="."]
+[node name="Background" type="Sprite2D" parent="."]
 modulate = Color( 0.156863, 0.443137, 0.745098, 1 )
 position = Vector2( -8, 0 )
 scale = Vector2( 0.035, 0.035 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -500 )
 
-[node name="Fill" type="Sprite" parent="Background"]
+[node name="Fill" type="Sprite2D" parent="Background"]
 modulate = Color( 0.572549, 0.227451, 0.227451, 1 )
 material = ExtResource( 3 )
 position = Vector2( -8, 0 )

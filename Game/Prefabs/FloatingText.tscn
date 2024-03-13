@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Game/Fonts/FontPreset.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Game/Fonts/FontPreset.tres" type="FontFile" id=1]
 [ext_resource path="res://Game/Scripts/FloatingText.gd" type="Script" id=2]
 
-[node name="FloatingText" type="Position2D"]
+[node name="FloatingText" type="Marker2D"]
 script = ExtResource( 2 )
 label_path = NodePath("Label")
 tween_path = NodePath("Tween")
@@ -14,11 +14,11 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -100.0
-margin_top = -74.5
-margin_right = 80.0
-margin_bottom = 74.5
-custom_fonts/font = ExtResource( 1 )
+offset_left = -100.0
+offset_top = -74.5
+offset_right = 80.0
+offset_bottom = 74.5
+theme_override_fonts/font = ExtResource( 1 )
 text = "Not enough currency"
 align = 1
 valign = 1

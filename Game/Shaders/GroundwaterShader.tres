@@ -1,4 +1,4 @@
-[gd_resource type="Shader" format=2]
+[gd_resource type="Shader" format=3 uid="uid://bsep1rtjgq8vh"]
 
 [resource]
 code = "shader_type canvas_item;
@@ -11,7 +11,7 @@ void fragment(){
 	
 	vec4 original_color = texture(TEXTURE, UV);
 	
-    COLOR = original_color;
+    COLOR *= original_color;
 	
 	COLOR.w = alpha_mask * original_color.w;
 }

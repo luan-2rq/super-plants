@@ -1,15 +1,15 @@
 extends Control
 
-var opened_screen : Node
+var opened_screen
 
 func _ready():
-	Events.connect('open_screen', self, '_on_open_screen')
-	Events.connect('close_screen', self, '_on_close_screen')
+	Events.connect('open_screen', Callable(self, '_on_open_screen'))
+	Events.connect('close_screen', Callable(self, '_on_close_screen'))
 
 func _on_open_screen(name):
 	for child in get_children():
 		if child.name == name:
-			if opened_screen != null:
+			if opened_screen:
 				opened_screen.visible = false
 			child.visible = true
 			opened_screen = child

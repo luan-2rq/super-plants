@@ -1,4 +1,4 @@
 extends Resource
 
-export var initial_sc : int 
-export var initial_hc : int
+@export var initial_sc : BigNumber 
+@export var initial_hc : BigNumber

@@ -1,21 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://dii8oc6xufhox"]
 
-[ext_resource path="res://Game/Sprites/square.jpg" type="Texture" id=1]
-[ext_resource path="res://Game/Scripts/Train/TrainWagon.gd" type="Script" id=2]
-[ext_resource path="res://Game/Materials/FillMaterial.tres" type="Material" id=3]
+[ext_resource type="Texture2D" uid="uid://cg31xj0au2mv6" path="res://Game/Sprites/square.jpg" id="1"]
+[ext_resource type="Script" path="res://Game/Scripts/Train/TrainWagon.gd" id="2"]
+[ext_resource type="Material" uid="uid://dbn1nvagqihhy" path="res://Game/Materials/FillMaterial.tres" id="3"]
 
-[node name="TrainWagon" type="Sprite"]
-modulate = Color( 1, 1, 1, 0.223529 )
-position = Vector2( -74, 0 )
-scale = Vector2( 0.072, 0.056 )
+[node name="TrainWagon" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.223529)
 z_index = 10
-texture = ExtResource( 1 )
-offset = Vector2( 500, -500 )
-script = ExtResource( 2 )
+position = Vector2(-74, 0)
+scale = Vector2(0.072, 0.056)
+texture = ExtResource("1")
+offset = Vector2(500, -500)
+script = ExtResource("2")
 fill_sprite_path = NodePath("Fill")
 
-[node name="Fill" type="Sprite" parent="."]
-modulate = Color( 0.905882, 0.152941, 0.152941, 1 )
-material = ExtResource( 3 )
-texture = ExtResource( 1 )
-offset = Vector2( 500, -500 )
+[node name="Fill" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 1, 1)
+material = ExtResource("3")
+texture = ExtResource("1")
+offset = Vector2(500, -500)

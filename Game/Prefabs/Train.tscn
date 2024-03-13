@@ -1,17 +1,17 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Game/Scripts/Train/Train.gd" type="Script" id=1]
-[ext_resource path="res://Game/Sprites/square.jpg" type="Texture" id=2]
+[ext_resource path="res://Game/Sprites/square.jpg" type="Texture2D" id=2]
 [ext_resource path="res://Game/Prefabs/TrainWagon.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Game/Configs/TrainConfig.tres" type="Resource" id=4]
 
-[node name="Train" type="Position2D"]
+[node name="Train" type="Marker2D"]
 script = ExtResource( 1 )
 train_config = ExtResource( 4 )
 train_front_path = NodePath("TrainFront")
 wagon_scene = ExtResource( 3 )
 
-[node name="TrainFront" type="Sprite" parent="."]
+[node name="TrainFront" type="Sprite2D" parent="."]
 position = Vector2( -6.40869e-06, -3.8147e-06 )
 scale = Vector2( 0.09, 0.072 )
 z_index = 10
