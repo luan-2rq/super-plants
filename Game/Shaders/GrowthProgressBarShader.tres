@@ -1,4 +1,4 @@
-[gd_resource type="Shader" format=2]
+[gd_resource type="Shader" format=3 uid="uid://bdxdo0ub4vxdc"]
 
 [resource]
 code = "shader_type canvas_item;
@@ -10,5 +10,5 @@ void fragment(){
 
      vec2 move = direction * TIME * speed_scale;
 
-     COLOR = texture(TEXTURE, UV + move);	
+     COLOR = texture(TEXTURE, UV + move);
 }"

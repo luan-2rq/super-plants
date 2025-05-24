@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="DraggablesConfig" load_steps=4 format=3 uid="uid://f8pd3axrjvvb"]
+[gd_resource type="Resource" script_class="DraggablesConfig" load_steps=5 format=3 uid="uid://f8pd3axrjvvb"]
 
 [ext_resource type="Resource" path="res://Game/Configs/TrainWagonConfig.tres" id="1"]
+[ext_resource type="Script" path="res://Game/Scripts/Draggables/DraggableConfig.gd" id="1_ytj0h"]
 [ext_resource type="Script" path="res://Game/Scripts/Draggables/DraggablesConfig.gd" id="3"]
 [ext_resource type="Resource" path="res://Game/Configs/InnerScannerConfig.tres" id="6"]
 
 [resource]
 script = ExtResource("3")
-draggable_buttons_config = Array[Resource("res://Game/Scripts/Draggables/DraggableConfig.gd")]([ExtResource("6"), ExtResource("1")])
+draggable_buttons_config = Array[ExtResource("1_ytj0h")]([ExtResource("6"), ExtResource("1")])

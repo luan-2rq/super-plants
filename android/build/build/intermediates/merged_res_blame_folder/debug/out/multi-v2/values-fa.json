@@ -4,6 +4,23 @@
             "outputFile": "com.godot.game-mergeDebugResources-9:/values-fa/values-fa.xml",
             "map": [
                 {
+                    "source": "/Users/luan/Desktop/Projects/super-plants/android/build/res/values-fa/godot_project_name_string.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "1",
+                        "startOffsets": "112",
+                        "endColumns": "63",
+                        "endOffsets": "174"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "66",
+                        "endOffsets": "117"
+                    }
+                },
+                {
                     "source": "/Users/luan/.gradle/caches/transforms-3/9a2d4eb6c6396b495fa445404429297b/transformed/jetified-godot-lib.template_debug/res/values-fa/values-fa.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12",
@@ -35,23 +52,6 @@
                         "startOffsets": "122",
                         "endColumns": "100",
                         "endOffsets": "218"
-                    }
-                },
-                {
-                    "source": "/Users/luan/Desktop/Godot/super-plants/android/build/res/values-fa/godot_project_name_string.xml",
-                    "from": {
-                        "startLines": "3",
-                        "startColumns": "1",
-                        "startOffsets": "112",
-                        "endColumns": "63",
-                        "endOffsets": "174"
-                    },
-                    "to": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "66",
-                        "endOffsets": "117"
                     }
                 }
             ]

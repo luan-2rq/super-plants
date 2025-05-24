@@ -2,12 +2,12 @@ extends Resource
 class_name PlayerData
 
 #Wallet
-@export var SC : Resource #: BigNumber
-@export var HC : Resource #: BigNumber
+@export var SC : BigNumber
+@export var HC : BigNumber
 
 #Production
-@export var fruit_value : Resource #: BigNumber
-@export var fruit_production_rate : Resource #: BigNumber
+@export var fruit_value : BigNumber
+@export var fruit_production_rate : BigNumber
 
 #Root
 @export var root_growth_velocity : float

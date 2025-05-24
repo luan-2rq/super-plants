@@ -18,9 +18,20 @@ var ground_elements : Array
 var available_ground_elements : Array
 
 func _ready():
+	print("Viewport size: " + str(screen_size))
 	terrain.initialize()
 	ground_elements_data = SaveManager.get_specific_save(Enums.SaveName.ground_elements_data)
-
+	
+	#var area_2d = Area2D.new()
+	#var shape_2d = CollisionShape2D.new()
+	#shape_2d.shape = RectangleShape2D.new()
+	#shape_2d.shape.size.x = screen_size.x
+	#shape_2d.shape.size.y = screen_size.y
+	#shape_2d.position.x = screen_size.x/2
+	#shape_2d.position.y = screen_size.y/2
+	#area_2d.add_child(shape_2d)
+	#terrain.add_child(area_2d)
+	
 	if ground_elements_data == null:
 		ground_elements_data = GroundElementsData.new()
 		SaveManager.set_specific_save(Enums.SaveName.ground_elements_data, ground_elements_data)
@@ -36,7 +47,9 @@ func _ready():
 		for ground_element in ground_elements_data.ground_elements:
 			instantiate_ground_element(ground_element.pos, ground_element.index, ground_element)
 	arrows_controller.initialize()
-	root_scroll_container.connect("resized", Callable(self, "_on_resize"))
+	reveal_ground_elements()
+	
+
 func instantiate_ground_element(pos : Vector2, index : int = 0, data : GroundElementData = null):
 	var config = (ground_elements_config as GroundElementsConfig)
 	var cur_groundwater = ground_elements_config.groundwater_prefab.instantiate()
@@ -53,19 +66,23 @@ func instantiate_ground_element(pos : Vector2, index : int = 0, data : GroundEle
 	else:
 		cur_groundwater.data = data
 	ground_elements.append(cur_groundwater)
-	cur_groundwater.global_position = pos
 	self.add_child(cur_groundwater)
+	cur_groundwater.global_position = pos
 	if !cur_groundwater.data.revealed:
 		available_ground_elements.append(cur_groundwater)
 
 #Fix this algorithms so it does not take so long
 func generate_random_ground_elements_positions(n: int):
 	var positions
+
+	print("Instantiation global position: "+str(terrain.global_position))
 	while true:
 		positions = Array()
+		print('trying to find optimal position')
 		for i in range(n):
 			#positions.append(Vector2(Random.range_int(terrain.bounds.min_x, terrain.bounds.max_x), Random.range_int(terrain.bounds.min_y, terrain.bounds.max_y)))
-			positions.append(Vector2(Random.range_int(terrain.global_position.x + 150, terrain.global_position.x+ screen_size.x -150), Random.range_int(terrain.global_position.y+150, terrain.global_position.y + screen_size.y-150)))
+
+			positions.append(Vector2(Random.range_int(terrain.global_position.x, terrain.global_position.x+ screen_size.x), Random.range_int(terrain.global_position.y, terrain.global_position.y + screen_size.y)))
 		if minimum_distance_achieved(positions):
 			break
 	return positions
@@ -93,7 +110,7 @@ func reveal_ground_element(ground_element):
 	var ground_element_index = available_ground_elements.rfind(ground_element)
 	available_ground_elements.remove_at(ground_element_index)
 
-func _on_resize():
+func reveal_ground_elements():
 	for ground_element in ground_elements:
 		if ground_element.data.revealed:
 			ground_element.reveal()

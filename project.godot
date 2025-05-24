@@ -16,7 +16,7 @@ Python="/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
 
 config/name="Super Plants"
 run/main_scene="res://Game/Cenas/MainNew.tscn"
-config/features=PackedStringArray("4.2")
+config/features=PackedStringArray("4.3")
 boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false
@@ -26,7 +26,7 @@ config/icon="res://icon.png"
 
 Enums="*res://Game/Scripts/Arquitecture/Enums.gd"
 Events="*res://Game/Scripts/Arquitecture/Events.gd"
-SaveManager="*res://External/SaveManager.gd"
+SaveManager="*res://External/Save/SaveManager.gd"
 InAppPurchaseManager="*res://Game/Scripts/InAppPurchaseManager.gd"
 UpgradesManager="*res://Game/Prefabs/UpgradesManager.tscn"
 EconomyManager="*res://Game/Scripts/EconomyManager.gd"
@@ -37,15 +37,13 @@ Random="*res://Game/Scripts/Random.gd"
 window/size/viewport_width=720
 window/size/viewport_height=1600
 window/size/always_on_top=true
-window/size/window_width_override=459
-window/size/window_height_override=1020
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/SheetsLocalizationImporter/plugin.cfg", "res://addons/silicon.util.custom_docs/plugin.cfg")
+enabled=PackedStringArray("res://addons/SheetsLocalizationImporter/plugin.cfg")
 
 [global]
 
@@ -83,6 +81,7 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
 quality/driver/fallback_to_gles2=true
 vram_compression/import_etc=true

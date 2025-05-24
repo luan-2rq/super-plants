@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/luan/Desktop/Godot/super-plants/android/build/res/values-el/godot_project_name_string.xml",
+                    "source": "/Users/luan/Desktop/Projects/super-plants/android/build/res/values-el/godot_project_name_string.xml",
                     "from": {
                         "startLines": "3",
                         "startColumns": "1",

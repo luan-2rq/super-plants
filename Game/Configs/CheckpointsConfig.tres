@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="CheckpointsConfig" load_steps=7 format=3 uid="uid://dkexxorj1vqhk"]
+
+[ext_resource type="Script" path="res://Game/Scripts/Checkpoints/CheckpointConfig.gd" id="1_47o6p"]
+[ext_resource type="PackedScene" uid="uid://cyl40mh4lhcol" path="res://Game/Prefabs/Checkpoint.tscn" id="1_uqfeh"]
+[ext_resource type="Script" path="res://Game/Scripts/Checkpoints/CheckpointsConfig.gd" id="2_kkv5p"]
+
+[sub_resource type="Resource" id="1"]
+script = ExtResource("1_47o6p")
+vertical_local_position = 500.0
+color = Color(0.737255, 0.172549, 0.172549, 1)
+reward = 0
+tree_type = 0
+
+[sub_resource type="Resource" id="2"]
+script = ExtResource("1_47o6p")
+vertical_local_position = 950.0
+color = Color(0.00392157, 0.627451, 0.321569, 1)
+reward = 0
+tree_type = 0
+
+[sub_resource type="Resource" id="3"]
+script = ExtResource("1_47o6p")
+vertical_local_position = 1600.0
+color = Color(0.933333, 0.0980392, 0.921569, 1)
+reward = 0
+tree_type = 0
+
+[resource]
+script = ExtResource("2_kkv5p")
+checkpoint_scene = ExtResource("1_uqfeh")
+checkpoints = Array[ExtResource("1_47o6p")]([SubResource("1"), SubResource("2"), SubResource("3")])
+checkpoint_vertical_size = 70.0

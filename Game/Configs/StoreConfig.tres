@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="StoreConfig" load_steps=7 format=3 uid="uid://rnby5oqtsf7x"]
+
+[ext_resource type="Script" path="res://Game/Scripts/Store/ProductConfig.gd" id="1_3qfm7"]
+[ext_resource type="Script" path="res://External/BigNumbers/BigNumber.gd" id="1_a7xfr"]
+[ext_resource type="Script" path="res://Game/Scripts/Store/StoreConfig.gd" id="1_wwxkb"]
+
+[sub_resource type="Resource" id="Resource_t83qk"]
+script = ExtResource("1_a7xfr")
+value = 2.0
+expoent = 3
+
+[sub_resource type="Resource" id="Resource_2tpf8"]
+script = ExtResource("1_a7xfr")
+value = 1.0
+expoent = 2
+
+[sub_resource type="Resource" id="Resource_jb7xo"]
+script = ExtResource("1_3qfm7")
+title_locale_key = "teste title"
+description_locale_key = "teste description"
+id = "com.hcpack1"
+special_rewards = Array[int]([0])
+HC = SubResource("Resource_t83qk")
+payment_type = 4
+payment_value = SubResource("Resource_2tpf8")
+tier = 0
+
+[resource]
+script = ExtResource("1_wwxkb")
+products = Array[ExtResource("1_3qfm7")]([SubResource("Resource_jb7xo")])

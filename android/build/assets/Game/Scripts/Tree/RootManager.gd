@@ -13,7 +13,7 @@ var dragging_root : bool
 var beginning_extremity : Area2D
 var end_extremity : Area2D
 
-func _ready():	
+func _ready():
 	temporary_line = Line2D.new()
 	temporary_line.add_point(Vector2.ZERO)
 	root.add_child(temporary_line)

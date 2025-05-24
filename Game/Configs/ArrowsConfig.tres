@@ -1,8 +1,8 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=4 format=3]
 
-[ext_resource path="res://Game/Scripts/ArrowsConfig.gd" type="Script" id=1]
-[ext_resource path="res://Game/Prefabs/Arrow.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Game/Prefabs/InnerScannerItem.tscn" type="PackedScene" id=3]
+[ext_resource type="Script" path="res://Game/Scripts/Scanner/ArrowsConfig.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://qiv887wjss3q" path="res://Game/Prefabs/Arrow.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://Game/Prefabs/InnerScannerItem.tscn" id="3"]
 
 [resource]
 script = ExtResource( 1 )

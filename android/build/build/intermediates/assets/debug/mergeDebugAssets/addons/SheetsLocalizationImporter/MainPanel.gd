@@ -24,4 +24,5 @@ func _get_plugin_name():
 	return "Localization Sheet Importer"
 	
 func _get_plugin_icon():
-	return get_editor_interface().get_base_control().get_icon("Node", "EditorIcons")
+	pass
+	#return get_editor_interface().get_base_control().get_icon("Node", "EditorIcons")

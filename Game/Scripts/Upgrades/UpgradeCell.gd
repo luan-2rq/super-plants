@@ -1,4 +1,4 @@
-extends Node
+extends ExpandableCell
 class_name UpgradeCell
 
 @export var upgrade_title_path : NodePath

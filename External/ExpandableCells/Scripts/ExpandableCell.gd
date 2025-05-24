@@ -1,12 +1,11 @@
 extends Button
 class_name ExpandableCell
 
-var _expanded_content : Control
-var _closed_content : Control
+@export var _expanded_content : Control
+@export var _closed_content : Control
 
 func _ready():
-	_expanded_content = $HBoxContainer/ExpandedContent
-	_closed_content = $HBoxContainer/ClosedContent
+	pass
 
 func expand(offset: int):
 	#var initial_h_position = self.rect_position.x

@@ -3,12 +3,12 @@ class_name NormalTreeNode
 extends Node2D
 
 #Config
-@export var tree_structure_config : Resource
+@export var tree_structure_config : TreeStructureConfig
 @export var collectables_controller_path: NodePath
 @onready var collectables_controller = get_node(collectables_controller_path)
 
 #Data
-var tree : Resource
+var tree : BranchData
 var cur_depth = 0
 
 var cur_max_point = Vector2.ZERO
@@ -26,6 +26,7 @@ func _ready():
 		SaveManager.set_specific_save(Enums.SaveName.plant_data, plant_data)
 	else:
 		init_from_save()
+	Events.on_checkpoint_achieved.connect(Callable(self, "on_checkpoint_achieved"))
 
 #FUNÇÃO INCREMENTAL PARA CRESCER A ÁRVORE: -> Sem Retorno
 # 1: Gera o primeiro branch
@@ -59,7 +60,7 @@ func grow_tree(grow_amount : float):
 				cur_branch.depth = cur_depth
 				cur_branch.position_in_parent = position_in_parent
 				cur_branch.leaf_count = Random.range_int(0,  tree_structure_config.max_leaf_count)
-				cur_branch.collectable_holder_count = Random.range_int(0,  tree_structure_config.max_collectable_holder_count)
+				cur_branch.collectable_holder_count = 0#Random.range_int(0,  tree_structure_config.max_collectable_holder_count)
 				#tree.children.append(cur_branch)
 				plant_data.branchs_to_be_spawned.append(cur_branch)
 		else:
@@ -116,7 +117,7 @@ func grow_tree(grow_amount : float):
 						cur_branch.depth = cur_depth
 						cur_branch.position_in_parent = position_in_parent
 						cur_branch.leaf_count = Random.range_int(0, tree_structure_config.max_leaf_count)
-						cur_branch.collectable_holder_count = Random.range_int(0,  tree_structure_config.max_collectable_holder_count)
+						cur_branch.collectable_holder_count = 0#Random.range_int(0,  tree_structure_config.max_collectable_holder_count)
 						#branch_to_be_spawned.children.append(cur_branch)
 						plant_data.branchs_to_be_spawned.append(cur_branch)
 					
@@ -153,3 +154,28 @@ func init_from_save():
 		branch_to_be_spawned.instance.position = local_position
 		branch_to_be_spawned.instance.width = 2
 		branch_parent.instance.add_child(branch_to_be_spawned.instance)
+
+func on_checkpoint_achieved(n : int):
+	for i in range(n):
+		var active_branch_index = Random.range_int(0, plant_data.active_branchs.size())
+		var active_branch = plant_data.active_branchs[active_branch_index]
+		
+		var position_on_branch = Random.range_float(0, 1)
+		var rot = Random.range_float(-PI, PI)
+		var collectable_holder_data = CollectableHolderData.new()
+		collectable_holder_data.pos_on_branch = position_on_branch
+		collectable_holder_data.rot = rot
+		
+		active_branch.collectables_holders_data.append(collectable_holder_data)
+		
+		var collectable_holder = tree_structure_config.collectable_prefab.instantiate()
+		collectable_holder.data = collectable_holder_data
+		collectable_holder.collectables_controller = collectables_controller
+		
+		active_branch.instance.add_collectable_holder(collectable_holder)
+		active_branch.collectable_holder_count += 1
+	#Initialiaze collectable holder data
+	#Position in branch(Tip)
+	#
+	#Escolher branch aleatório
+	

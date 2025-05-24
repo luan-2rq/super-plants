@@ -1,29 +1,38 @@
-[gd_scene load_steps=2 format=3 uid="uid://bw56307x8y7k6"]
+[gd_scene load_steps=4 format=3 uid="uid://bw56307x8y7k6"]
 
-[ext_resource type="Script" path="res://Game/Scripts/StoreController.gd" id="1_tipjq"]
+[ext_resource type="Script" path="res://Game/Scripts/Store/StoreController.gd" id="1_tipjq"]
+[ext_resource type="Resource" uid="uid://rnby5oqtsf7x" path="res://Game/Configs/StoreConfig.tres" id="2_e3mdp"]
+[ext_resource type="PackedScene" uid="uid://dir0qjvvbjah5" path="res://Game/Prefabs/StoreItem.tscn" id="3_htvsv"]
 
-[node name="StoreScreen" type="Control"]
+[node name="StoreScreen" type="Control" node_paths=PackedStringArray("special_packs_tier", "SC_tier", "HC_tier")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_tipjq")
 close_button_path = NodePath("CloseButton")
+store_config = ExtResource("2_e3mdp")
+store_item_scene = ExtResource("3_htvsv")
+special_packs_tier = NodePath("ScrollContainer/Panel/VBoxContainer/Content/MarginContainer/VBoxContainer/SpecialPacksContainer")
+SC_tier = NodePath("ScrollContainer/Panel/VBoxContainer/Content/MarginContainer/VBoxContainer/SCPacksContainer")
+HC_tier = NodePath("ScrollContainer/Panel/VBoxContainer/Content/MarginContainer/VBoxContainer/HCPacksContainer")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+clip_contents = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 0
 vertical_scroll_mode = 2
 
 [node name="Panel" type="ColorRect" parent="ScrollContainer"]
+custom_minimum_size = Vector2(720, 2500)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+mouse_filter = 1
 color = Color(0.207843, 0.207843, 0.207843, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/Panel"]
@@ -36,15 +45,17 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Header" type="TextureRect" parent="ScrollContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 250)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.15
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/Panel/VBoxContainer/Header"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.441
+offset_bottom = -0.202008
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -73,7 +84,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.85
+mouse_filter = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/Panel/VBoxContainer/Content"]
 layout_mode = 1
@@ -88,6 +99,15 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/Panel/VBoxContainer/Content/MarginContainer"]
+layout_mode = 2
+
+[node name="SpecialPacksContainer" type="VBoxContainer" parent="ScrollContainer/Panel/VBoxContainer/Content/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HCPacksContainer" type="GridContainer" parent="ScrollContainer/Panel/VBoxContainer/Content/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SCPacksContainer" type="GridContainer" parent="ScrollContainer/Panel/VBoxContainer/Content/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="CloseButton" type="Button" parent="."]

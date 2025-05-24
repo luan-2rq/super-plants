@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://s6wr8lcv5fut"]
+
+[ext_resource type="Script" path="res://Game/Scripts/Upgrades/UpgradesController.gd" id="1_46y07"]
+[ext_resource type="Resource" uid="uid://cbenxqjqon5s8" path="res://Game/Configs/UpgradesConfig.tres" id="2_achwx"]
+[ext_resource type="PackedScene" uid="uid://cdu3a2bw3nd5u" path="res://Game/Prefabs/Upgrades/UpgradeCell.tscn" id="3_3477s"]
+[ext_resource type="Script" path="res://External/ExpandableCells/Scripts/ExpandableCellsController.gd" id="4_a7828"]
+[ext_resource type="Script" path="res://External/ExpandableCells/Scripts/ExpandableCellsContainer.gd" id="5_yp3o8"]
+
+[node name="UpgradesController" type="HBoxContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.46
+theme_override_constants/separation = 20
+script = ExtResource("1_46y07")
+expandable_cells_controller_path = NodePath("ExpandablesCellsController")
+upgrades_config = ExtResource("2_achwx")
+upgrade_cell = ExtResource("3_3477s")
+
+[node name="ExpandablesCellsController" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 114)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("4_a7828")
+
+[node name="MarginContainer" type="MarginContainer" parent="ExpandablesCellsController"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="ExpandableCellsContainer" type="Container" parent="ExpandablesCellsController/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("5_yp3o8")

@@ -21,6 +21,7 @@ func initialize():
 			]
 			quadrants_grid[-1].push_back(quadrant)
 			$Quadrants.add_child(quadrant)
+			quadrant.init_quadrant()
 
 func _make_circle(carve_radius):
 	var nb_points = 15

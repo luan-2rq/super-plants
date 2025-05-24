@@ -21,10 +21,11 @@ func _ready():
 			add_checkpoint(checkpoints_data.checkpoints[i], checkpoint_configs.checkpoints[i])
 
 func add_checkpoint(checkpoint_data : CheckpointData, checkpoint_config : CheckpointConfig):
-	var checkpoint = Checkpoint.new(checkpoint_data, checkpoint_config, self.size.y)
+	var checkpoint = checkpoint_configs.checkpoint_scene.instantiate()
+	checkpoint.init(checkpoint_data, checkpoint_config, self.size.y)
 	checkpoint.position = Vector2(0, self.size.y - checkpoint_config.vertical_local_position)
 	checkpoint.color = checkpoint_config.color
-	checkpoint.size = Vector2(screen_size.x * 2, checkpoint_configs.checkpoint_vertical_size)
+	checkpoint.size = Vector2(screen_size.x, checkpoint_configs.checkpoint_vertical_size)
 	checkpoint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	Events.connect("on_grow", Callable(checkpoint, "verify_checkpoint_achieved"))
 	add_child(checkpoint)

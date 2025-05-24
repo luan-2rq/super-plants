@@ -1,9 +1,6 @@
 extends Control
 class_name UpgradesController
 
-@export var expandable_cells_controller_path : NodePath
-@onready var expandable_cells_controller = get_node(expandable_cells_controller_path)
-
 @export var upgrades_config : Resource
 var upgrades_data
 

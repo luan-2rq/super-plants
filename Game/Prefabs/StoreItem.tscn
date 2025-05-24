@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://dir0qjvvbjah5"]
+
+[ext_resource type="Script" path="res://Game/Scripts/StoreItem.gd" id="1_ob2k8"]
+
+[node name="StoreItem" type="ColorRect" node_paths=PackedStringArray("price_label", "buy_button")]
+custom_minimum_size = Vector2(2.08165e-12, 300)
+anchors_preset = -1
+anchor_right = 0.326
+anchor_bottom = 0.147
+offset_right = 0.279996
+offset_bottom = -0.2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.721569, 0.721569, 0.721569, 1)
+script = ExtResource("1_ob2k8")
+price_label = NodePath("MarginContainer/VBoxContainer/Button/Label")
+buy_button = NodePath("MarginContainer/VBoxContainer/Button")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Price R$"
+horizontal_alignment = 1
+vertical_alignment = 1

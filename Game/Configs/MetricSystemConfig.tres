@@ -1,10 +1,10 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" script_class="MetricSystemConfig" load_steps=3 format=3 uid="uid://bcfjue1n1aagk"]
 
-[ext_resource path="res://Game/Scripts/MetricSystemConfig.gd" type="Script" id=1]
-[ext_resource path="res://Game/Sprites/money.jpg" type="Texture2D" id=2]
+[ext_resource type="Script" path="res://Game/Scripts/MetricSystemConfig.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://b5vf22m06veda" path="res://Game/Sprites/images.png" id="2"]
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource("1")
 unit_size = 5.0
-unit_texture = ExtResource( 2 )
-horizontal_size = 47.0
+unit_texture = ExtResource("2")
+horizontal_size = 35.0

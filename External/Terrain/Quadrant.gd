@@ -1,16 +1,13 @@
 extends Node2D
 
 var default_quadrant_polygon: Array = []
-@onready var Pol = preload("res://External/Terrain/Pol.tscn")
-
-func _ready():
-	init_quadrant()
-
+var Pol
 
 func init_quadrant():
 	"""
 	Initiates the default (square) Pol
 	"""
+	Pol = preload("res://External/Terrain/Pol.tscn")
 	self.add_child(_new_pol(default_quadrant_polygon))
 
 

@@ -20,4 +20,3 @@ func _on_SC_changed(value) -> void:
 	
 func _on_HC_changed(value) -> void:
 	HC_label.text = value.to_str(0)
-	

@@ -45,15 +45,14 @@ func clamp_to_zero(vector : Vector2):
 	clamped_to_zero.x = clamp(vector.x, 0, INF)
 	clamped_to_zero.y = clamp(vector.y, 0, INF)
 	return clamped_to_zero
-	
-func _input(event: InputEvent) -> void:
+
+func _gui_input(event):
 	if vertical_scroll_enabled or horizontal_scroll_enabled:
 		if event is InputEventMouseButton:
 			if event.is_pressed():
-				if is_mouse_over(self.global_position, self.size):
-					emit_signal("ScrollStarted")
-					last_drag_pos = event.position
-					dragging = true
+				emit_signal("ScrollStarted")
+				last_drag_pos = event.position
+				dragging = true
 			else:
 				emit_signal("ScrollEnded")
 				dragging = false
@@ -84,32 +83,31 @@ func _input(event: InputEvent) -> void:
 						
 						
 			if event is InputEventMouseButton:
-				if is_mouse_over(self.global_position, self.size):
-					if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.is_pressed():
-						set_v_scroll(v_scroll - event.get_factor() * size.y /8) 
-					if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.is_pressed():
-						set_v_scroll(v_scroll + event.get_factor() * size.y /8) 
-					if event.button_index == MOUSE_BUTTON_WHEEL_LEFT and event.is_pressed():
-						set_h_scroll(h_scroll - event.get_factor() * size.x /8)
-					if event.button_index == MOUSE_BUTTON_WHEEL_RIGHT and event.is_pressed():
-						set_h_scroll(h_scroll + + event.get_factor() * size.x /8)
+				if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.is_pressed():
+					set_v_scroll(v_scroll - event.get_factor() * size.y /8) 
+				if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.is_pressed():
+					set_v_scroll(v_scroll + event.get_factor() * size.y /8) 
+				if event.button_index == MOUSE_BUTTON_WHEEL_LEFT and event.is_pressed():
+					set_h_scroll(h_scroll - event.get_factor() * size.x /8)
+				if event.button_index == MOUSE_BUTTON_WHEEL_RIGHT and event.is_pressed():
+					set_h_scroll(h_scroll + + event.get_factor() * size.x /8)
 					
 			if event is InputEventPanGesture:
-				if is_mouse_over(self.global_position, self.size):
-					if(!dragging):
-						if abs(event.delta.y) > abs(event.delta.x):
-							if vertical_scroll_enabled:
-								set_v_scroll(v_scroll + event.delta.y* 8)
-							else:
-								if horizontal_scroll_enabled:
-									set_h_scroll(h_scroll + event.delta.x* 8)
-						else:		
+				if(!dragging):
+					if abs(event.delta.y) > abs(event.delta.x):
+						if vertical_scroll_enabled:
+							set_v_scroll(v_scroll + event.delta.y* 8)
+						else:
 							if horizontal_scroll_enabled:
 								set_h_scroll(h_scroll + event.delta.x* 8)
-							else:
-								if vertical_scroll_enabled:
-									set_v_scroll(v_scroll + event.delta.y* 8)
-
+					else:		
+						if horizontal_scroll_enabled:
+							set_h_scroll(h_scroll + event.delta.x* 8)
+						else:
+							if vertical_scroll_enabled:
+								set_v_scroll(v_scroll + event.delta.y* 8)
+	accept_event()
+	
 func set_v_scroll(value):
 	self.v_scroll = clamp(value, 0, max_scroll.y)
 	apply_scroll()
@@ -120,9 +118,5 @@ func set_h_scroll(value):
 	
 func apply_scroll():
 	control_node.set_deferred("position", -Vector2(self.h_scroll, self.v_scroll))
+	
 
-func is_mouse_over(global_position: Vector2, size: Vector2) -> bool:
-	var mouse_position = get_viewport().get_mouse_position()
-	var rect = Rect2(global_position.x, global_position.y, size.x, size.y)
-	return rect.has_point(mouse_position)
-					

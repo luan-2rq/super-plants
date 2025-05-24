@@ -64,7 +64,8 @@ func _ready():
 					add_leaf(leaf)
 				else:
 					leafs_to_spawn.append(leaf)
-					
+	
+	#Remover essa parte
 	#Initialize collectables holders
 	if branch_data.collectable_holder_count > 0:
 		if branch_data.collectables_holders_data.size() <= 0:
@@ -98,7 +99,7 @@ func add_leaf(leaf : Leaf):
 	leaf.modulate = Color(0.01, 0.9, 0.4, 1)
 	leaf.scale = Vector2(0.05, 0.05)
 	add_child(leaf)
-	
+
 func add_collectable_holder(collectable_holder : CollectableHolder):
 	collectable_holder.position = self.points[int(collectable_holder.data.pos_on_branch*(self.points.size()-1))]
 	collectable_holder.z_index = 2
@@ -140,7 +141,7 @@ func add_point_(position : Vector2, index : int = -1):
 			collectables_holders_to_spawn.remove_at(i)
 			i-=1
 		i+=1
-	
+
 func grow(length) -> BranchPointsResult:
 	var points_result : BranchPointsResult = BranchPointsResult.new(false, PackedVector2Array())
 	
@@ -318,7 +319,7 @@ func generate_points_directionally_to(initial_point : Vector2, angle_range : flo
 		cur_point = result[i-1] + point_distance * direction
 		result.insert(i, cur_point)
 	return result
-	
+
 func generate_curve_points(initial_points : PackedVector2Array, bake_inteval : float) -> PackedVector2Array:
 	var curve = Curve2D.new()
 	curve.bake_interval = bake_inteval
@@ -355,7 +356,7 @@ func expand(point_a : Vector2, point_b : Vector2, delta : int) -> PackedVector2A
 	
 	var result = PackedVector2Array([right_vec * point_b * delta, left_vec * point_b * delta])
 	return result
-	
+
 #Calculate N random length values, that are between x and y and sum to z
 func random_lengths(n: int, min_length: float, max_length: float, total_length: float) -> Array:
 	var values = []

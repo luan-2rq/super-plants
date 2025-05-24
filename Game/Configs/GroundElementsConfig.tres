@@ -15,7 +15,7 @@ script = SubResource("1")
 
 [resource]
 script = ExtResource("1")
-minimum_elements_distance = 350.0
+minimum_elements_distance = 150.0
 groundwater = [SubResource("2"), SubResource("2"), SubResource("2"), SubResource("2"), SubResource("2")]
 groundwater_prefab = ExtResource("2")
 groundwater_size_range = Vector2(100, 500)
